@@ -115,6 +115,7 @@ npm run examples:transactions-structure # Ejecutar ejemplos de estructura de tra
 npm run examples:transaction-fees      # Ejecutar ejemplos de tarifas de transacciones
 npm run examples:programs-advanced     # Ejecutar ejemplos avanzados de programas
 npm run examples:pda-advanced          # Ejecutar ejemplos avanzados de PDAs
+npm run examples:cpi-advanced          # Ejecutar ejemplos avanzados de CPI
 ```
 
 ### 📚 Ejemplos de Uso
@@ -627,6 +628,209 @@ console.log(`Mismo PDA: ${comparison.samePDA}`);
 console.log(`Mismas seeds: ${comparison.sameSeeds}`);
 console.log(`Mismo programa: ${comparison.sameProgram}`);
 console.log(`Diferencia de bump: ${comparison.bumpDifference}`);
+```
+
+#### CPI Avanzados
+```typescript
+import { CPIAdvancedExamples } from '@/examples/cpi-advanced-examples';
+import { CPIManager, CPIUtils } from '@/utils/cpi-manager';
+
+// Ejemplos avanzados de CPI
+await CPIAdvancedExamples.basics();                    // Conceptos básicos de CPI
+await CPIAdvancedExamples.patterns();                 // Patrones de CPI
+await CPIAdvancedExamples.security();                  // Seguridad de CPI
+await CPIAdvancedExamples.optimization();             // Optimización de CPI
+await CPIAdvancedExamples.testing();                  // Testing de CPI
+await CPIAdvancedExamples.bestPractices();            // Mejores prácticas
+await CPIAdvancedExamples.useCases();                 // Casos de uso
+await CPIAdvancedExamples.troubleshooting();          // Solución de problemas
+await CPIAdvancedExamples.architecture();             // Arquitectura de CPI
+await CPIAdvancedExamples.monitoring();               // Monitoreo de CPI
+
+// Gestor de CPI
+const cpiManager = new CPIManager(connection);
+
+// Crear CPI call para transferencia SOL
+const solTransferCPI = cpiManager.createSOLTransferCPI(from, to, amount);
+console.log("CPI de transferencia SOL:", CPIUtils.formatCPICall(solTransferCPI));
+
+// Ejecutar CPI
+const result = await cpiManager.executeCPI(solTransferCPI, payer);
+console.log("Resultado CPI:", result.success ? "Éxito" : "Error");
+if (result.signature) {
+  console.log("Firma:", result.signature);
+}
+```
+
+#### Patrones de CPI
+```typescript
+// Obtener patrones comunes
+const patterns = cpiManager.getCommonPatterns();
+console.log("Patrones de CPI disponibles:");
+patterns.forEach(pattern => {
+  console.log(`- ${pattern.name}: ${pattern.description}`);
+  console.log(`  Programa: ${pattern.programId.toString()}`);
+  console.log(`  Cuentas: ${pattern.accounts.join(', ')}`);
+  console.log(`  Uso: ${pattern.useCase}`);
+  console.log("");
+});
+
+// Crear CPI para patrón específico
+const tokenTransferCPI = cpiManager.createTokenTransferCPI(
+  sourceAccount,
+  destinationAccount,
+  authorityAccount,
+  amount
+);
+console.log("CPI de transferencia de token:", CPIUtils.formatCPICall(tokenTransferCPI));
+```
+
+#### Análisis de CPI
+```typescript
+// Analizar rendimiento de CPI
+const analysis = cpiManager.analyzeCPIPerformance();
+console.log("💡 Recomendaciones:");
+analysis.recommendations.forEach((rec, index) => {
+  console.log(`${index + 1}. ${rec}`);
+});
+
+console.log("⚡ Optimizaciones disponibles:");
+Object.entries(analysis.optimizations).forEach(([key, value]) => {
+  console.log(`${key}: ${value ? '✅' : '❌'}`);
+});
+
+// Obtener métricas
+const metrics = cpiManager.getMetrics();
+console.log("📊 Métricas de CPI:");
+console.log(`Total de llamadas: ${metrics.totalCalls}`);
+console.log(`Llamadas exitosas: ${metrics.successfulCalls}`);
+console.log(`Llamadas fallidas: ${metrics.failedCalls}`);
+console.log(`Tiempo promedio: ${metrics.averageExecutionTime}ms`);
+console.log(`Total de CU: ${metrics.totalComputeUnits}`);
+```
+
+#### Gestión Avanzada de CPI
+```typescript
+// Ejecutar múltiples CPI en lote
+const cpiCalls = [
+  cpiManager.createSOLTransferCPI(from1, to1, amount1),
+  cpiManager.createSOLTransferCPI(from2, to2, amount2),
+  cpiManager.createTokenTransferCPI(source, destination, authority, tokenAmount)
+];
+
+const batchResults = await cpiManager.executeBatchCPI(cpiCalls, payer);
+console.log("Resultados del lote:");
+batchResults.forEach((result, index) => {
+  console.log(`CPI ${index + 1}: ${result.success ? 'Éxito' : 'Error'}`);
+  if (result.error) {
+    console.log(`  Error: ${result.error}`);
+  }
+});
+
+// Crear CPI con PDA signer
+const pdaCPI = cpiManager.createPDACPICall(
+  programId,
+  [pdaAccount, recipientAccount],
+  instructionData,
+  [["pda", userAddress.toBuffer()]],
+  bump
+);
+console.log("CPI con PDA signer:", CPIUtils.formatCPICall(pdaCPI));
+```
+
+#### Monitoreo de CPI
+```typescript
+// Monitorear CPI calls
+const monitoring = await cpiManager.monitorCPICalls(programId, 60000); // 1 minuto
+console.log("📊 Monitoreo de CPI:");
+console.log(`Total de llamadas: ${monitoring.totalCalls}`);
+console.log(`Tasa de éxito: ${(monitoring.successRate * 100).toFixed(1)}%`);
+console.log(`Tiempo promedio: ${monitoring.averageTime}ms`);
+console.log(`Errores: ${monitoring.errors.length}`);
+
+// Validar CPI call
+const validation = cpiManager.validateCPICall(solTransferCPI);
+if (validation.valid) {
+  console.log("✅ CPI call válido");
+} else {
+  console.log("❌ CPI call inválido:");
+  validation.errors.forEach(error => console.log(`  - ${error}`));
+}
+```
+
+#### Utilidades de CPI
+```typescript
+// Formatear CPI call
+const formatted = CPIUtils.formatCPICall(solTransferCPI);
+console.log("Información de CPI:");
+console.log(formatted);
+
+// Crear instrucción CPI
+const instruction = CPIUtils.createCPIInstruction(solTransferCPI);
+console.log("Instrucción CPI creada:", instruction.programId.toString());
+
+// Validar patrón CPI
+const pattern = patterns[0];
+const isValidPattern = CPIUtils.validateCPIPattern(pattern);
+console.log("Patrón válido:", isValidPattern);
+
+// Comparar CPI calls
+const comparison = CPIUtils.compareCPICalls(cpi1, cpi2);
+console.log("Comparación de CPI calls:");
+console.log(`Mismo programa: ${comparison.sameProgram}`);
+console.log(`Mismas cuentas: ${comparison.sameAccounts}`);
+console.log(`Mismos datos: ${comparison.sameData}`);
+console.log(`Mismos signers: ${comparison.sameSigners}`);
+```
+
+#### CPI con PDA Signing
+```typescript
+// Crear CPI con PDA como signer
+const pdaSeeds = [["vault", userAddress.toBuffer()]];
+const pdaBump = 255; // Canonical bump
+
+const pdaCPI = cpiManager.createPDACPICall(
+  SystemProgram.programId,
+  [pdaAccount, recipientAccount],
+  transferInstructionData,
+  pdaSeeds,
+  pdaBump
+);
+
+// Ejecutar CPI con PDA signing
+const pdaResult = await cpiManager.executeCPI(pdaCPI, payer);
+console.log("Resultado CPI con PDA:", pdaResult.success ? "Éxito" : "Error");
+
+// Verificar que el PDA puede firmar
+const canSign = pdaCPI.pdaSeeds && pdaCPI.pdaSeeds.length > 0;
+console.log("PDA puede firmar:", canSign);
+```
+
+#### Optimización de CPI
+```typescript
+// Analizar y optimizar CPI
+const optimization = cpiManager.analyzeCPIPerformance();
+
+console.log("🔧 Optimizaciones recomendadas:");
+if (optimization.optimizations.batchOperations) {
+  console.log("✅ Usar operaciones en lote para reducir transacciones");
+}
+
+if (optimization.optimizations.accountReuse) {
+  console.log("✅ Reutilizar cuentas para optimizar rendimiento");
+}
+
+if (optimization.optimizations.instructionOptimization) {
+  console.log("✅ Optimizar datos de instrucción para reducir CU");
+}
+
+if (optimization.optimizations.caching) {
+  console.log("✅ Implementar caché para reducir llamadas fallidas");
+}
+
+// Resetear métricas
+cpiManager.resetMetrics();
+console.log("📊 Métricas reseteadas");
 ```
 
 #### Programa CPI Messenger Completo
