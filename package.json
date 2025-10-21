@@ -14,7 +14,8 @@
     "solana:setup": "solana config set --url devnet",
     "solana:balance": "solana balance",
     "examples:accounts": "ts-node src/examples/account-examples.ts",
-    "examples:transactions": "ts-node src/examples/transaction-examples.ts"
+    "examples:transactions": "ts-node src/examples/transaction-examples.ts",
+    "examples:programs": "ts-node src/examples/program-examples.ts"
   },
   "keywords": [
     "solana",
@@ -30,6 +31,7 @@
   "author": "Vaios0x",
   "license": "MIT",
   "dependencies": {
+    "@coral-xyz/anchor": "^0.32.1",
     "@solana/web3.js": "^1.95.2",
     "@solana/spl-token": "^0.4.8",
     "@solana/wallet-adapter-base": "^0.9.23",

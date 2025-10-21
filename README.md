@@ -108,6 +108,7 @@ npm run solana:balance   # Verificar balance
 # Ejemplos
 npm run examples:accounts     # Ejecutar ejemplos de cuentas
 npm run examples:transactions # Ejecutar ejemplos de transacciones
+npm run examples:programs     # Ejecutar ejemplos de programas
 ```
 
 ### 📚 Ejemplos de Uso
@@ -171,6 +172,77 @@ await TransactionExamples.createToken();        // Crear token
 await TransactionExamples.mintTokens();         // Mintear tokens
 await TransactionExamples.transferTokens();     // Transferir tokens
 await TransactionExamples.complexTransaction(); // Transacciones complejas
+```
+
+#### Desarrollar y Desplegar Programas
+```typescript
+import { ProgramExamples } from '@/examples/program-examples';
+
+// Ejemplos de desarrollo de programas
+await ProgramExamples.deployHelloAnchor();        // Desplegar programa
+await ProgramExamples.interactionPatterns();      // Patrones de interacción
+await ProgramExamples.testingStrategies();       // Estrategias de testing
+await ProgramExamples.deploymentChecklist();      // Checklist de despliegue
+await ProgramExamples.debuggingTechniques();     // Técnicas de debugging
+await ProgramExamples.upgradeStrategies();       // Estrategias de upgrade
+```
+
+#### Programa Hello Anchor Completo
+```rust
+// programs/hello-anchor/src/lib.rs
+use anchor_lang::prelude::*;
+
+#[program]
+mod hello_anchor {
+    use super::*;
+    
+    pub fn initialize(ctx: Context<Initialize>, data: u64) -> Result<()> {
+        ctx.accounts.new_account.data = data;
+        msg!("Changed data to: {}!", data);
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct Initialize<'info> {
+    #[account(init, payer = signer, space = 8 + 8)]
+    pub new_account: Account<'info, NewAccount>,
+    #[account(mut)]
+    pub signer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[account]
+pub struct NewAccount {
+    data: u64
+}
+```
+
+#### Testing Completo
+```typescript
+// tests/hello-anchor.test.ts
+describe("Hello Anchor", () => {
+  it("Initialize account with data", async () => {
+    const newAccountKp = anchor.web3.Keypair.generate();
+    const data = new anchor.BN(42);
+    
+    const txHash = await program.methods
+      .initialize(data)
+      .accounts({
+        newAccount: newAccountKp.publicKey,
+        signer: provider.wallet.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId
+      })
+      .signers([newAccountKp])
+      .rpc();
+    
+    const newAccount = await program.account.newAccount.fetch(
+      newAccountKp.publicKey
+    );
+    
+    expect(data.eq(newAccount.data)).to.be.true;
+  });
+});
 ```
 
 ## 📊 Arquitectura del Sistema
