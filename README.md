@@ -116,6 +116,7 @@ npm run examples:transaction-fees      # Ejecutar ejemplos de tarifas de transac
 npm run examples:programs-advanced     # Ejecutar ejemplos avanzados de programas
 npm run examples:pda-advanced          # Ejecutar ejemplos avanzados de PDAs
 npm run examples:cpi-advanced          # Ejecutar ejemplos avanzados de CPI
+npm run examples:spl-token-advanced    # Ejecutar ejemplos avanzados de SPL Token
 ```
 
 ### 📚 Ejemplos de Uso
@@ -830,6 +831,231 @@ if (optimization.optimizations.caching) {
 
 // Resetear métricas
 cpiManager.resetMetrics();
+console.log("📊 Métricas reseteadas");
+```
+
+#### SPL Token Avanzados
+```typescript
+import { SPLTokenAdvancedExamples } from '@/examples/spl-token-advanced-examples';
+import { SPLTokenManager, SPLTokenUtils } from '@/utils/spl-token-manager';
+
+// Ejemplos avanzados de SPL Token
+await SPLTokenAdvancedExamples.basics();                    // Conceptos básicos de SPL Token
+await SPLTokenAdvancedExamples.mintAccountManagement();     // Gestión de cuentas mint
+await SPLTokenAdvancedExamples.tokenAccountManagement();    // Gestión de cuentas de token
+await SPLTokenAdvancedExamples.associatedTokenAccount();   // Cuentas de token asociadas
+await SPLTokenAdvancedExamples.tokenOperations();          // Operaciones de token
+await SPLTokenAdvancedExamples.security();                 // Seguridad de tokens
+await SPLTokenAdvancedExamples.optimization();             // Optimización de tokens
+await SPLTokenAdvancedExamples.testing();                  // Testing de tokens
+await SPLTokenAdvancedExamples.bestPractices();            // Mejores prácticas
+await SPLTokenAdvancedExamples.useCases();                 // Casos de uso
+
+// Gestor de SPL Token
+const tokenManager = new SPLTokenManager(connection);
+
+// Crear token mint
+const { mint, signature } = await tokenManager.createTokenMint(
+  payer,
+  mintAuthority,
+  freezeAuthority,
+  9 // decimals
+);
+console.log("Token mint creado:", mint.publicKey.toString());
+console.log("Firma:", signature);
+
+// Crear cuenta de token asociada
+const { ata, signature: ataSignature } = await tokenManager.createAssociatedTokenAccount(
+  payer,
+  mint.publicKey,
+  owner
+);
+console.log("ATA creada:", ata.toString());
+console.log("Firma:", ataSignature);
+```
+
+#### Operaciones de Token
+```typescript
+// Mintear tokens
+const mintSignature = await tokenManager.mintTokens(
+  mint.publicKey,
+  ata,
+  mintAuthority,
+  1000000 // amount
+);
+console.log("Tokens minteados:", mintSignature);
+
+// Transferir tokens
+const transferSignature = await tokenManager.transferTokens(
+  sourceAccount,
+  destinationAccount,
+  owner,
+  500000 // amount
+);
+console.log("Tokens transferidos:", transferSignature);
+
+// Aprobar delegado
+const approveSignature = await tokenManager.approveDelegate(
+  tokenAccount,
+  delegate,
+  owner,
+  100000 // amount
+);
+console.log("Delegado aprobado:", approveSignature);
+
+// Quemar tokens
+const burnSignature = await tokenManager.burnTokens(
+  tokenAccount,
+  mint.publicKey,
+  owner,
+  100000 // amount
+);
+console.log("Tokens quemados:", burnSignature);
+```
+
+#### Gestión de Autoridades
+```typescript
+// Congelar cuenta
+const freezeSignature = await tokenManager.freezeAccount(
+  tokenAccount,
+  mint.publicKey,
+  freezeAuthority
+);
+console.log("Cuenta congelada:", freezeSignature);
+
+// Descongelar cuenta
+const thawSignature = await tokenManager.thawAccount(
+  tokenAccount,
+  mint.publicKey,
+  freezeAuthority
+);
+console.log("Cuenta descongelada:", thawSignature);
+
+// Establecer autoridad
+const setAuthoritySignature = await tokenManager.setAuthority(
+  mint.publicKey,
+  currentAuthority,
+  newAuthority,
+  AuthorityType.MintTokens
+);
+console.log("Autoridad establecida:", setAuthoritySignature);
+
+// Revocar delegado
+const revokeSignature = await tokenManager.revokeDelegate(
+  tokenAccount,
+  owner
+);
+console.log("Delegado revocado:", revokeSignature);
+```
+
+#### Información de Token
+```typescript
+// Obtener información de cuenta de token
+const tokenAccountInfo = await tokenManager.getTokenAccount(tokenAccount);
+if (tokenAccountInfo) {
+  console.log("📊 Información de Cuenta de Token:");
+  console.log(`Mint: ${tokenAccountInfo.mint.toString()}`);
+  console.log(`Propietario: ${tokenAccountInfo.owner.toString()}`);
+  console.log(`Cantidad: ${SPLTokenUtils.formatTokenAmount(tokenAccountInfo.amount, 9)}`);
+  console.log(`Delegado: ${tokenAccountInfo.delegate?.toString() || 'Ninguno'}`);
+  console.log(`Estado: ${tokenAccountInfo.state}`);
+  console.log(`Es nativo: ${tokenAccountInfo.isNative}`);
+}
+
+// Obtener información de mint
+const mintInfo = await tokenManager.getMintInfo(mint.publicKey);
+if (mintInfo) {
+  console.log("🏭 Información de Mint:");
+  console.log(`Autoridad de mint: ${mintInfo.mintAuthority?.toString() || 'Ninguna'}`);
+  console.log(`Autoridad de congelación: ${mintInfo.freezeAuthority?.toString() || 'Ninguna'}`);
+  console.log(`Suministro: ${SPLTokenUtils.formatTokenAmount(mintInfo.supply, mintInfo.decimals)}`);
+  console.log(`Decimales: ${mintInfo.decimals}`);
+  console.log(`Inicializado: ${mintInfo.isInitialized}`);
+}
+```
+
+#### Cuentas de Token Asociadas
+```typescript
+// Obtener dirección ATA
+const ataAddress = await tokenManager.getAssociatedTokenAddress(mint, owner);
+console.log("Dirección ATA:", ataAddress.toString());
+
+// Verificar si ATA existe
+const ataExists = await tokenManager.associatedTokenAccountExists(mint, owner);
+console.log("ATA existe:", ataExists);
+
+// Crear ATA si no existe
+if (!ataExists) {
+  const { ata, signature } = await tokenManager.createAssociatedTokenAccount(
+    payer,
+    mint,
+    owner
+  );
+  console.log("ATA creada:", ata.toString());
+  console.log("Firma:", signature);
+}
+```
+
+#### Sincronización de SOL Nativo
+```typescript
+// Sincronizar SOL nativo a SOL envuelto
+const syncSignature = await tokenManager.syncNative(wrappedSolAccount, authority);
+console.log("SOL sincronizado:", syncSignature);
+
+// Verificar balance después de sincronización
+const accountInfo = await tokenManager.getTokenAccount(wrappedSolAccount);
+if (accountInfo) {
+  console.log("Balance de SOL envuelto:", SPLTokenUtils.formatTokenAmount(accountInfo.amount, 9));
+}
+```
+
+#### Utilidades de Token
+```typescript
+// Formatear cantidad de token
+const formattedAmount = SPLTokenUtils.formatTokenAmount(1000000000n, 9);
+console.log("Cantidad formateada:", formattedAmount); // "1.000000000"
+
+// Parsear cantidad de token
+const parsedAmount = SPLTokenUtils.parseTokenAmount("1.5", 9);
+console.log("Cantidad parseada:", parsedAmount.toString()); // "1500000000"
+
+// Obtener IDs de programa
+const tokenProgramId = SPLTokenUtils.getTokenProgramId();
+const ataProgramId = SPLTokenUtils.getAssociatedTokenProgramId();
+console.log("Token Program ID:", tokenProgramId.toString());
+console.log("ATA Program ID:", ataProgramId.toString());
+
+// Validar cuenta de token
+const isValidAccount = SPLTokenUtils.validateTokenAccount(tokenAccountInfo);
+console.log("Cuenta válida:", isValidAccount);
+
+// Validar cuenta mint
+const isValidMint = SPLTokenUtils.validateMintAccount(mintInfo);
+console.log("Mint válido:", isValidMint);
+```
+
+#### Métricas de Token
+```typescript
+// Obtener métricas
+const metrics = tokenManager.getMetrics();
+console.log("📊 Métricas de Token:");
+console.log(`Total de mints: ${metrics.totalMints}`);
+console.log(`Total de cuentas: ${metrics.totalAccounts}`);
+console.log(`Suministro total: ${SPLTokenUtils.formatTokenAmount(metrics.totalSupply, 9)}`);
+console.log(`Balance promedio: ${SPLTokenUtils.formatTokenAmount(metrics.averageBalance, 9)}`);
+
+console.log("📈 Mints más usados:");
+Object.entries(metrics.mostUsedMints).forEach(([mint, count]) => {
+  console.log(`${mint}: ${count} operaciones`);
+});
+
+console.log("🔢 Conteo de operaciones:");
+Object.entries(metrics.operationCounts).forEach(([operation, count]) => {
+  console.log(`${operation}: ${count} veces`);
+});
+
+// Resetear métricas
+tokenManager.resetMetrics();
 console.log("📊 Métricas reseteadas");
 ```
 

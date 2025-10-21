@@ -22,7 +22,8 @@
     "examples:transaction-fees": "ts-node src/examples/transaction-fees-examples.ts",
     "examples:programs-advanced": "ts-node src/examples/programs-advanced-examples.ts",
     "examples:pda-advanced": "ts-node src/examples/pda-advanced-examples.ts",
-    "examples:cpi-advanced": "ts-node src/examples/cpi-advanced-examples.ts"
+    "examples:cpi-advanced": "ts-node src/examples/cpi-advanced-examples.ts",
+    "examples:spl-token-advanced": "ts-node src/examples/spl-token-advanced-examples.ts"
   },
   "keywords": [
     "solana",
