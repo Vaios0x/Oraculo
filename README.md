@@ -117,6 +117,7 @@ npm run examples:programs-advanced     # Ejecutar ejemplos avanzados de programa
 npm run examples:pda-advanced          # Ejecutar ejemplos avanzados de PDAs
 npm run examples:cpi-advanced          # Ejecutar ejemplos avanzados de CPI
 npm run examples:spl-token-advanced    # Ejecutar ejemplos avanzados de SPL Token
+npm run examples:mint-tokens-advanced  # Ejecutar ejemplos avanzados de Mint Tokens
 ```
 
 ### 📚 Ejemplos de Uso
@@ -1057,6 +1058,232 @@ Object.entries(metrics.operationCounts).forEach(([operation, count]) => {
 // Resetear métricas
 tokenManager.resetMetrics();
 console.log("📊 Métricas reseteadas");
+```
+
+#### Mint Tokens Avanzados
+```typescript
+import { MintTokensAdvancedExamples } from '@/examples/mint-tokens-advanced-examples';
+import { MintTokensManager, MintTokensUtils } from '@/utils/mint-tokens-manager';
+
+// Ejemplos avanzados de Mint Tokens
+await MintTokensAdvancedExamples.basics();                    // Conceptos básicos de minting
+await MintTokensAdvancedExamples.authorityManagement();     // Gestión de autoridades
+await MintTokensAdvancedExamples.supplyManagement();         // Gestión de suministro
+await MintTokensAdvancedExamples.strategies();               // Estrategias de minting
+await MintTokensAdvancedExamples.security();                 // Seguridad de minting
+await MintTokensAdvancedExamples.economics();                // Economía de tokens
+await MintTokensAdvancedExamples.optimization();             // Optimización de minting
+await MintTokensAdvancedExamples.testing();                  // Testing de minting
+await MintTokensAdvancedExamples.bestPractices();            // Mejores prácticas
+await MintTokensAdvancedExamples.useCases();                 // Casos de uso
+
+// Gestor de Mint Tokens
+const mintManager = new MintTokensManager(connection);
+
+// Mintear tokens
+const operation = await mintManager.mintTokens(
+  mint.publicKey,
+  destinationAccount,
+  mintAuthority,
+  1000000, // amount
+  9 // decimals
+);
+console.log("Tokens minteados:", operation.signature);
+console.log("Cantidad:", operation.amount.toString());
+console.log("Destino:", operation.destination.toString());
+```
+
+#### Operaciones de Minting
+```typescript
+// Mintear tokens individual
+const operation = await mintManager.mintTokens(
+  mint.publicKey,
+  destinationAccount,
+  mintAuthority,
+  1000000 // amount
+);
+console.log("Operación de minting:", MintTokensUtils.formatMintingOperation(operation));
+
+// Mintear tokens en lote
+const destinations = [
+  { account: account1, amount: 500000 },
+  { account: account2, amount: 300000 },
+  { account: account3, amount: 200000 }
+];
+const batchOperations = await mintManager.batchMintTokens(
+  mint.publicKey,
+  destinations,
+  mintAuthority
+);
+console.log("Operaciones en lote:", batchOperations.length);
+
+// Establecer autoridad de mint
+const setAuthoritySignature = await mintManager.setMintAuthority(
+  mint.publicKey,
+  currentAuthority,
+  newAuthority,
+  AuthorityType.MintTokens
+);
+console.log("Autoridad establecida:", setAuthoritySignature);
+
+// Revocar autoridad de mint
+const revokeSignature = await mintManager.revokeMintAuthority(
+  mint.publicKey,
+  currentAuthority
+);
+console.log("Autoridad revocada:", revokeSignature);
+```
+
+#### Gestión de Suministro
+```typescript
+// Obtener información de suministro
+const supply = await mintManager.getTokenSupply(mint.publicKey);
+if (supply) {
+  console.log("📊 Información de Suministro:");
+  console.log(MintTokensUtils.formatTokenSupply(supply));
+  console.log(`Suministro actual: ${supply.currentSupply.toString()}`);
+  console.log(`Suministro máximo: ${supply.maxSupply?.toString() || 'Ilimitado'}`);
+  console.log(`Decimales: ${supply.decimals}`);
+  console.log(`Inicializado: ${supply.isInitialized}`);
+  console.log(`Autoridad de mint: ${supply.mintAuthority?.toString() || 'Ninguna'}`);
+  console.log(`Autoridad de congelación: ${supply.freezeAuthority?.toString() || 'Ninguna'}`);
+}
+
+// Verificar si se puede mintear
+const canMint = await mintManager.canMint(mint.publicKey, mintAuthority.publicKey);
+console.log("¿Se puede mintear?", canMint);
+
+// Obtener historial de minting
+const history = await mintManager.getMintingHistory(mint.publicKey, 50);
+console.log("📈 Historial de Minting:");
+history.forEach((op, index) => {
+  console.log(`${index + 1}. ${MintTokensUtils.formatMintingOperation(op)}`);
+});
+```
+
+#### Análisis de Minting
+```typescript
+// Calcular tasa de minting
+const mintingRate = await mintManager.calculateMintingRate(
+  mint.publicKey,
+  24 * 60 * 60 * 1000 // 24 horas
+);
+console.log("📊 Tasa de Minting:");
+console.log(`Tasa: ${mintingRate.rate.toFixed(2)} mints por hora`);
+console.log(`Total minteado: ${mintingRate.totalMinted.toString()}`);
+console.log(`Ventana de tiempo: ${mintingRate.timeWindow / (60 * 60 * 1000)} horas`);
+
+// Monitorear actividad de minting
+const activity = await mintManager.monitorMintingActivity(
+  mint.publicKey,
+  60000 // 1 minuto
+);
+console.log("📈 Actividad de Minting:");
+console.log(`Mints en el período: ${activity.mintsInPeriod}`);
+console.log(`Cantidad total minteada: ${activity.totalAmountMinted.toString()}`);
+console.log(`Cantidad promedio: ${activity.averageMintAmount.toString()}`);
+console.log(`Tasa de minting: ${activity.mintingRate.toFixed(2)} mints/segundo`);
+
+// Calcular eficiencia de minting
+const efficiency = MintTokensUtils.calculateMintingEfficiency(history);
+console.log("⚡ Eficiencia de Minting:");
+console.log(`Total minteado: ${efficiency.totalMinted.toString()}`);
+console.log(`Cantidad promedio: ${efficiency.averageAmount.toString()}`);
+console.log(`Frecuencia de minting: ${efficiency.mintingFrequency.toFixed(2)}`);
+console.log(`Eficiencia: ${efficiency.efficiency.toFixed(2)}`);
+```
+
+#### Validación de Operaciones
+```typescript
+// Validar operación de minting
+const validation = mintManager.validateMintingOperation(
+  mint.publicKey,
+  destinationAccount,
+  1000000,
+  mintAuthority.publicKey
+);
+if (validation.valid) {
+  console.log("✅ Operación válida");
+} else {
+  console.log("❌ Errores de validación:");
+  validation.errors.forEach(error => console.log(`  - ${error}`));
+}
+
+// Comparar operaciones de minting
+if (history.length >= 2) {
+  const comparison = MintTokensUtils.compareMintingOperations(
+    history[0],
+    history[1]
+  );
+  console.log("🔍 Comparación de Operaciones:");
+  console.log(`Mismo mint: ${comparison.sameMint}`);
+  console.log(`Mismo destino: ${comparison.sameDestination}`);
+  console.log(`Misma autoridad: ${comparison.sameAuthority}`);
+  console.log(`Diferencia de cantidad: ${comparison.amountDifference.toString()}`);
+}
+```
+
+#### Métricas de Minting
+```typescript
+// Obtener métricas
+const metrics = mintManager.getMetrics();
+console.log("📊 Métricas de Minting:");
+console.log(`Total de mints: ${metrics.totalMints}`);
+console.log(`Cantidad total minteada: ${metrics.totalAmountMinted.toString()}`);
+console.log(`Cantidad promedio: ${metrics.averageMintAmount.toString()}`);
+console.log(`Cambios de autoridad: ${metrics.authorityChanges}`);
+
+console.log("📈 Mints más activos:");
+Object.entries(metrics.mostActiveMints).forEach(([mint, count]) => {
+  console.log(`${mint}: ${count} operaciones`);
+});
+
+console.log("📊 Crecimiento de suministro:");
+Object.entries(metrics.supplyGrowth).forEach(([mint, growth]) => {
+  console.log(`${mint}: +${growth.toString()} tokens`);
+});
+
+// Resetear métricas
+mintManager.resetMetrics();
+console.log("📊 Métricas reseteadas");
+```
+
+#### Estrategias de Minting
+```typescript
+// Estrategia de suministro fijo
+const fixedSupplyStrategy = {
+  maxSupply: 1000000000n, // 1B tokens
+  currentSupply: 0n,
+  canMint: (amount: bigint) => {
+    return fixedSupplyStrategy.currentSupply + amount <= fixedSupplyStrategy.maxSupply;
+  }
+};
+
+// Estrategia de suministro controlado
+const controlledSupplyStrategy = {
+  dailyLimit: 1000000n, // 1M tokens por día
+  lastMintDate: new Date(),
+  canMint: (amount: bigint) => {
+    const today = new Date();
+    const isNewDay = today.getDate() !== controlledSupplyStrategy.lastMintDate.getDate();
+    return isNewDay || amount <= controlledSupplyStrategy.dailyLimit;
+  }
+};
+
+// Estrategia de suministro dinámico
+const dynamicSupplyStrategy = {
+  baseRate: 0.01, // 1% por día
+  maxRate: 0.05, // 5% máximo
+  calculateRate: (supply: bigint, target: bigint) => {
+    const ratio = Number(supply) / Number(target);
+    return Math.min(ratio * dynamicSupplyStrategy.baseRate, dynamicSupplyStrategy.maxRate);
+  }
+};
+
+console.log("📈 Estrategias de Minting:");
+console.log("Suministro fijo:", fixedSupplyStrategy.canMint(1000000n));
+console.log("Suministro controlado:", controlledSupplyStrategy.canMint(500000n));
+console.log("Suministro dinámico:", dynamicSupplyStrategy.calculateRate(1000000n, 10000000n));
 ```
 
 #### Programa CPI Messenger Completo
