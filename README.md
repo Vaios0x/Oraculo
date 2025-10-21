@@ -113,6 +113,7 @@ npm run examples:pda          # Ejecutar ejemplos de PDA
 npm run examples:cpi          # Ejecutar ejemplos de CPI
 npm run examples:transactions-structure # Ejecutar ejemplos de estructura de transacciones
 npm run examples:transaction-fees      # Ejecutar ejemplos de tarifas de transacciones
+npm run examples:programs-advanced     # Ejecutar ejemplos avanzados de programas
 ```
 
 ### 📚 Ejemplos de Uso
@@ -376,6 +377,99 @@ console.log("Precio CU recomendado:", conditions.recommendedCuPrice);
 const trends = await feeOptimizer.monitorFeeTrends(300000); // 5 minutos
 console.log("Tendencia:", trends.trend);
 console.log("Tarifa promedio:", trends.averageFee);
+```
+
+#### Programs Avanzados
+```typescript
+import { ProgramsAdvancedExamples } from '@/examples/programs-advanced-examples';
+import { ProgramAnalyzer, ProgramUtils } from '@/utils/program-analyzer';
+
+// Ejemplos avanzados de programas
+await ProgramsAdvancedExamples.basics();                    // Conceptos básicos de programas
+await ProgramsAdvancedExamples.builtInPrograms();          // Programas integrados
+await ProgramsAdvancedExamples.loaderPrograms();           // Programas loader
+await ProgramsAdvancedExamples.precompiledPrograms();      // Programas precompilados
+await ProgramsAdvancedExamples.developmentApproaches();   // Enfoques de desarrollo
+await ProgramsAdvancedExamples.verifiableBuilds();          // Builds verificables
+await ProgramsAdvancedExamples.programUpgrading();         // Actualización de programas
+await ProgramsAdvancedExamples.programSecurity();          // Seguridad de programas
+await ProgramsAdvancedExamples.programPerformance();       // Rendimiento de programas
+await ProgramsAdvancedExamples.programTesting();           // Testing de programas
+
+// Analizador de programas
+const programAnalyzer = new ProgramAnalyzer(connection);
+
+// Analizar programa
+const analysis = await programAnalyzer.analyzeProgram(programId);
+console.log("Información del programa:", analysis.programInfo);
+console.log("Puntuación de seguridad:", analysis.securityScore);
+console.log("Recomendaciones:", analysis.recommendations);
+
+// Obtener estadísticas
+const stats = await programAnalyzer.getProgramStatistics(programId);
+console.log("Total de cuentas:", stats.totalAccounts);
+console.log("Total de lamports:", stats.totalLamports);
+```
+
+#### Programas Integrados de Solana
+```typescript
+// Programas core de Solana
+const builtInPrograms = ProgramUtils.getBuiltInProgramIds();
+console.log("System Program:", builtInPrograms.SystemProgram);
+console.log("Vote Program:", builtInPrograms.VoteProgram);
+console.log("Stake Program:", builtInPrograms.StakeProgram);
+console.log("Config Program:", builtInPrograms.ConfigProgram);
+console.log("Compute Budget Program:", builtInPrograms.ComputeBudgetProgram);
+
+// Verificar si es programa integrado
+const isBuiltIn = ProgramUtils.isBuiltInProgram(programId);
+console.log("Es programa integrado:", isBuiltIn);
+
+// Obtener tipo de programa
+const programType = ProgramUtils.getProgramType(programId);
+console.log("Tipo de programa:", programType);
+```
+
+#### Análisis de Programas
+```typescript
+// Análisis completo de programa
+const analysis = await programAnalyzer.analyzeProgram(programId);
+
+console.log("📊 Análisis del Programa:");
+console.log(`ID: ${analysis.programInfo.programId.toString()}`);
+console.log(`Propietario: ${analysis.programInfo.owner.toString()}`);
+console.log(`Ejecutable: ${analysis.programInfo.executable}`);
+console.log(`Actualizable: ${analysis.programInfo.isUpgradeable}`);
+console.log(`Cargador: ${analysis.programInfo.loader}`);
+console.log(`Verificado: ${analysis.isVerified}`);
+console.log(`Puntuación de seguridad: ${analysis.securityScore}/100`);
+
+console.log("📈 Métricas de rendimiento:");
+console.log(`Uso promedio de CU: ${analysis.performanceMetrics.averageCuUsage}`);
+console.log(`Uso máximo de CU: ${analysis.performanceMetrics.maxCuUsage}`);
+console.log(`Eficiencia: ${(analysis.performanceMetrics.efficiency * 100).toFixed(1)}%`);
+
+console.log("💡 Recomendaciones:");
+analysis.recommendations.forEach((rec, index) => {
+  console.log(`${index + 1}. ${rec}`);
+});
+```
+
+#### Comparación de Programas
+```typescript
+// Comparar múltiples programas
+const programIds = [
+  new PublicKey("11111111111111111111111111111111"), // System Program
+  new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"), // Token Program
+  customProgramId
+];
+
+const comparison = await programAnalyzer.comparePrograms(programIds);
+console.log("🏆 Comparación de Programas:");
+console.log(`Más seguro: ${comparison.comparison.mostSecure.toString()}`);
+console.log(`Más eficiente: ${comparison.comparison.mostEfficient.toString()}`);
+console.log(`Más grande: ${comparison.comparison.largestProgram.toString()}`);
+console.log(`Más actualizable: ${comparison.comparison.mostUpgradeable.toString()}`);
 ```
 
 #### Programa CPI Messenger Completo
