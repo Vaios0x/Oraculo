@@ -1,0 +1,57 @@
+{
+  "name": "oraculos-solana-dapp",
+  "version": "1.0.0",
+  "description": "OráculoS - Mercado de Predicciones Descentralizado en Solana",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "anchor:build": "anchor build",
+    "anchor:deploy": "anchor deploy",
+    "anchor:test": "anchor test",
+    "solana:setup": "solana config set --url devnet",
+    "solana:balance": "solana balance",
+    "examples:accounts": "ts-node src/examples/account-examples.ts"
+  },
+  "keywords": [
+    "solana",
+    "blockchain",
+    "dapp",
+    "prediction-markets",
+    "defi",
+    "anchor",
+    "rust",
+    "typescript",
+    "nextjs"
+  ],
+  "author": "Vaios0x",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.95.2",
+    "@solana/spl-token": "^0.4.8",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "ts-node": "^10.9.2",
+    "tailwindcss": "^3.4.4",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -81,13 +81,59 @@ npm install
 cp .env.example .env
 
 # Compilar smart contracts
-anchor build
+npm run anchor:build
 
 # Desplegar contratos
-anchor deploy
+npm run anchor:deploy
 
 # Iniciar aplicación
 npm run dev
+```
+
+### 🛠️ Scripts Disponibles
+
+```bash
+# Desarrollo
+npm run dev              # Iniciar servidor de desarrollo
+npm run build            # Construir aplicación
+npm run start            # Iniciar aplicación en producción
+
+# Solana
+npm run anchor:build     # Compilar programas Anchor
+npm run anchor:deploy    # Desplegar programas
+npm run anchor:test      # Ejecutar pruebas
+npm run solana:setup     # Configurar Solana CLI
+npm run solana:balance   # Verificar balance
+
+# Ejemplos
+npm run examples:accounts # Ejecutar ejemplos de cuentas
+```
+
+### 📚 Ejemplos de Uso
+
+#### Leer Cuentas de Solana
+```typescript
+import { SolanaAccountManager, AccountUtils } from '@/utils/solana-accounts';
+
+// Crear conexión
+const connection = AccountUtils.createConnection();
+const accountManager = new SolanaAccountManager(connection);
+
+// Obtener información de cuenta
+const account = await accountManager.fetchWalletAccount(publicKey);
+console.log(accountManager.formatAccountData(account));
+```
+
+#### Analizar Tipos de Cuentas
+```typescript
+import { AccountExamples } from '@/examples/account-examples';
+
+// Ejemplos incluidos
+await AccountExamples.fetchWalletAccount();
+await AccountExamples.fetchProgramAccount();
+await AccountExamples.fetchMintAccount();
+await AccountExamples.compareAccountTypes();
+await AccountExamples.analyzeAccount("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 ```
 
 ## 📊 Arquitectura del Sistema
