@@ -112,6 +112,7 @@ npm run examples:programs     # Ejecutar ejemplos de programas
 npm run examples:pda          # Ejecutar ejemplos de PDA
 npm run examples:cpi          # Ejecutar ejemplos de CPI
 npm run examples:transactions-structure # Ejecutar ejemplos de estructura de transacciones
+npm run examples:transaction-fees      # Ejecutar ejemplos de tarifas de transacciones
 ```
 
 ### 📚 Ejemplos de Uso
@@ -289,6 +290,92 @@ const analysis = await builder
 console.log("Tamaño total:", analysis.totalSize);
 console.log("Dentro del límite:", analysis.isWithinSizeLimit);
 console.log("Cuentas:", analysis.accounts);
+```
+
+#### Transaction Fees y Optimización
+```typescript
+import { TransactionFeesExamples } from '@/examples/transaction-fees-examples';
+import { FeeOptimizer, FeeUtils } from '@/utils/fee-optimizer';
+
+// Ejemplos de tarifas de transacciones
+await TransactionFeesExamples.basics();                    // Conceptos básicos de tarifas
+await TransactionFeesExamples.baseFeeCalculation();        // Cálculo de tarifa base
+await TransactionFeesExamples.prioritizationFeeCalculation(); // Cálculo de tarifa de prioridad
+await TransactionFeesExamples.computeUnitOptimization();   // Optimización de CU
+await TransactionFeesExamples.feeOptimizationStrategies(); // Estrategias de optimización
+await TransactionFeesExamples.realTimeFeeMonitoring();     // Monitoreo en tiempo real
+await TransactionFeesExamples.advancedFeeManagement();     // Gestión avanzada de tarifas
+await TransactionFeesExamples.feeAnalysisTools();          // Herramientas de análisis
+await TransactionFeesExamples.feeStrategies();             // Estrategias de tarifas
+await TransactionFeesExamples.feeMonitoring();             // Monitoreo de tarifas
+
+// Optimizador de tarifas
+const feeOptimizer = new FeeOptimizer(connection);
+
+// Obtener recomendación de tarifas
+const recommendation = await feeOptimizer.getFeeRecommendation(300_000, 'high');
+console.log("CU Limit:", recommendation.cuLimit);
+console.log("CU Price:", recommendation.cuPrice);
+console.log("Estimated Fee:", recommendation.estimatedFee);
+
+// Optimizar transacción
+const optimizedTransaction = await feeOptimizer.optimizeTransaction(transaction, 'high');
+
+// Estimar tarifas
+const fees = await feeOptimizer.estimateFees(transaction, 'medium');
+const breakdown = feeOptimizer.getFeeBreakdown(fees);
+console.log(breakdown.breakdown);
+```
+
+#### Estructura de Tarifas
+```typescript
+// Estructura de tarifas de Solana
+interface TransactionFees {
+  baseFee: number;        // 5000 lamports por firma
+  priorityFee: number;    // CU limit × CU price
+  totalFee: number;       // baseFee + priorityFee
+}
+
+// Distribución de tarifa base
+// 50% quemado (removido de circulación)
+// 50% pagado al validador
+
+// Tarifa de prioridad
+// 100% pagado al validador
+// Aumenta probabilidad de procesamiento
+```
+
+#### Optimización de Compute Units
+```typescript
+// Configurar límite de CU
+const limitInstruction = ComputeBudgetProgram.setComputeUnitLimit({
+  units: 300_000 // Límite optimizado
+});
+
+// Configurar precio de CU
+const priceInstruction = ComputeBudgetProgram.setComputeUnitPrice({
+  microLamports: 1 // 1 micro-lamport por CU
+});
+
+// Aplicar a transacción
+const transaction = new Transaction()
+  .add(limitInstruction)
+  .add(priceInstruction)
+  .add(transferInstruction);
+```
+
+#### Monitoreo de Tarifas en Tiempo Real
+```typescript
+// Monitorear condiciones de red
+const conditions = await feeOptimizer.getNetworkConditions();
+console.log("Congestión:", conditions.congestion);
+console.log("Tarifa promedio:", conditions.averageFee);
+console.log("Precio CU recomendado:", conditions.recommendedCuPrice);
+
+// Monitorear tendencias
+const trends = await feeOptimizer.monitorFeeTrends(300000); // 5 minutos
+console.log("Tendencia:", trends.trend);
+console.log("Tarifa promedio:", trends.averageFee);
 ```
 
 #### Programa CPI Messenger Completo
