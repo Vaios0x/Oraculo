@@ -25,6 +25,34 @@
 * **Oracles**: Integración con oráculos para datos del mundo real
 * **Custodia Descentralizada**: Los usuarios mantienen control total de sus fondos
 
+### 🪙 Operaciones de Tokens Avanzadas
+
+* **Transferencias**: Transferencias seguras entre cuentas con validación
+* **Delegación**: Sistema de delegación para transferencias autorizadas
+* **Quema de Tokens**: Reducción controlada de la oferta de tokens
+* **Congelamiento**: Control de cuentas para casos especiales
+* **Wrapped SOL**: Operaciones con SOL nativo como token SPL
+* **Operaciones en Lote**: Procesamiento eficiente de múltiples operaciones
+
+### 🔧 Extensiones de Tokens Avanzadas
+
+* **Scaled UI Amount**: Multiplicadores dinámicos para cantidades de UI
+* **Transfer Fees**: Comisiones automáticas en transferencias
+* **Metadata**: Metadatos enriquecidos para tokens
+* **Memo Transfer**: Requerimiento de memos en transferencias
+* **Immutable Owner**: Propietarios permanentes de cuentas
+* **Non-Transferable**: Tokens que no pueden ser transferidos
+* **Interest Bearing**: Tokens que generan interés automáticamente
+* **Default Account State**: Estado por defecto para nuevas cuentas
+* **Permanent Delegate**: Delegado permanente e irrevocable
+* **Mint Close Authority**: Autoridad para cerrar mints
+* **Token Groups**: Grupos y miembros de tokens
+* **CPI Guard**: Protección contra transferencias no autorizadas
+* **Pausable**: Pausar operaciones de tokens
+* **Transfer Hook**: Hooks personalizados para transferencias
+* **Confidential Transfer**: Transferencias confidenciales
+* **Variable Length Mint**: Mints con longitud variable
+
 ## 🚀 Tecnologías Utilizadas
 
 * **Frontend**: React, TypeScript, Tailwind CSS
@@ -1487,6 +1515,744 @@ describe("Hello Anchor", () => {
 │  - Wallet Conn  │    │  - Solana       │    │  - Switchboard  │
 │  - UI/UX        │    │  - SPL Tokens   │    │  - Chainlink    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+## 🔧 Token Extensions Manager
+
+### Características Principales
+
+El **Token Extensions Manager** proporciona una interfaz completa para gestionar extensiones avanzadas de tokens SPL en Solana:
+
+#### 🪙 Scaled UI Amount Extension
+```typescript
+import { TokenExtensionsManager } from './src/utils/token-extensions-manager';
+
+const manager = new TokenExtensionsManager(connection);
+
+// Crear token con extensión Scaled UI Amount
+const result = await manager.createTokenWithScaledUIAmount(
+  payer,
+  mint,
+  decimals,
+  1.5, // Multiplicador inicial
+  "Scaled Token",
+  "SCALED",
+  "https://example.com/metadata.json"
+);
+
+// Actualizar multiplicador
+await manager.updateScaledUIMultiplier(
+  mint,
+  2.0, // Nuevo multiplicador
+  authority
+);
+
+// Calcular cantidades UI
+const uiAmount = await manager.calculateUIAmount(mint, rawAmount);
+const rawAmount = await manager.calculateRawAmount(mint, uiAmount);
+```
+
+#### 💰 Transfer Fee Extension
+```typescript
+// Crear token con comisiones de transferencia
+const result = await manager.createTokenWithTransferFee(
+  payer,
+  mint,
+  decimals,
+  150, // 1.5% de comisión
+  BigInt(1000000), // Comisión máxima
+  "Fee Token",
+  "FEE"
+);
+
+// Calcular comisión de transferencia
+const fee = await manager.calculateTransferFee(mint, amount);
+
+// Obtener información de comisiones
+const feeInfo = await manager.getTransferFeeInfo(mint);
+```
+
+#### 📝 Metadata Extension
+```typescript
+// Crear token con metadatos enriquecidos
+const additionalMetadata = new Map<string, string>();
+additionalMetadata.set("description", "Token con metadatos avanzados");
+additionalMetadata.set("image", "https://example.com/image.png");
+
+const result = await manager.createTokenWithMetadata(
+  payer,
+  mint,
+  decimals,
+  "Metadata Token",
+  "META",
+  "https://example.com/metadata.json",
+  additionalMetadata
+);
+```
+
+#### 📝 Memo Transfer Extension
+```typescript
+// Crear token que requiere memos en transferencias
+const result = await manager.createTokenWithMemoTransfer(
+  payer,
+  mint,
+  decimals,
+  true // Requerir memos
+);
+```
+
+#### 🔒 Immutable Owner Extension
+```typescript
+// Crear token con propietario inmutable
+const result = await manager.createTokenWithImmutableOwner(
+  payer,
+  mint,
+  decimals,
+  owner // Propietario permanente
+);
+```
+
+#### 🚫 Non-Transferable Extension
+```typescript
+// Crear token no transferible
+const result = await manager.createTokenWithNonTransferable(
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### 💰 Interest Bearing Extension
+```typescript
+// Crear token que genera interés
+const result = await manager.createTokenWithInterestBearing(
+  payer,
+  mint,
+  decimals,
+  500, // 5% anual en basis points
+  "Interest Token",
+  "INT",
+  "https://example.com/metadata.json"
+);
+
+// Calcular interés
+const interest = await manager.calculateInterest(
+  mint,
+  principal,
+  timeElapsed
+);
+
+// Obtener tasa de interés actual
+const currentRate = await manager.getCurrentInterestRate(mint);
+```
+
+#### 🔒 Default Account State Extension
+```typescript
+// Crear token con estado por defecto
+const result = await manager.createTokenWithDefaultAccountState(
+  payer,
+  mint,
+  decimals,
+  'Frozen', // Nuevas cuentas estarán congeladas
+  "Frozen Token",
+  "FROZEN",
+  "https://example.com/metadata.json"
+);
+```
+
+#### 🔐 Permanent Delegate Extension
+```typescript
+// Crear token con delegado permanente
+const result = await manager.createTokenWithPermanentDelegate(
+  payer,
+  mint,
+  decimals,
+  delegate, // Delegado permanente
+  "Permanent Token",
+  "PERM",
+  "https://example.com/metadata.json"
+);
+```
+
+#### 🔒 Mint Close Authority Extension
+```typescript
+// Crear token con autoridad de cierre
+const result = await manager.createTokenWithMintCloseAuthority(
+  payer,
+  mint,
+  decimals,
+  closeAuthority, // Autoridad para cerrar el mint
+  "Closeable Token",
+  "CLOSE",
+  "https://example.com/metadata.json"
+);
+```
+
+#### 👥 Token Groups Extension
+```typescript
+// Crear token grupo
+const groupResult = await manager.createTokenWithGroup(
+  payer,
+  groupMint,
+  decimals,
+  100, // tamaño máximo
+  "Collection Group",
+  "GROUP",
+  "https://example.com/group-metadata.json"
+);
+
+// Crear token miembro
+const memberResult = await manager.createTokenWithGroupMember(
+  payer,
+  memberMint,
+  decimals,
+  groupResult.mint, // grupo al que pertenece
+  1, // número de miembro
+  "Collection Member",
+  "MEMBER",
+  "https://example.com/member-metadata.json"
+);
+
+// Obtener información del grupo
+const groupInfo = await manager.getTokenGroupInfo(groupResult.mint);
+const memberInfo = await manager.getTokenGroupMemberInfo(memberResult.mint);
+```
+
+#### 🛡️ CPI Guard Extension
+```typescript
+// Crear token con protección CPI
+const result = await manager.createTokenWithCpiGuard(
+  payer,
+  mint,
+  decimals,
+  true, // bloquear CPI
+  "Protected Token",
+  "GUARD",
+  "https://example.com/metadata.json"
+);
+
+// Verificar si CPI Guard está habilitado
+const cpiGuardEnabled = await manager.isCpiGuardEnabled(mint);
+```
+
+#### ⏸️ Pausable Extension
+```typescript
+// Crear token pausable
+const result = await manager.createTokenWithPausable(
+  payer,
+  mint,
+  decimals,
+  pauseAuthority, // Autoridad para pausar
+  "Pausable Token",
+  "PAUSE",
+  "https://example.com/metadata.json"
+);
+
+// Pausar operaciones
+const pauseSignature = await manager.pauseTokenOperations(mint, pauseAuthority);
+
+// Reanudar operaciones
+const unpauseSignature = await manager.unpauseTokenOperations(mint, pauseAuthority);
+
+// Verificar si está pausado
+const isPaused = await manager.isTokenPaused(mint);
+```
+
+#### 🪝 Transfer Hook Extension
+```typescript
+// Crear token con transfer hook
+const result = await manager.createTokenWithTransferHook(
+  payer,
+  mint,
+  decimals,
+  hookProgramId, // Programa del hook
+  hookAuthority, // Autoridad del hook
+  "Hook Token",
+  "HOOK",
+  "https://example.com/metadata.json"
+);
+```
+
+#### 🔒 Confidential Transfer Extension
+```typescript
+// Crear token con transferencias confidenciales
+const result = await manager.createTokenWithConfidentialTransfer(
+  payer,
+  mint,
+  decimals,
+  auditorElgamalPubkey, // Clave pública del auditor
+  auditorAuthority, // Autoridad del auditor
+  "Confidential Token",
+  "CONF",
+  "https://example.com/metadata.json"
+);
+```
+
+#### 📏 Variable Length Mint Extension
+```typescript
+// Crear token con mint de longitud variable
+const data = new Uint8Array([1, 2, 3, 4, 5]);
+const result = await manager.createTokenWithVariableLengthMint(
+  payer,
+  mint,
+  decimals,
+  100, // longitud
+  data, // datos personalizados
+  "Variable Token",
+  "VAR",
+  "https://example.com/metadata.json"
+);
+```
+
+### ⚠️ Incompatibilidades de Extensiones
+
+```typescript
+// Verificar compatibilidad de extensiones
+const compatibility = manager.checkExtensionCompatibility(extensions);
+
+if (compatibility.incompatible.length > 0) {
+  console.log('❌ Extensiones incompatibles:', compatibility.incompatible);
+}
+
+if (compatibility.warnings.length > 0) {
+  console.log('⚠️ Advertencias:', compatibility.warnings);
+}
+
+if (compatibility.recommendations.length > 0) {
+  console.log('💡 Recomendaciones:', compatibility.recommendations);
+}
+```
+
+#### Extensiones Incompatibles:
+- **NonTransferable** ❌ **TransferFee**: No se pueden cobrar comisiones en tokens no transferibles
+- **ScaledUIAmount** ❌ **InterestBearing**: No se pueden aplicar multiplicadores a tokens con interés
+- **ConfidentialTransfer** ⚠️ **Metadata**: Las transferencias confidenciales pueden limitar la visibilidad de metadatos
+- **Pausable** ⚠️ **PermanentDelegate**: Los tokens pausables con delegados permanentes pueden tener comportamiento complejo
+
+### Ejemplos Avanzados
+
+#### Múltiples Extensiones Combinadas
+```typescript
+import { TokenExtensionsExamples } from './src/examples/token-extensions-advanced-examples';
+
+const result = await TokenExtensionsExamples.multipleExtensionsExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### Análisis de Costos de Extensiones
+```typescript
+const costAnalysis = await TokenExtensionsExamples.extensionCostAnalysisExample(
+  connection,
+  extensionSets
+);
+```
+
+#### Monitoreo de Extensiones
+```typescript
+const monitoring = await TokenExtensionsExamples.extensionMonitoringExample(
+  connection,
+  duration
+);
+```
+
+#### Tokens con Interés
+```typescript
+const interestToken = await TokenExtensionsExamples.interestBearingExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### Estado por Defecto de Cuentas
+```typescript
+const defaultState = await TokenExtensionsExamples.defaultAccountStateExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### Delegado Permanente
+```typescript
+const permanentDelegate = await TokenExtensionsExamples.permanentDelegateExample(
+  connection,
+  payer,
+  mint,
+  delegate,
+  decimals
+);
+```
+
+#### Autoridad de Cierre de Mint
+```typescript
+const mintClose = await TokenExtensionsExamples.mintCloseAuthorityExample(
+  connection,
+  payer,
+  mint,
+  closeAuthority,
+  decimals
+);
+```
+
+#### Grupos de Tokens
+```typescript
+const tokenGroups = await TokenExtensionsExamples.tokenGroupsExample(
+  connection,
+  payer,
+  groupMint,
+  memberMint,
+  decimals
+);
+```
+
+#### Protección CPI
+```typescript
+const cpiGuard = await TokenExtensionsExamples.cpiGuardExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### Combinaciones Avanzadas
+```typescript
+const advancedCombinations = await TokenExtensionsExamples.advancedExtensionCombinationsExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### Tokens Pausables
+```typescript
+const pausableToken = await TokenExtensionsExamples.pausableExample(
+  connection,
+  payer,
+  mint,
+  pauseAuthority,
+  decimals
+);
+```
+
+#### Transfer Hooks
+```typescript
+const transferHook = await TokenExtensionsExamples.transferHookExample(
+  connection,
+  payer,
+  mint,
+  hookProgramId,
+  hookAuthority,
+  decimals
+);
+```
+
+#### Transferencias Confidenciales
+```typescript
+const confidentialTransfer = await TokenExtensionsExamples.confidentialTransferExample(
+  connection,
+  payer,
+  mint,
+  auditorElgamalPubkey,
+  auditorAuthority,
+  decimals
+);
+```
+
+#### Mints de Longitud Variable
+```typescript
+const variableLengthMint = await TokenExtensionsExamples.variableLengthMintExample(
+  connection,
+  payer,
+  mint,
+  length,
+  data,
+  decimals
+);
+```
+
+#### Verificación de Compatibilidad
+```typescript
+const compatibility = await TokenExtensionsExamples.extensionCompatibilityExample(
+  connection,
+  extensions
+);
+```
+
+#### Sistema Completo de Extensiones
+```typescript
+const completeSystem = await TokenExtensionsExamples.completeExtensionSystemExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+#### Transferencias Confidenciales Avanzadas
+```typescript
+// Verificar disponibilidad
+const isAvailable = await manager.isConfidentialTransferAvailable();
+
+// Configurar cuenta para transferencias confidenciales
+const elgamalKeypair = await manager.generateElGamalKeypair(payer, account);
+const aesKey = await manager.generateAESKey(payer, account);
+const configureSignature = await manager.configureConfidentialTransferAccount(
+  account, mint, payer, elgamalKeypair, aesKey
+);
+
+// Depositar tokens a balance confidencial pendiente
+const depositSignature = await manager.depositToConfidentialPendingBalance(
+  account, payer, amount, decimals
+);
+
+// Aplicar balance pendiente a balance disponible
+const applySignature = await manager.applyPendingBalance(
+  account, payer, elgamalKeypair, aesKey
+);
+
+// Transferir tokens confidencialmente
+const transferSignature = await manager.confidentialTransfer(
+  sourceAccount, destinationAccount, payer, amount, decimals,
+  sourceElgamalKeypair, sourceAESKey, destElgamalPubkey
+);
+
+// Retirar de balance confidencial
+const withdrawSignature = await manager.withdrawFromConfidentialBalance(
+  account, payer, amount, decimals, elgamalKeypair, aesKey
+);
+```
+
+#### Flujo Completo de Transferencias Confidenciales
+```typescript
+const workflow = await TokenExtensionsExamples.completeConfidentialTransferWorkflowExample(
+  connection,
+  payer,
+  mint,
+  decimals
+);
+```
+
+### ⚠️ Estado Actual de Transferencias Confidenciales
+
+**Las Transferencias Confidenciales están temporalmente deshabilitadas** debido a una auditoría de seguridad del programa ZK ElGamal. Aunque los conceptos y la implementación siguen siendo válidos, las funciones no estarán disponibles hasta que se complete la auditoría.
+
+#### Limitaciones Actuales:
+- ❌ **ZK ElGamal Program deshabilitado** en mainnet y devnet
+- ❌ **Transferencias confidenciales no disponibles** temporalmente
+- ⚠️ **Auditoría de seguridad en progreso** - funcionalidad será restaurada
+- 📋 **Conceptos y código siguen siendo válidos** para cuando estén disponibles
+
+#### Requisitos para Transferencias Confidenciales:
+- ✅ **Token mint** debe tener extensión `ConfidentialTransferMint`
+- ✅ **Cuentas de origen y destino** deben estar configuradas para transferencias confidenciales
+- ✅ **Pares de claves ElGamal** deben ser generados para encriptación
+- ✅ **Claves AES** deben ser generadas para desencriptación eficiente
+- ✅ **Pruebas ZK** deben ser generadas del lado del cliente
+- ✅ **Múltiples cuentas de prueba** necesarias para operaciones
+
+### Utilidades de Extensiones
+
+```typescript
+import { TokenExtensionsUtils } from './src/utils/token-extensions-manager';
+
+// Formatear configuración de Scaled UI Amount
+const formatted = TokenExtensionsUtils.formatScaledUIAmountConfig(config);
+
+// Formatear configuración de Transfer Fee
+const feeFormatted = TokenExtensionsUtils.formatTransferFeeConfig(feeConfig);
+
+// Formatear metadatos de token
+const metadataFormatted = TokenExtensionsUtils.formatTokenMetadata(metadata);
+
+// Validar configuración de extensión
+const validation = TokenExtensionsUtils.validateExtensionConfig('metadata', config);
+
+// Calcular costos de extensiones
+const costs = TokenExtensionsUtils.calculateExtensionCosts(extensions);
+
+// Comparar configuraciones de extensiones
+const comparison = TokenExtensionsUtils.compareExtensionConfigs(config1, config2);
+```
+
+## 🪙 Token Operations Manager
+
+### Características Principales
+
+El **Token Operations Manager** proporciona una interfaz completa para operaciones avanzadas de tokens SPL en Solana:
+
+#### 🔄 Transferencias de Tokens
+```typescript
+import { TokenOperationsManager } from './src/utils/token-operations-manager';
+
+const manager = new TokenOperationsManager(connection);
+
+// Transferencia básica
+const transfer = await manager.transferTokens(
+  sourceAccount,
+  destinationAccount,
+  amount,
+  authority
+);
+
+// Transferencia con validación
+const transferChecked = await manager.transferTokensChecked(
+  sourceAccount,
+  destinationAccount,
+  mint,
+  amount,
+  decimals,
+  authority
+);
+```
+
+#### 🔐 Sistema de Delegación
+```typescript
+// Aprobar delegado
+const delegation = await manager.approveDelegateChecked(
+  tokenAccount,
+  mint,
+  delegate,
+  amount,
+  decimals,
+  owner
+);
+
+// Revocar delegación
+const revokeSignature = await manager.revokeDelegate(
+  tokenAccount,
+  owner
+);
+```
+
+#### 🔥 Quema de Tokens
+```typescript
+// Quemar tokens con validación
+const burn = await manager.burnTokensChecked(
+  tokenAccount,
+  mint,
+  amount,
+  decimals,
+  authority
+);
+```
+
+#### ❄️ Congelamiento de Cuentas
+```typescript
+// Congelar cuenta
+const freeze = await manager.freezeAccount(
+  tokenAccount,
+  mint,
+  freezeAuthority
+);
+
+// Descongelar cuenta
+const thaw = await manager.thawAccount(
+  tokenAccount,
+  mint,
+  freezeAuthority
+);
+```
+
+#### 🪙 Wrapped SOL (WSOL)
+```typescript
+// Sincronizar SOL nativo
+const syncSignature = await manager.syncNative(wrappedSOLAccount);
+
+// Cerrar cuenta WSOL (unwrap)
+const unwrapSignature = await manager.closeAccount(
+  wrappedSOLAccount,
+  destination,
+  owner
+);
+```
+
+### Ejemplos Avanzados
+
+#### Transferencia Completa
+```typescript
+import { TokenOperationsExamples } from './src/examples/token-operations-advanced-examples';
+
+const result = await TokenOperationsExamples.completeTokenTransferWorkflow(
+  connection,
+  payer,
+  mint,
+  sourceOwner,
+  destinationOwner,
+  amount,
+  decimals
+);
+```
+
+#### Sistema de Delegación Avanzado
+```typescript
+const delegationResult = await TokenOperationsExamples.advancedDelegationSystem(
+  connection,
+  payer,
+  mint,
+  tokenOwner,
+  delegate,
+  delegationAmount,
+  decimals
+);
+```
+
+#### Operaciones en Lote
+```typescript
+const batchResult = await TokenOperationsExamples.batchTokenOperations(
+  connection,
+  payer,
+  mint,
+  operations,
+  decimals
+);
+```
+
+### Métricas y Monitoreo
+
+```typescript
+// Obtener métricas
+const metrics = manager.getMetrics();
+
+// Monitorear operaciones
+const monitoring = await TokenOperationsExamples.tokenOperationsMonitoring(
+  connection,
+  duration
+);
+
+// Validar operaciones
+const validation = await TokenOperationsExamples.tokenOperationsValidation(
+  connection,
+  operations
+);
+```
+
+### Utilidades
+
+```typescript
+import { TokenOperationsUtils } from './src/utils/token-operations-manager';
+
+// Formatear operación
+const formatted = TokenOperationsUtils.formatTransferOperation(operation);
+
+// Calcular eficiencia
+const efficiency = TokenOperationsUtils.calculateOperationEfficiency(operations);
+
+// Validar operación
+const validation = TokenOperationsUtils.validateTransferOperation(
+  source,
+  destination,
+  amount,
+  authority
+);
 ```
 
 ## 🎯 Roadmap
