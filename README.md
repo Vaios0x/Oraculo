@@ -111,6 +111,7 @@ npm run examples:transactions # Ejecutar ejemplos de transacciones
 npm run examples:programs     # Ejecutar ejemplos de programas
 npm run examples:pda          # Ejecutar ejemplos de PDA
 npm run examples:cpi          # Ejecutar ejemplos de CPI
+npm run examples:transactions-structure # Ejecutar ejemplos de estructura de transacciones
 ```
 
 ### 📚 Ejemplos de Uso
@@ -217,6 +218,77 @@ await CpiExamples.errorHandling();            // Manejo de errores
 await CpiExamples.testingStrategies();        // Estrategias de testing
 await CpiExamples.bestPractices();            // Mejores prácticas
 await CpiExamples.advancedPatterns();         // Patrones avanzados
+```
+
+#### Transactions and Instructions
+```typescript
+import { TransactionStructureExamples } from '@/examples/transaction-structure-examples';
+import { AdvancedTransactionBuilder } from '@/utils/transaction-builder';
+
+// Ejemplos de estructura de transacciones
+await TransactionStructureExamples.basics();                    // Conceptos básicos
+await TransactionStructureExamples.instructionStructure();      // Estructura de instrucciones
+await TransactionStructureExamples.accountMeta();              // Metadatos de cuentas
+await TransactionStructureExamples.messageStructure();          // Estructura de mensajes
+await TransactionStructureExamples.transactionSize();           // Límites de tamaño
+await TransactionStructureExamples.complexTransaction();       // Transacciones complejas
+await TransactionStructureExamples.transactionAnalysis();      // Análisis de transacciones
+await TransactionStructureExamples.instructionData();           // Datos de instrucciones
+await TransactionStructureExamples.transactionOptimization();  // Optimización
+await TransactionStructureExamples.transactionTesting();       // Testing
+
+// Constructor avanzado de transacciones
+const builder = new AdvancedTransactionBuilder({
+  connection,
+  feePayer: wallet
+});
+
+const signature = await builder
+  .addInstruction(transferInstruction)
+  .addSigner(additionalSigner)
+  .sendAndConfirm();
+```
+
+#### Estructura de Transacciones
+```typescript
+// Estructura de transacción
+interface Transaction {
+  signatures: Signature[];     // Firmas (64 bytes cada una)
+  message: Message;           // Mensaje de transacción
+}
+
+interface Message {
+  header: MessageHeader;       // Encabezado (3 bytes)
+  accountKeys: Pubkey[];      // Direcciones de cuentas (32 bytes cada una)
+  recentBlockhash: Hash;      // Blockhash reciente (32 bytes)
+  instructions: CompiledInstruction[]; // Instrucciones
+}
+
+interface MessageHeader {
+  numRequiredSignatures: u8;           // Número de firmantes requeridos
+  numReadonlySignedAccounts: u8;       // Firmantes de solo lectura
+  numReadonlyUnsignedAccounts: u8;     // No firmantes de solo lectura
+}
+```
+
+#### Constructor Avanzado de Transacciones
+```typescript
+// Constructor de transacciones avanzado
+const builder = new AdvancedTransactionBuilder({
+  connection,
+  feePayer: wallet
+});
+
+// Análisis de transacción
+const analysis = await builder
+  .addInstruction(instruction1)
+  .addInstruction(instruction2)
+  .addSigner(signer)
+  .analyzeTransaction();
+
+console.log("Tamaño total:", analysis.totalSize);
+console.log("Dentro del límite:", analysis.isWithinSizeLimit);
+console.log("Cuentas:", analysis.accounts);
 ```
 
 #### Programa CPI Messenger Completo

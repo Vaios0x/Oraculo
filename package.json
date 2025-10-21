@@ -17,7 +17,8 @@
     "examples:transactions": "ts-node src/examples/transaction-examples.ts",
     "examples:programs": "ts-node src/examples/program-examples.ts",
     "examples:pda": "ts-node src/examples/pda-examples.ts",
-    "examples:cpi": "ts-node src/examples/cpi-examples.ts"
+    "examples:cpi": "ts-node src/examples/cpi-examples.ts",
+    "examples:transactions-structure": "ts-node src/examples/transaction-structure-examples.ts"
   },
   "keywords": [
     "solana",
