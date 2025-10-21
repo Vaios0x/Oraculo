@@ -114,6 +114,7 @@ npm run examples:cpi          # Ejecutar ejemplos de CPI
 npm run examples:transactions-structure # Ejecutar ejemplos de estructura de transacciones
 npm run examples:transaction-fees      # Ejecutar ejemplos de tarifas de transacciones
 npm run examples:programs-advanced     # Ejecutar ejemplos avanzados de programas
+npm run examples:pda-advanced          # Ejecutar ejemplos avanzados de PDAs
 ```
 
 ### 📚 Ejemplos de Uso
@@ -470,6 +471,162 @@ console.log(`Más seguro: ${comparison.comparison.mostSecure.toString()}`);
 console.log(`Más eficiente: ${comparison.comparison.mostEfficient.toString()}`);
 console.log(`Más grande: ${comparison.comparison.largestProgram.toString()}`);
 console.log(`Más actualizable: ${comparison.comparison.mostUpgradeable.toString()}`);
+```
+
+#### PDAs Avanzados
+```typescript
+import { PDAAdvancedExamples } from '@/examples/pda-advanced-examples';
+import { PDAManager, PDAUtils } from '@/utils/pda-manager';
+
+// Ejemplos avanzados de PDAs
+await PDAAdvancedExamples.basics();                    // Conceptos básicos de PDAs
+await PDAAdvancedExamples.derivation();                // Derivación de PDAs
+await PDAAdvancedExamples.security();                  // Seguridad de PDAs
+await PDAAdvancedExamples.accountCreation();           // Creación de cuentas PDA
+await PDAAdvancedExamples.patterns();                  // Patrones de PDAs
+await PDAAdvancedExamples.optimization();             // Optimización de PDAs
+await PDAAdvancedExamples.testing();                  // Testing de PDAs
+await PDAAdvancedExamples.bestPractices();            // Mejores prácticas
+await PDAAdvancedExamples.useCases();                 // Casos de uso
+await PDAAdvancedExamples.troubleshooting();          // Solución de problemas
+
+// Gestor de PDAs
+const pdaManager = new PDAManager(connection);
+
+// Derivar PDA
+const derivation = await pdaManager.derivePDA(programId, ["user", userAddress]);
+console.log("PDA:", derivation.pda.toString());
+console.log("Bump:", derivation.bump);
+console.log("Canonical:", derivation.canonical);
+
+// Verificar si PDA existe
+const exists = await pdaManager.pdaExists(derivation.pda);
+console.log("PDA existe:", exists);
+
+// Obtener información de cuenta PDA
+const pdaAccount = await pdaManager.getPDAAccount(derivation.pda);
+if (pdaAccount) {
+  console.log("Propietario:", pdaAccount.owner.toString());
+  console.log("Lamports:", pdaAccount.lamports);
+  console.log("Espacio:", pdaAccount.space);
+}
+```
+
+#### Patrones de PDAs
+```typescript
+// Obtener patrones comunes
+const patterns = pdaManager.getCommonPatterns();
+console.log("Patrones disponibles:");
+patterns.forEach(pattern => {
+  console.log(`- ${pattern.name}: ${pattern.description}`);
+  console.log(`  Seeds: ${pattern.seeds.join(' + ')}`);
+  console.log(`  Uso: ${pattern.useCase}`);
+  console.log("");
+});
+
+// Generar PDA para patrón específico
+const userProfilePattern = patterns.find(p => p.name === "User Profile");
+if (userProfilePattern) {
+  const userProfilePDA = await pdaManager.generatePDAForPattern(
+    programId,
+    userProfilePattern,
+    userAddress
+  );
+  console.log("PDA de perfil de usuario:", userProfilePDA.pda.toString());
+}
+```
+
+#### Análisis de PDAs
+```typescript
+// Analizar uso de PDAs
+const analysis = await pdaManager.analyzePDAUsage(programId);
+console.log("📊 Análisis de PDAs:");
+console.log(`Total de PDAs: ${analysis.totalPDAs}`);
+console.log(`PDAs activos: ${analysis.activePDAs}`);
+console.log(`Total de lamports: ${analysis.totalLamports}`);
+console.log(`Tamaño promedio: ${analysis.averageSize} bytes`);
+
+console.log("📈 Patrones de uso:");
+Object.entries(analysis.patterns).forEach(([pattern, count]) => {
+  console.log(`${pattern}: ${count} PDAs`);
+});
+
+// Optimizar operaciones PDA
+const optimization = await pdaManager.optimizePDAOperations(programId);
+console.log("💡 Recomendaciones:");
+optimization.recommendations.forEach((rec, index) => {
+  console.log(`${index + 1}. ${rec}`);
+});
+
+console.log("⚡ Optimizaciones disponibles:");
+Object.entries(optimization.optimizations).forEach(([key, value]) => {
+  console.log(`${key}: ${value ? '✅' : '❌'}`);
+});
+```
+
+#### Gestión Avanzada de PDAs
+```typescript
+// Derivar múltiples PDAs
+const seedSets = [
+  ["user", userAddress],
+  ["global", "config"],
+  ["token", userAddress, mintAddress]
+];
+
+const multiplePDAs = await pdaManager.deriveMultiplePDAs(programId, seedSets);
+console.log("PDAs derivados:");
+multiplePDAs.forEach((pda, index) => {
+  console.log(`${index + 1}. ${pda.pda.toString()} (bump: ${pda.bump})`);
+});
+
+// Validar derivación PDA
+const isValid = pdaManager.validatePDADerivation(
+  derivation.pda,
+  programId,
+  derivation.seeds,
+  derivation.bump
+);
+console.log("Derivación válida:", isValid);
+
+// Obtener estadísticas
+const stats = await pdaManager.getPDAStatistics(programId);
+console.log("📊 Estadísticas de PDAs:");
+console.log(`Derivaciones en caché: ${stats.derivationCount}`);
+console.log(`Tiempo promedio: ${stats.averageDerivationTime}ms`);
+console.log(`Tasa de acierto: ${(stats.cacheHitRate * 100).toFixed(1)}%`);
+console.log(`Patrones más usados: ${stats.mostUsedPatterns.join(', ')}`);
+```
+
+#### Utilidades de PDA
+```typescript
+// Formatear derivación PDA
+const formatted = PDAUtils.formatPDADerivation(derivation);
+console.log("Información de PDA:");
+console.log(formatted);
+
+// Validar patrón PDA
+const pattern = patterns[0];
+const isValidPattern = PDAUtils.validatePDAPattern(pattern);
+console.log("Patrón válido:", isValidPattern);
+
+// Generar seeds desde plantilla
+const template = "user + profile + timestamp";
+const seeds = PDAUtils.generateSeedsFromTemplate(
+  template,
+  userAddress,
+  { timestamp: Date.now().toString() }
+);
+console.log("Seeds generados:", seeds);
+
+// Comparar derivaciones PDA
+const derivation1 = await pdaManager.derivePDA(programId, ["user", userAddress]);
+const derivation2 = await pdaManager.derivePDA(programId, ["user", userAddress]);
+const comparison = PDAUtils.comparePDADerivations(derivation1, derivation2);
+console.log("Comparación de PDAs:");
+console.log(`Mismo PDA: ${comparison.samePDA}`);
+console.log(`Mismas seeds: ${comparison.sameSeeds}`);
+console.log(`Mismo programa: ${comparison.sameProgram}`);
+console.log(`Diferencia de bump: ${comparison.bumpDifference}`);
 ```
 
 #### Programa CPI Messenger Completo
