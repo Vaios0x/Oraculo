@@ -106,7 +106,8 @@ npm run solana:setup     # Configurar Solana CLI
 npm run solana:balance   # Verificar balance
 
 # Ejemplos
-npm run examples:accounts # Ejecutar ejemplos de cuentas
+npm run examples:accounts     # Ejecutar ejemplos de cuentas
+npm run examples:transactions # Ejecutar ejemplos de transacciones
 ```
 
 ### 📚 Ejemplos de Uso
@@ -134,6 +135,42 @@ await AccountExamples.fetchProgramAccount();
 await AccountExamples.fetchMintAccount();
 await AccountExamples.compareAccountTypes();
 await AccountExamples.analyzeAccount("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
+```
+
+#### Escribir Transacciones a Solana
+```typescript
+import { SolanaTransactionManager, TransactionUtils } from '@/utils/solana-transactions';
+
+// Crear manager de transacciones
+const connection = TransactionUtils.createConnection();
+const transactionManager = new SolanaTransactionManager(connection);
+
+// Transferir SOL
+const result = await transactionManager.transferSOL({
+  from: senderPublicKey,
+  to: receiverPublicKey,
+  amount: 0.1, // 0.1 SOL
+  signer: senderKeypair
+});
+
+// Crear token
+const tokenResult = await transactionManager.createToken({
+  wallet: walletKeypair,
+  decimals: 6,
+  mintAuthority: walletKeypair.publicKey
+});
+```
+
+#### Ejemplos de Transacciones
+```typescript
+import { TransactionExamples } from '@/examples/transaction-examples';
+
+// Ejemplos incluidos
+await TransactionExamples.transferSOL();        // Transferir SOL
+await TransactionExamples.createToken();        // Crear token
+await TransactionExamples.mintTokens();         // Mintear tokens
+await TransactionExamples.transferTokens();     // Transferir tokens
+await TransactionExamples.complexTransaction(); // Transacciones complejas
 ```
 
 ## 📊 Arquitectura del Sistema

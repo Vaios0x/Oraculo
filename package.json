@@ -13,7 +13,8 @@
     "anchor:test": "anchor test",
     "solana:setup": "solana config set --url devnet",
     "solana:balance": "solana balance",
-    "examples:accounts": "ts-node src/examples/account-examples.ts"
+    "examples:accounts": "ts-node src/examples/account-examples.ts",
+    "examples:transactions": "ts-node src/examples/transaction-examples.ts"
   },
   "keywords": [
     "solana",
