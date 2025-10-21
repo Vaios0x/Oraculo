@@ -1,0 +1,19 @@
+[package]
+name = "pda-messenger"
+version = "0.1.0"
+description = "PDA Messenger Program with CRUD operations"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "pda_messenger"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.32.1"

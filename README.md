@@ -109,6 +109,7 @@ npm run solana:balance   # Verificar balance
 npm run examples:accounts     # Ejecutar ejemplos de cuentas
 npm run examples:transactions # Ejecutar ejemplos de transacciones
 npm run examples:programs     # Ejecutar ejemplos de programas
+npm run examples:pda          # Ejecutar ejemplos de PDA
 ```
 
 ### 📚 Ejemplos de Uso
@@ -185,6 +186,86 @@ await ProgramExamples.testingStrategies();       // Estrategias de testing
 await ProgramExamples.deploymentChecklist();      // Checklist de despliegue
 await ProgramExamples.debuggingTechniques();     // Técnicas de debugging
 await ProgramExamples.upgradeStrategies();       // Estrategias de upgrade
+```
+
+#### Program Derived Addresses (PDA)
+```typescript
+import { PdaExamples } from '@/examples/pda-examples';
+
+// Ejemplos de PDA
+await PdaExamples.basics();                    // Conceptos básicos de PDA
+await PdaExamples.derivation();               // Derivación de PDAs
+await PdaExamples.crud();                     // Operaciones CRUD con PDA
+await PdaExamples.bestPractices();            // Mejores prácticas
+await PdaExamples.security();                 // Consideraciones de seguridad
+await PdaExamples.advancedPatterns();         // Patrones avanzados
+await PdaExamples.testingStrategies();        // Estrategias de testing
+```
+
+#### Programa PDA Messenger Completo
+```rust
+// programs/pda-messenger/src/lib.rs
+use anchor_lang::prelude::*;
+
+#[program]
+pub mod pda_messenger {
+    pub fn create(ctx: Context<Create>, message: String) -> Result<()> {
+        let account_data = &mut ctx.accounts.message_account;
+        account_data.user = ctx.accounts.user.key();
+        account_data.message = message;
+        account_data.bump = ctx.bumps.message_account;
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+#[instruction(message: String)]
+pub struct Create<'info> {
+    #[account(mut)]
+    pub user: Signer<'info>,
+    #[account(
+        init,
+        seeds = [b"message", user.key().as_ref()],
+        bump,
+        payer = user,
+        space = 8 + 32 + 4 + message.len() + 1
+    )]
+    pub message_account: Account<'info, MessageAccount>,
+    pub system_program: Program<'info, System>,
+}
+
+#[account]
+pub struct MessageAccount {
+    pub user: Pubkey,
+    pub message: String,
+    pub bump: u8,
+}
+```
+
+#### Testing PDA Completo
+```typescript
+// tests/pda-messenger.test.ts
+describe("PDA Messenger", () => {
+  const [messagePda, messageBump] = PublicKey.findProgramAddressSync(
+    [Buffer.from("message"), wallet.publicKey.toBuffer()],
+    program.programId
+  );
+
+  it("Create Message Account", async () => {
+    const message = "Hello, World!";
+    const txHash = await program.methods
+      .create(message)
+      .accounts({
+        messageAccount: messagePda,
+        user: wallet.publicKey,
+        systemProgram: SystemProgram.programId
+      })
+      .rpc();
+
+    const messageAccount = await program.account.messageAccount.fetch(messagePda);
+    expect(messageAccount.message).to.equal(message);
+  });
+});
 ```
 
 #### Programa Hello Anchor Completo
