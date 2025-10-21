@@ -110,6 +110,7 @@ npm run examples:accounts     # Ejecutar ejemplos de cuentas
 npm run examples:transactions # Ejecutar ejemplos de transacciones
 npm run examples:programs     # Ejecutar ejemplos de programas
 npm run examples:pda          # Ejecutar ejemplos de PDA
+npm run examples:cpi          # Ejecutar ejemplos de CPI
 ```
 
 ### 📚 Ejemplos de Uso
@@ -200,6 +201,89 @@ await PdaExamples.bestPractices();            // Mejores prácticas
 await PdaExamples.security();                 // Consideraciones de seguridad
 await PdaExamples.advancedPatterns();         // Patrones avanzados
 await PdaExamples.testingStrategies();        // Estrategias de testing
+```
+
+#### Cross Program Invocation (CPI)
+```typescript
+import { CpiExamples } from '@/examples/cpi-examples';
+
+// Ejemplos de CPI
+await CpiExamples.basics();                    // Conceptos básicos de CPI
+await CpiExamples.systemProgram();            // CPI con System Program
+await CpiExamples.pdaSigning();               // PDA signing con CPI
+await CpiExamples.tokenProgram();             // CPI con Token Program
+await CpiExamples.customProgram();            // CPI con programas personalizados
+await CpiExamples.errorHandling();            // Manejo de errores
+await CpiExamples.testingStrategies();        // Estrategias de testing
+await CpiExamples.bestPractices();            // Mejores prácticas
+await CpiExamples.advancedPatterns();         // Patrones avanzados
+```
+
+#### Programa CPI Messenger Completo
+```rust
+// programs/cpi-messenger/src/lib.rs
+use anchor_lang::system_program::{transfer, Transfer};
+
+#[program]
+pub mod cpi_messenger {
+    pub fn update(ctx: Context<Update>, message: String) -> Result<()> {
+        // CPI: Transfer SOL from user to vault
+        let transfer_accounts = Transfer {
+            from: ctx.accounts.user.to_account_info(),
+            to: ctx.accounts.vault_account.to_account_info(),
+        };
+
+        let cpi_context = CpiContext::new(
+            ctx.accounts.system_program.to_account_info(),
+            transfer_accounts,
+        );
+
+        transfer(cpi_context, 1_000_000)?; // 0.001 SOL
+        Ok(())
+    }
+
+    pub fn delete(ctx: Context<Delete>) -> Result<()> {
+        // CPI: Transfer SOL from vault back to user
+        let signer_seeds: &[&[&[u8]]] = &[&[
+            b"vault",
+            user_key.as_ref(),
+            &[ctx.bumps.vault_account]
+        ]];
+
+        let cpi_context = CpiContext::new(...)
+            .with_signer(signer_seeds);
+        transfer(cpi_context, vault_balance)?;
+        Ok(())
+    }
+}
+```
+
+#### Testing CPI Completo
+```typescript
+// tests/cpi-messenger.test.ts
+describe("CPI Messenger", () => {
+  it("Update Message Account with Payment", async () => {
+    const newMessage = "Hello, Solana!";
+    
+    const txHash = await program.methods
+      .update(newMessage)
+      .accounts({
+        messageAccount: messagePda,
+        vaultAccount: vaultPda,
+        user: wallet.publicKey,
+        systemProgram: SystemProgram.programId
+      })
+      .rpc();
+
+    // Verify payment was made
+    const vaultBalance = await program.methods
+      .getVaultBalance()
+      .accounts({ vaultAccount: vaultPda })
+      .view();
+
+    expect(vaultBalance.toNumber()).to.equal(1_000_000); // 0.001 SOL
+  });
+});
 ```
 
 #### Programa PDA Messenger Completo

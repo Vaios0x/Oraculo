@@ -8,14 +8,17 @@ skip-lint = false
 [programs.localnet]
 hello_anchor = "11111111111111111111111111111111"
 pda_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
+cpi_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
 
 [programs.devnet]
 hello_anchor = "11111111111111111111111111111111"
 pda_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
+cpi_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
 
 [programs.mainnet]
 hello_anchor = "11111111111111111111111111111111"
 pda_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
+cpi_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
 
 [registry]
 url = "https://api.apr.dev"
