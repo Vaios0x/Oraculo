@@ -401,6 +401,17 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
 
 ### **🚀 Instalación Rápida**
 
+#### **Opción 1: Script Automático (Recomendado)**
+```bash
+# 🎯 Clonar el repositorio
+git clone https://github.com/Vaios0x/Oraculo.git
+cd Oraculo
+
+# 🚀 Ejecutar script de inicio rápido
+./quick-start.sh
+```
+
+#### **Opción 2: Instalación Manual**
 ```bash
 # 🎯 Clonar el repositorio
 git clone https://github.com/Vaios0x/Oraculo.git
@@ -408,9 +419,10 @@ cd Oraculo
 
 # 📦 Instalar dependencias
 npm install
+cd frontend && npm install && cd ..
 
 # ⚙️ Configurar variables de entorno
-cp .env.example .env
+cp env.example .env
 
 # 🔨 Compilar smart contracts
 npm run anchor:build
@@ -420,6 +432,16 @@ npm run anchor:deploy
 
 # 🌐 Iniciar aplicación
 npm run dev
+```
+
+#### **Opción 3: Build y Deploy Completo**
+```bash
+# 🎯 Clonar el repositorio
+git clone https://github.com/Vaios0x/Oraculo.git
+cd Oraculo
+
+# 🚀 Ejecutar script completo de construcción y despliegue
+./scripts/build-and-deploy.sh
 ```
 
 ### **🛠️ Scripts Disponibles**

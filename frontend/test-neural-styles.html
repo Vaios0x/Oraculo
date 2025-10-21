@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Neural Styles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Neural Animations */
+        @keyframes neural-pulse {
+          0%, 100% { 
+            opacity: 0.8;
+            transform: scale(1);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+          }
+          50% { 
+            opacity: 1;
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+          }
+        }
+
+        @keyframes neural-glow {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5), 0 0 60px rgba(139, 92, 246, 0.2);
+          }
+        }
+
+        @keyframes neural-float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+
+        .neural-glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+        }
+
+        .neural-card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+        }
+
+        .neural-card:hover {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        .neural-button {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .neural-button:hover {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+            transform: scale(1.05);
+        }
+
+        .neural-pulse-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: #10b981;
+            animation: neural-pulse 2s ease-in-out infinite;
+        }
+
+        .neural-floating {
+            animation: neural-float 6s ease-in-out infinite;
+        }
+
+        .neural-glow {
+            animation: neural-glow 3s ease-in-out infinite;
+        }
+
+        .neural-text-glow {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+        <h1 class="text-4xl font-bold text-center neural-text-glow text-purple-600">
+            Test Neural Styles
+        </h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="neural-card neural-floating">
+                <h3 class="text-xl font-semibold mb-4 neural-text-glow">Neural Card</h3>
+                <p class="text-gray-600 mb-4">Esta es una tarjeta neural con efectos de glassmorphism.</p>
+                <div class="flex items-center space-x-2">
+                    <div class="neural-pulse-dot"></div>
+                    <span class="text-sm text-green-600">Activo</span>
+                </div>
+            </div>
+            
+            <div class="neural-glass rounded-xl p-6 neural-glow">
+                <h3 class="text-xl font-semibold mb-4 neural-text-glow">Glass Effect</h3>
+                <p class="text-gray-600 mb-4">Efecto de vidrio esmerilado con blur.</p>
+                <button class="neural-button">
+                    Botón Neural
+                </button>
+            </div>
+        </div>
+        
+        <div class="neural-card neural-floating">
+            <h3 class="text-2xl font-semibold mb-6 neural-text-glow">Efectos Neurales</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center p-4 neural-glass rounded-lg">
+                    <div class="neural-pulse-dot mx-auto mb-2"></div>
+                    <p class="text-sm">Pulse</p>
+                </div>
+                <div class="text-center p-4 neural-glass rounded-lg neural-floating">
+                    <div class="w-4 h-4 bg-purple-500 rounded-full mx-auto mb-2"></div>
+                    <p class="text-sm">Float</p>
+                </div>
+                <div class="text-center p-4 neural-glass rounded-lg neural-glow">
+                    <div class="w-4 h-4 bg-purple-500 rounded-full mx-auto mb-2"></div>
+                    <p class="text-sm">Glow</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
