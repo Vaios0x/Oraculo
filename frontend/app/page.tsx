@@ -424,17 +424,30 @@ export default function OraculoApp() {
                       ORÁCULO
                     </h1>
                     <div className="relative">
-                      <img 
-                        src="/images/txD31htO_400x400.png" 
-                        alt="Fruta Build Logo" 
-                        className={`matrix-glow object-cover rounded-full ${
-                          isMobile ? 'w-12 h-12' : isTablet ? 'w-14 h-14' : 'w-16 h-16'
-                        }`}
-                        style={{
-                          filter: 'drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 16px #00ff00)',
-                          border: '2px solid rgba(0, 255, 0, 0.4)'
-                        }}
-                      />
+                      <div className={`matrix-glow object-cover rounded-full flex items-center justify-center ${
+                        isMobile ? 'w-12 h-12' : isTablet ? 'w-14 h-14' : 'w-16 h-16'
+                      }`}
+                      style={{
+                        filter: 'drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 16px #00ff00)',
+                        border: '2px solid rgba(0, 255, 0, 0.4)',
+                        backgroundColor: '#000000'
+                      }}>
+                        <img 
+                          src="/images/txD31htO_400x400.png" 
+                          alt="Fruta Build Logo" 
+                          className="w-full h-full object-cover rounded-full"
+                          onError={(e) => {
+                            console.log('Error loading txD3 image:', e);
+                            e.currentTarget.style.display = 'none';
+                            // Show fallback emoji
+                            const parent = e.currentTarget.parentElement;
+                            if (parent) {
+                              parent.innerHTML = '<span class="text-2xl">🍇</span>';
+                            }
+                          }}
+                          onLoad={() => console.log('txD3 image loaded successfully')}
+                        />
+                      </div>
                       <div className="absolute inset-0 rounded-full bg-green-400/20 animate-pulse"></div>
                     </div>
                   </div>
