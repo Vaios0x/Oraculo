@@ -219,15 +219,16 @@ export function Footer() {
             {/* México Flag and Text */}
             <div className="flex items-center space-x-3 mt-4 pt-4 border-t border-white/20">
               <div className="flex items-center space-x-2">
-                {/* México Flag */}
-                <div className="flex">
-                  <div className="w-3 h-2 bg-green-500"></div>
-                  <div className="w-3 h-2 bg-white"></div>
-                  <div className="w-3 h-2 bg-red-500 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                {/* México Flag - Correct Design */}
+                <div className="flex border border-gray-300 rounded-sm">
+                  <div className="w-4 h-3 bg-green-600"></div>
+                  <div className="w-4 h-3 bg-white relative flex items-center justify-center">
+                    {/* Mexican Eagle Shield */}
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full flex items-center justify-center">
+                      <div className="w-1 h-1 bg-yellow-600 rounded-full"></div>
                     </div>
                   </div>
+                  <div className="w-4 h-3 bg-red-600"></div>
                 </div>
                 <span className="text-sm matrix-text-white font-medium">
                   🇲🇽 Hecho en México
