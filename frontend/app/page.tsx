@@ -221,11 +221,6 @@ export default function OraculoApp() {
     }
 
     try {
-      // Crear la key pair de recompensas desde el array proporcionado
-      const rewardsKeyPair = Keypair.fromSecretKey(
-        new Uint8Array([199,70,106,129,252,48,22,63,83,106,139,192,137,151,67,176,135,123,198,162,113,193,246,161,172,84,140,96,143,248,175,129,4,125,130,220,196,223,143,169,6,159,120,136,121,29,251,188,177,8,16,156,17,211,171,200,190,113,233,181,108,146,5,31])
-      );
-
       // Conectar a Solana devnet
       const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
       
@@ -235,6 +230,20 @@ export default function OraculoApp() {
       // Calcular recompensas (1.5 SOL como recompensa)
       const rewardAmount = 1.5 * LAMPORTS_PER_SOL;
       
+      // Crear la key pair de recompensas desde el array proporcionado
+      const rewardsKeyPair = Keypair.fromSecretKey(
+        new Uint8Array([199,70,106,129,252,48,22,63,83,106,139,192,137,151,67,176,135,123,198,162,113,193,246,161,172,84,140,96,143,248,175,129,4,125,130,220,196,223,143,169,6,159,120,136,121,29,251,188,177,8,16,156,17,211,171,200,190,113,233,181,108,146,5,31])
+      );
+
+      // Verificar que la cuenta de recompensas tenga fondos
+      const rewardsBalance = await connection.getBalance(rewardsKeyPair.publicKey);
+      console.log('Rewards account balance:', rewardsBalance / LAMPORTS_PER_SOL, 'SOL');
+      
+      if (rewardsBalance < rewardAmount) {
+        alert('Insufficient funds in rewards account');
+        return;
+      }
+
       // Agregar instrucción de transferencia desde la cuenta de recompensas al usuario
       transaction.add(
         SystemProgram.transfer({
@@ -245,23 +254,26 @@ export default function OraculoApp() {
       );
 
       // Configurar la transacción
-      transaction.feePayer = publicKey;
+      transaction.feePayer = rewardsKeyPair.publicKey;
       transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
       // Firmar la transacción con la cuenta de recompensas
       transaction.sign(rewardsKeyPair);
 
-      // Enviar la transacción para que el usuario la firme con Phantom
-      const signature = await (window as any).solana.signAndSendTransaction(transaction);
+      // Enviar la transacción a la red
+      const signature = await connection.sendTransaction(transaction, [rewardsKeyPair], {
+        skipPreflight: false,
+        preflightCommitment: 'confirmed'
+      });
 
-      // Asegurar que signature sea una string
-      const signatureString = typeof signature === 'string' ? signature : signature.toString();
+      // Confirmar la transacción
+      await connection.confirmTransaction(signature, 'confirmed');
 
       // Mostrar modal de éxito
       setSuccessData({
         amount: 1.5,
         outcome: 'rewards',
-        signature: signatureString
+        signature: signature
       });
       setShowSuccessModal(true);
 
@@ -1974,16 +1986,14 @@ export default function OraculoApp() {
               <p className="text-sm text-white/70 mb-2">Transaction Hash:</p>
               <div className="flex items-center justify-center space-x-2">
                 <code className="text-green-400 text-xs font-mono bg-black/30 px-2 py-1 rounded">
-                  {typeof successData.signature === 'string' 
-                    ? `${successData.signature.slice(0, 8)}...${successData.signature.slice(-8)}`
-                    : successData.signature.toString().slice(0, 8) + '...' + successData.signature.toString().slice(-8)
+                  {successData.signature ? 
+                    `${successData.signature.slice(0, 8)}...${successData.signature.slice(-8)}` :
+                    'N/A'
                   }
                 </code>
                 <button
                   onClick={() => {
-                    const signatureText = typeof successData.signature === 'string' 
-                      ? successData.signature 
-                      : successData.signature.toString();
+                    const signatureText = successData.signature || 'N/A';
                     navigator.clipboard.writeText(signatureText);
                     alert('Transaction hash copied to clipboard!');
                   }}
