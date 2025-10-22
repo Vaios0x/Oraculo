@@ -17,7 +17,8 @@ import {
   AlertTriangle,
   CheckCircle,
   XCircle,
-  Info
+  Info,
+  Users
 } from 'lucide-react';
 
 /**
