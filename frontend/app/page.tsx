@@ -190,7 +190,10 @@ export default function OraculoApp() {
           
           
           <button
-            onClick={() => setShowOracleDemo(!showOracleDemo)}
+            onClick={() => {
+              console.log('Oracle Demo button clicked, current state:', showOracleDemo);
+              setShowOracleDemo(!showOracleDemo);
+            }}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showOracleDemo 
                 ? 'bg-black text-green-400 matrix-glow' 
@@ -1435,7 +1438,11 @@ export default function OraculoApp() {
         {/* Oracle Demo Section */}
         {showOracleDemo && (
           <div className="mt-8">
-            <OracleDemo />
+            <div className="matrix-card-enhanced p-6">
+              <h2 className="text-2xl font-bold matrix-text-green mb-4">🔮 Oracle Demo</h2>
+              <p className="matrix-text-white mb-4">Demostración del programa Oracle en Solana</p>
+              <OracleDemo />
+            </div>
           </div>
         )}
 
