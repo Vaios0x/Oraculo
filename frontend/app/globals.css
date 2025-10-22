@@ -83,38 +83,6 @@
     overflow-x: hidden;
   }
 
-  /* Matrix Neural Background */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.08) 0%, transparent 50%);
-    z-index: -3;
-    animation: matrix-pulse 8s ease-in-out infinite;
-  }
-
-  /* Matrix Grid Overlay */
-  body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-    z-index: -2;
-    animation: matrix-grid 20s linear infinite;
-  }
-  
   /* Scrollbar personalizada */
   ::-webkit-scrollbar {
     width: 8px;
