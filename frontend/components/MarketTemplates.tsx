@@ -230,31 +230,31 @@ export function MarketTemplates({ onSelectTemplate }: { onSelectTemplate: (templ
                 <div
                   key={template.id}
                   onClick={() => onSelectTemplate(template)}
-                  className="neural-card neural-floating cursor-pointer hover:scale-105 transition-all duration-200 p-4 space-y-3"
+                  className="matrix-card-enhanced neural-floating cursor-pointer hover:matrix-glow transition-all duration-200 p-4 space-y-3"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg ${template.color} text-white`}>
+                    <div className={`p-2 rounded-lg ${template.color} text-white matrix-glow`}>
                       {template.icon}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 neural-text-glow">
+                      <h4 className="font-semibold matrix-text-green neural-text-glow">
                         {template.title}
                       </h4>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm matrix-text-white text-opacity-80">
                         {template.description}
                       </p>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-gray-700">
+                    <p className="text-sm font-medium matrix-text-white">
                       {template.question}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {template.outcomes.map((outcome, index) => (
                         <span
                           key={index}
-                          className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
+                          className="px-2 py-1 text-xs bg-black/50 text-green-400 rounded-full matrix-glow border border-green-400/30"
                         >
                           {outcome}
                         </span>
@@ -262,9 +262,9 @@ export function MarketTemplates({ onSelectTemplate }: { onSelectTemplate: (templ
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-sm text-gray-500">
+                  <div className="flex items-center justify-between text-sm matrix-text-white text-opacity-70">
                     <span>Duración: {template.endTime} días</span>
-                    <span className="neural-status">Usar plantilla</span>
+                    <span className="matrix-text-green matrix-glow">Usar plantilla</span>
                   </div>
                 </div>
               ))}

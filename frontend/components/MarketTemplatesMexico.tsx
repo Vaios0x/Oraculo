@@ -565,28 +565,28 @@ export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexic
                 <div
                   key={template.id}
                   onClick={() => onSelectTemplate(template)}
-                  className="neural-card neural-floating cursor-pointer hover:neural-glow transition-all duration-300 group"
+                  className="matrix-card-enhanced neural-floating cursor-pointer hover:matrix-glow transition-all duration-300 group"
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <div className={`w-12 h-12 ${template.color} rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform`}>
+                      <div className={`w-12 h-12 ${template.color} rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform matrix-glow`}>
                         {template.icon}
                       </div>
-                      <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                      <span className="text-xs font-medium matrix-text-white bg-black/50 px-2 py-1 rounded matrix-glow">
                         {template.endTime} días
                       </span>
                     </div>
                     
-                    <h4 className="text-lg font-semibold text-gray-900 neural-text-glow mb-2 group-hover:text-neural-primary transition-colors">
+                    <h4 className="text-lg font-semibold matrix-text-green neural-text-glow mb-2 group-hover:text-green-400 transition-colors">
                       {template.title}
                     </h4>
                     
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    <p className="matrix-text-white text-opacity-80 text-sm mb-4 line-clamp-3">
                       {template.description}
                     </p>
                     
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-gray-700">
+                      <p className="text-sm font-medium matrix-text-white">
                         {template.question}
                       </p>
                       
@@ -594,7 +594,7 @@ export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexic
                         {template.outcomes.map((outcome, index) => (
                           <span
                             key={index}
-                            className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full"
+                            className="text-xs bg-black/50 text-green-400 px-2 py-1 rounded-full matrix-glow border border-green-400/30"
                           >
                             {outcome}
                           </span>
@@ -603,10 +603,10 @@ export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexic
                     </div>
                     
                     <div className="mt-4 flex items-center justify-between">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs matrix-text-white text-opacity-70">
                         {template.category}
                       </span>
-                      <div className="flex items-center text-neural-primary group-hover:text-neural-primary-dark">
+                      <div className="flex items-center matrix-text-green group-hover:text-green-400 matrix-glow">
                         <span className="text-sm font-medium">Crear Mercado</span>
                         <Zap className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
