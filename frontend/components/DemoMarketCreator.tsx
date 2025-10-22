@@ -228,17 +228,17 @@ export function DemoMarketCreator() {
               href={getSolanaExplorerUrl(createdMarket.signature)}
               target="_blank"
               rel="noopener noreferrer"
-              className="neural-button-primary flex items-center justify-center space-x-2 px-6 py-3"
+              className="matrix-button-enhanced flex items-center justify-center space-x-2 px-6 py-3"
             >
               <ExternalLink className="w-5 h-5" />
-              <span>Ver en Solana Explorer</span>
+              <span className="matrix-text-green font-semibold">Ver en Solana Explorer</span>
             </a>
             
             <button
               onClick={handleBackToTemplates}
-              className="neural-button-secondary px-6 py-3"
+              className="matrix-button-enhanced px-6 py-3"
             >
-              Crear Otro Mercado Demo
+              <span className="matrix-text-green font-semibold">Crear Otro Mercado Demo</span>
             </button>
           </div>
         </div>
