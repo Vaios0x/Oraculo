@@ -635,40 +635,259 @@ export default function OraculoApp() {
         )}
 
         {activeTab === 'dashboard' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="neural-card neural-floating">
-                <h3 className="text-lg font-semibold text-gray-900 neural-text-glow mb-4">Portfolio Overview</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Total Staked</span>
-                    <span className="text-neural-primary font-semibold">1,250 SOL</span>
+          <div className="space-y-8">
+            {/* Dashboard Header */}
+            <div className="matrix-card-enhanced p-6 text-center">
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+                <h2 className="text-3xl font-bold matrix-text-green">Trading Dashboard</h2>
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+              </div>
+              <p className="matrix-text-white text-opacity-80">Real-time portfolio analytics and market insights</p>
+            </div>
+
+            {/* Main Dashboard Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Portfolio Overview */}
+              <div className="matrix-card-enhanced neural-floating">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-green-400 text-xl">💰</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Portfolio Overview</h3>
+                      <p className="matrix-text-white text-opacity-80">Your trading performance</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Active Markets</span>
-                    <span className="text-green-600 font-semibold">12</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Total Returns</span>
-                    <span className="text-blue-600 font-semibold">+15.3%</span>
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-3 bg-black/50 rounded-lg">
+                      <span className="matrix-text-white">Total Staked</span>
+                      <span className="matrix-text-green font-bold text-lg">1,250 SOL</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-black/50 rounded-lg">
+                      <span className="matrix-text-white">Active Markets</span>
+                      <span className="matrix-text-green font-bold text-lg">12</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-black/50 rounded-lg">
+                      <span className="matrix-text-white">Total Returns</span>
+                      <span className="matrix-text-green font-bold text-lg">+15.3%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-black/50 rounded-lg">
+                      <span className="matrix-text-white">Win Rate</span>
+                      <span className="matrix-text-green font-bold text-lg">78.5%</span>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              <div className="neural-card neural-floating" style={{ animationDelay: '0.1s' }}>
-                <h3 className="text-lg font-semibold text-gray-900 neural-text-glow mb-4">Recent Activity</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600">Staked 50 SOL on Bitcoin prediction</span>
+
+              {/* Market Performance */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.1s' }}>
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-blue-400 text-xl">📈</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Market Performance</h3>
+                      <p className="matrix-text-white text-opacity-80">Trading analytics</p>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600">Market resolved: Ethereum Merge</span>
+                  
+                  <div className="space-y-4">
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white text-sm">Bitcoin Prediction</span>
+                        <span className="matrix-text-green text-sm">+23.4%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-green-400 h-2 rounded-full" style={{ width: '75%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white text-sm">Ethereum Merge</span>
+                        <span className="matrix-text-green text-sm">+18.7%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-green-400 h-2 rounded-full" style={{ width: '60%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white text-sm">Solana TVL</span>
+                        <span className="matrix-text-red text-sm">-5.2%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-red-400 h-2 rounded-full" style={{ width: '20%' }}></div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600">Created new market: Solana TVL</span>
+                </div>
+              </div>
+
+              {/* Quick Actions */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.2s' }}>
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-purple-400 text-xl">⚡</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Quick Actions</h3>
+                      <p className="matrix-text-white text-opacity-80">Fast trading tools</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <button className="matrix-button-enhanced w-full p-3 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">🎯</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Create Market</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Start new prediction</div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <button className="matrix-button-enhanced w-full p-3 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">📊</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">View Analytics</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Detailed insights</div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <button className="matrix-button-enhanced w-full p-3 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">🔔</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Set Alerts</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Price notifications</div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activity & Market Trends */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Recent Activity */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-orange-400 text-xl">🔄</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Recent Activity</h3>
+                      <p className="matrix-text-white text-opacity-80">Your latest transactions</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-4 p-3 bg-black/50 rounded-lg">
+                      <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                      <div className="flex-1">
+                        <div className="matrix-text-white font-medium">Staked 50 SOL</div>
+                        <div className="matrix-text-white text-opacity-70 text-sm">Bitcoin prediction • 2 hours ago</div>
+                      </div>
+                      <div className="matrix-text-green font-semibold">+50 SOL</div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-4 p-3 bg-black/50 rounded-lg">
+                      <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+                      <div className="flex-1">
+                        <div className="matrix-text-white font-medium">Market Resolved</div>
+                        <div className="matrix-text-white text-opacity-70 text-sm">Ethereum Merge • 1 day ago</div>
+                      </div>
+                      <div className="matrix-text-green font-semibold">+23.4%</div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-4 p-3 bg-black/50 rounded-lg">
+                      <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
+                      <div className="flex-1">
+                        <div className="matrix-text-white font-medium">Created Market</div>
+                        <div className="matrix-text-white text-opacity-70 text-sm">Solana TVL • 3 days ago</div>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70">New</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Market Trends */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-cyan-400 text-xl">📊</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Market Trends</h3>
+                      <p className="matrix-text-white text-opacity-80">Popular predictions</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Bitcoin Price</span>
+                        <span className="matrix-text-green text-sm">🔥 Trending</span>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70 text-sm">1,247 active stakers</div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Ethereum Merge</span>
+                        <span className="matrix-text-green text-sm">✅ Resolved</span>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70 text-sm">892 participants</div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Solana TVL</span>
+                        <span className="matrix-text-orange text-sm">📈 Growing</span>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70 text-sm">456 active stakers</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Trading Statistics */}
+            <div className="matrix-card-enhanced">
+              <div className="p-6">
+                <h3 className="text-2xl font-bold matrix-text-green mb-6 text-center">Trading Statistics</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">47</div>
+                    <div className="matrix-text-white text-sm">Total Trades</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">78.5%</div>
+                    <div className="matrix-text-white text-sm">Win Rate</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">+15.3%</div>
+                    <div className="matrix-text-white text-sm">Total Return</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">1,250</div>
+                    <div className="matrix-text-white text-sm">SOL Staked</div>
                   </div>
                 </div>
               </div>
