@@ -61,7 +61,7 @@ export function Layout({ children, sidebar }: LayoutProps) {
 
       {/* Sidebar */}
       <div className={`
-        ${isMobile ? 'fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out' : 'w-64 flex-shrink-0 sticky top-0 h-screen'}
+        ${isMobile ? 'fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out' : 'w-64 flex-shrink-0'}
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         bg-white/10 backdrop-blur-md border-r border-white/20 flex flex-col
         ${!isMobile ? 'relative' : ''}
