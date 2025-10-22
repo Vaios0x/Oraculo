@@ -96,6 +96,12 @@ export default function OraculoApp() {
     outcome: string;
     signature: string;
   } | null>(null);
+  const [showResolveSuccessModal, setShowResolveSuccessModal] = useState(false);
+  const [resolveSuccessData, setResolveSuccessData] = useState<{
+    marketId: string;
+    outcome: string;
+    signature: string;
+  } | null>(null);
 
   // Combinar mercados mock y demo
   const allMarkets = React.useMemo(() => {
@@ -188,7 +194,12 @@ export default function OraculoApp() {
       const result = await resolveMarket(marketId, winningOutcome);
 
       if (result.success) {
-        alert(`Market resolved with outcome: ${winningOutcome}! Transaction: ${result.signature}`);
+        setResolveSuccessData({
+          marketId,
+          outcome: winningOutcome,
+          signature: result.signature!
+        });
+        setShowResolveSuccessModal(true);
       } else {
         alert(`Failed to resolve: ${result.error}`);
       }
@@ -1934,6 +1945,83 @@ export default function OraculoApp() {
           <div className="absolute top-4 left-4 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
           <div className="absolute top-8 right-6 w-1 h-1 bg-green-400 rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
           <div className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-green-400 rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
+        </div>
+      </div>
+    )}
+
+    {/* Resolve Success Modal */}
+    {showResolveSuccessModal && resolveSuccessData && (
+      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+        <div className="bg-gradient-to-br from-blue-900/20 to-black border border-blue-400/30 rounded-2xl p-8 w-full max-w-md mx-4 relative overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/5 to-transparent"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+          
+          {/* Success Icon */}
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center shadow-2xl shadow-blue-400/30 animate-pulse">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Success Content */}
+          <div className="text-center space-y-4 relative z-10">
+            <h3 className="text-2xl font-bold text-blue-400 mb-2">¡Mercado Resuelto!</h3>
+            <p className="text-white/90 text-lg">
+              Has resuelto el mercado con el resultado:
+              <span className="text-blue-400 font-bold"> {resolveSuccessData.outcome}</span>
+            </p>
+            
+            {/* Transaction Info */}
+            <div className="bg-black/50 rounded-lg p-4 border border-blue-400/20">
+              <p className="text-sm text-white/70 mb-2">Transaction Hash:</p>
+              <div className="flex items-center justify-center space-x-2">
+                <code className="text-blue-400 text-xs font-mono bg-black/30 px-2 py-1 rounded">
+                  {resolveSuccessData.signature.slice(0, 8)}...{resolveSuccessData.signature.slice(-8)}
+                </code>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(resolveSuccessData.signature);
+                    alert('Transaction hash copied to clipboard!');
+                  }}
+                  className="p-1 hover:bg-blue-400/20 rounded transition-colors"
+                  title="Copy full hash"
+                >
+                  <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex space-x-3 pt-4">
+              <button
+                onClick={() => {
+                  window.open(`https://explorer.solana.com/tx/${resolveSuccessData.signature}?cluster=devnet`, '_blank');
+                }}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg shadow-blue-400/25"
+              >
+                🔗 Ver en Explorer
+              </button>
+              <button
+                onClick={() => {
+                  setShowResolveSuccessModal(false);
+                  setResolveSuccessData(null);
+                }}
+                className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+
+          {/* Floating Particles */}
+          <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
+          <div className="absolute top-8 right-6 w-1 h-1 bg-blue-400 rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-blue-400 rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
         </div>
       </div>
     )}

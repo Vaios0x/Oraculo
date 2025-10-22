@@ -104,21 +104,18 @@ export function useStaking() {
       // Conectar a Solana Devnet
       const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
       
-      // Crear una cuenta derivada para el mercado (simulada)
-      const marketSeed = `market_${marketId}_resolve`;
-      const [marketAccount] = PublicKey.findProgramAddressSync(
-        [Buffer.from(marketSeed)],
-        new PublicKey('11111111111111111111111111111111') // System Program como placeholder
-      );
-      
-      // Crear transacción de resolución
+      // Crear transacción de resolución más simple
       const transaction = new Transaction();
       
-      // Crear instrucción de resolución (simulada) - solo fee mínimo
+      // Crear una cuenta temporal para el mercado (usando una dirección conocida)
+      // En producción, esto sería una PDA del programa de mercados
+      const marketAccount = new PublicKey('11111111111111111111111111111112'); // Diferente del System Program
+      
+      // Crear instrucción de resolución con rent mínimo
       const resolveInstruction = SystemProgram.transfer({
         fromPubkey: publicKey,
         toPubkey: marketAccount,
-        lamports: 1000, // Fee mínimo para la transacción
+        lamports: 1000000, // 0.001 SOL - suficiente para rent mínimo
       });
       
       transaction.add(resolveInstruction);
