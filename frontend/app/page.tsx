@@ -14,6 +14,9 @@ import { DemoMarketCreator } from '../components/DemoMarketCreator';
 import { WalletButton } from '../components/WalletButton';
 import { WalletStatus } from '../components/WalletStatus';
 import { MatrixBackground, MatrixGrid, MatrixScan } from '../components/MatrixBackground';
+import { CypherpunkManifesto } from '../components/CypherpunkManifesto';
+import { CypherpunkStats } from '../components/CypherpunkStats';
+import { CypherpunkRoadmap } from '../components/CypherpunkRoadmap';
 import { useDemoMarkets } from '../hooks/useDemoMarkets';
 import { 
   Home, 
@@ -83,6 +86,7 @@ export default function OraculoApp() {
   const [showRealMarkets, setShowRealMarkets] = useState(false);
   const [showDemoCreator, setShowDemoCreator] = useState(false);
   const [randomPercentages, setRandomPercentages] = useState<number[]>([]);
+  const [showShipyardAward, setShowShipyardAward] = useState(false);
 
   // Combinar mercados mock y demo
   const allMarkets = React.useMemo(() => {
@@ -231,6 +235,18 @@ export default function OraculoApp() {
           </button>
           
           <button
+            onClick={() => setActiveTab('shipyard')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              activeTab === 'shipyard'
+                ? 'bg-green-500/20 text-green-400' 
+                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+            }`}
+          >
+            <Zap className="w-5 h-5" />
+            <span className="font-medium">🚀 Shipyard MX</span>
+          </button>
+          
+          <button
             onClick={() => setShowDemoCreator(!showDemoCreator)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showDemoCreator 
@@ -373,6 +389,49 @@ export default function OraculoApp() {
         {activeTab === 'create' && (
           <div className="space-y-6">
             <DemoMarketCreator />
+          </div>
+        )}
+
+        {activeTab === 'shipyard' && (
+          <div className="space-y-8">
+            {/* Shipyard MX Award Header */}
+            <div className="matrix-card-enhanced p-8 text-center space-y-6">
+              <div className="flex items-center justify-center space-x-4">
+                <Zap className="w-16 h-16 text-green-400 matrix-glow" />
+                <div>
+                  <h1 className="text-4xl font-bold matrix-text-green">
+                    🚀 Shipyard MX Award
+                  </h1>
+                  <p className="text-xl matrix-text-white">
+                    Top Mexican Projects with Cypherpunk Values
+                  </p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="matrix-card-enhanced p-4">
+                  <div className="text-3xl font-bold matrix-text-green">1,500</div>
+                  <div className="text-sm matrix-text-white">USDC Total Prizes</div>
+                </div>
+                <div className="matrix-card-enhanced p-4">
+                  <div className="text-3xl font-bold matrix-text-green">🇲🇽</div>
+                  <div className="text-sm matrix-text-white">Mexican Innovation</div>
+                </div>
+                <div className="matrix-card-enhanced p-4">
+                  <div className="text-3xl font-bold matrix-text-green">🔐</div>
+                  <div className="text-sm matrix-text-white">Cypherpunk Values</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cypherpunk Manifesto */}
+            <CypherpunkManifesto />
+
+            {/* Cypherpunk Stats */}
+            <CypherpunkStats />
+
+            {/* Cypherpunk Roadmap */}
+            <CypherpunkRoadmap />
           </div>
         )}
 
