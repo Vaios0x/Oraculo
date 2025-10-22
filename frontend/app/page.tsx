@@ -442,29 +442,192 @@ export default function OraculoApp() {
         )}
 
         {activeTab === 'network' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="neural-card neural-floating">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 neural-text-glow">Current Slot</h3>
-                  <p className="text-4xl font-bold text-neural-primary neural-text-glow">2,847,392</p>
-                  <p className="text-sm text-gray-500 mt-2">Last updated: 2 seconds ago</p>
+          <div className="space-y-8">
+            {/* Network Status Header */}
+            <div className="matrix-card-enhanced p-6 text-center">
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+                <h2 className="text-2xl font-bold matrix-text-green">Solana Network Status</h2>
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+              </div>
+              <p className="matrix-text-white text-opacity-80">Real-time blockchain metrics and network health</p>
+            </div>
+
+            {/* Main Network Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Current Slot */}
+              <div className="matrix-card-enhanced neural-floating">
+                <div className="text-center p-6">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-blue-400 text-lg">#</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Current Slot</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">2,847,392</p>
+                  <p className="text-sm matrix-text-white text-opacity-70 mt-2">Last updated: 2 seconds ago</p>
+                  <div className="mt-3 flex items-center justify-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs matrix-text-green">Live</span>
+                  </div>
                 </div>
               </div>
               
-              <div className="neural-card neural-floating" style={{ animationDelay: '0.1s' }}>
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 neural-text-glow">TPS</h3>
-                  <p className="text-4xl font-bold text-green-600 neural-text-glow">3,247</p>
-                  <p className="text-sm text-gray-500 mt-2">Transactions per second</p>
+              {/* TPS */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.1s' }}>
+                <div className="text-center p-6">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-green-400 text-lg">⚡</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">TPS</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">3,247</p>
+                  <p className="text-sm matrix-text-white text-opacity-70 mt-2">Transactions per second</p>
+                  <div className="mt-3">
+                    <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="bg-green-400 h-2 rounded-full" style={{ width: '85%' }}></div>
+                    </div>
+                    <span className="text-xs matrix-text-green mt-1 block">85% capacity</span>
+                  </div>
                 </div>
               </div>
               
-              <div className="neural-card neural-floating" style={{ animationDelay: '0.2s' }}>
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 neural-text-glow">Block Height</h3>
-                  <p className="text-4xl font-bold text-blue-600 neural-text-glow">284,739,201</p>
-                  <p className="text-sm text-gray-500 mt-2">Latest block</p>
+              {/* Block Height */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.2s' }}>
+                <div className="text-center p-6">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-purple-400 text-lg">🔗</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Block Height</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">284,739,201</p>
+                  <p className="text-sm matrix-text-white text-opacity-70 mt-2">Latest block</p>
+                  <div className="mt-3 flex items-center justify-center space-x-2">
+                    <span className="text-xs matrix-text-white">Block time: ~400ms</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Network Health */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.3s' }}>
+                <div className="text-center p-6">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-green-400 text-lg">💚</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Health</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">98.7%</p>
+                  <p className="text-sm matrix-text-white text-opacity-70 mt-2">Network uptime</p>
+                  <div className="mt-3">
+                    <div className="flex items-center justify-center space-x-1">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+                    </div>
+                    <span className="text-xs matrix-text-green mt-1 block">Excellent</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Network Information */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Validator Information */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-blue-400 text-xl">🛡️</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Validator Network</h3>
+                      <p className="matrix-text-white text-opacity-80">Active validators and consensus</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Active Validators</span>
+                      <span className="matrix-text-green font-semibold">1,847</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Stake Weight</span>
+                      <span className="matrix-text-green font-semibold">98.2%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Epoch Progress</span>
+                      <span className="matrix-text-green font-semibold">67.3%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Next Epoch</span>
+                      <span className="matrix-text-white">~2.3 days</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Network Performance */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-green-400 text-xl">📊</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Performance Metrics</h3>
+                      <p className="matrix-text-white text-opacity-80">Network throughput and latency</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Avg Block Time</span>
+                      <span className="matrix-text-green font-semibold">400ms</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Finality Time</span>
+                      <span className="matrix-text-green font-semibold">1.2s</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Vote Latency</span>
+                      <span className="matrix-text-green font-semibold">150ms</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="matrix-text-white">Cluster Time</span>
+                      <span className="matrix-text-white">±50ms</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Network Actions */}
+            <div className="matrix-card-enhanced">
+              <div className="p-6">
+                <h3 className="text-xl font-bold matrix-text-green mb-6 text-center">Network Actions</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <button className="matrix-button-enhanced p-4 text-center">
+                    <div className="text-2xl mb-2">🔄</div>
+                    <div className="font-semibold matrix-text-white">Refresh Data</div>
+                    <div className="text-sm matrix-text-white text-opacity-70">Update metrics</div>
+                  </button>
+                  
+                  <button className="matrix-button-enhanced p-4 text-center">
+                    <div className="text-2xl mb-2">📈</div>
+                    <div className="font-semibold matrix-text-white">View Charts</div>
+                    <div className="text-sm matrix-text-white text-opacity-70">Performance graphs</div>
+                  </button>
+                  
+                  <button className="matrix-button-enhanced p-4 text-center">
+                    <div className="text-2xl mb-2">⚙️</div>
+                    <div className="font-semibold matrix-text-white">Settings</div>
+                    <div className="text-sm matrix-text-white text-opacity-70">Configure alerts</div>
+                  </button>
                 </div>
               </div>
             </div>
