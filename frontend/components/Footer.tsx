@@ -473,7 +473,7 @@ export function Footer() {
                 )}
 
                 {activeModal === 'roadmap' && (
-                  <div className="space-y-6">
+                  <div className="space-y-6 max-h-[60vh] overflow-y-auto">
                     <div className="space-y-4">
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
