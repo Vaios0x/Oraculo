@@ -310,17 +310,15 @@ export default function OraculoApp() {
       {/* Logo Section */}
       <div className="p-6 border-b border-white/20 relative z-10">
         <div className="flex items-center space-x-3">
-          <Image 
+          <img 
             src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
             alt="Oráculo Logo" 
-            width={32}
-            height={32}
-            className="matrix-glow"
+            className="w-8 h-8 matrix-glow"
             style={{
               filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
-              borderRadius: '8px'
+              borderRadius: '8px',
+              objectFit: 'cover'
             }}
-            unoptimized
           />
           <div>
             <h1 className="text-2xl font-bold text-green-400">Oráculo</h1>
@@ -408,17 +406,17 @@ export default function OraculoApp() {
                   <div className={`flex items-center justify-center space-x-4 mb-8 ${
                     isMobile ? 'flex-col space-x-0 space-y-4' : 'flex-row'
                   }`}>
-                    <Image 
+                    <img 
                       src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
                       alt="Oráculo Logo" 
-                      width={isMobile ? 64 : isTablet ? 80 : 96}
-                      height={isMobile ? 64 : isTablet ? 80 : 96}
-                      className="matrix-glow"
+                      className={`matrix-glow ${
+                        isMobile ? 'w-16 h-16' : isTablet ? 'w-20 h-20' : 'w-24 h-24'
+                      }`}
                       style={{
                         filter: 'drop-shadow(0 0 10px #00ff00) drop-shadow(0 0 20px #00ff00)',
-                        borderRadius: '12px'
+                        borderRadius: '12px',
+                        objectFit: 'cover'
                       }}
-                      unoptimized
                     />
                     <h1 className={`font-black matrix-text-green neural-text-glow ${
                       isMobile ? 'text-4xl' : isTablet ? 'text-5xl' : 'text-6xl'
@@ -426,17 +424,16 @@ export default function OraculoApp() {
                       ORÁCULO
                     </h1>
                     <div className="relative">
-                      <Image 
+                      <img 
                         src="/images/txD31htO_400x400.png" 
                         alt="Fruta Build Logo" 
-                        width={isMobile ? 48 : isTablet ? 56 : 64}
-                        height={isMobile ? 48 : isTablet ? 56 : 64}
-                        className="matrix-glow object-cover rounded-full"
+                        className={`matrix-glow object-cover rounded-full ${
+                          isMobile ? 'w-12 h-12' : isTablet ? 'w-14 h-14' : 'w-16 h-16'
+                        }`}
                         style={{
                           filter: 'drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 16px #00ff00)',
                           border: '2px solid rgba(0, 255, 0, 0.4)'
                         }}
-                        unoptimized
                       />
                       <div className="absolute inset-0 rounded-full bg-green-400/20 animate-pulse"></div>
                     </div>

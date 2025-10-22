@@ -87,17 +87,15 @@ export function Layout({ children, sidebar, activeTab = '', setActiveTab = () =>
             {/* Mobile Header */}
             <div className="mobile-sidebar-header">
               <div className="flex items-center space-x-3">
-                <Image 
+                <img 
                   src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
                   alt="Oráculo Logo" 
-                  width={32}
-                  height={32}
-                  className="matrix-glow"
+                  className="w-8 h-8 matrix-glow"
                   style={{
                     filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    objectFit: 'cover'
                   }}
-                  unoptimized
                 />
                 <div>
                   <h1 className="text-xl font-bold text-green-400">Oráculo</h1>
