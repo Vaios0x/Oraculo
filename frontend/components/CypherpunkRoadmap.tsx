@@ -18,6 +18,7 @@ import {
   Key,
   Lock,
   Star,
+  XCircle,
   Target,
   Rocket
 } from 'lucide-react';
