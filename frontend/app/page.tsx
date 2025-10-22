@@ -5,6 +5,9 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { SafeDate } from '../components/HydrationBoundary';
 import { Layout, ContentArea, GridContainer } from '../components/Layout';
 import ResponsiveLayout from '../components/ResponsiveLayout';
+import { OracleDemo } from '../components/OracleDemo';
+import { WalletButton } from '../components/WalletButton';
+import { WalletStatus } from '../components/WalletStatus';
 import { 
   Home, 
   Plus, 
@@ -64,6 +67,7 @@ export default function OraculoApp() {
   const { publicKey, signTransaction } = useWallet();
   const [activeTab, setActiveTab] = useState('markets');
   const [isClient, setIsClient] = useState(false);
+  const [showOracleDemo, setShowOracleDemo] = useState(false);
   const [randomPercentages, setRandomPercentages] = useState<number[]>([]);
 
   useEffect(() => {
@@ -98,24 +102,14 @@ export default function OraculoApp() {
         </div>
       </div>
 
-      {/* Network Status */}
+      {/* Wallet Connection */}
       <div className="p-4 border-b border-white/20">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">Network:</span>
-          <span className="neural-status">Devnet</span>
-        </div>
-        {publicKey ? (
-          <div className="neural-connection mt-2">
-            <div className="neural-pulse-dot"></div>
-            <span className="text-sm text-gray-600">
-              {publicKey.toString().substring(0, 8)}...
-            </span>
-          </div>
-        ) : (
-          <button className="neural-button w-full mt-2 text-sm">
-            Connect Wallet
-          </button>
-        )}
+        <WalletButton />
+      </div>
+
+      {/* Wallet Status Compact */}
+      <div className="p-4 border-b border-white/20">
+        <WalletStatus />
       </div>
 
       {/* Navigation */}
@@ -135,6 +129,18 @@ export default function OraculoApp() {
               <span className="font-medium">{item.label}</span>
             </button>
           ))}
+          
+          <button
+            onClick={() => setShowOracleDemo(!showOracleDemo)}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              showOracleDemo 
+                ? 'bg-neural-primary/20 text-neural-primary' 
+                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+            }`}
+          >
+            <Code className="w-5 h-5" />
+            <span className="font-medium">Oracle Demo</span>
+          </button>
         </div>
       </nav>
     </>
@@ -480,6 +486,13 @@ export default function OraculoApp() {
                 </ul>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Oracle Demo Section */}
+        {showOracleDemo && (
+          <div className="mt-8">
+            <OracleDemo />
           </div>
         )}
       </ContentArea>

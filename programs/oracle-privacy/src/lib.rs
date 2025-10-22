@@ -1,8 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
-use solana_program::hash::{hash, Hash};
 
-declare_id!("8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw");
+declare_id!("7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2");
 
 #[program]
 pub mod oracle_privacy {
@@ -21,7 +20,6 @@ pub mod oracle_privacy {
         let market = &mut ctx.accounts.market;
         market.creator = ctx.accounts.creator.key();
         market.title = title;
-        market.title = title;
         market.description = description;
         market.end_time = end_time;
         market.outcomes = outcomes;
@@ -29,6 +27,8 @@ pub mod oracle_privacy {
         market.is_resolved = false;
         market.total_staked = 0;
         market.bump = ctx.bumps.market;
+        market.resolution_proof = None;
+        market.resolved_at = 0;
         
         // No personal data stored - only wallet address
         msg!("Private market created: {}", market.title);
@@ -84,6 +84,7 @@ pub mod oracle_privacy {
         let market = &mut ctx.accounts.market;
         require!(!market.is_resolved, ErrorCode::MarketAlreadyResolved);
         require!(Clock::get()?.unix_timestamp > market.end_time, ErrorCode::MarketNotExpired);
+        require!(winning_outcome < market.outcomes.len() as u8, ErrorCode::InvalidOutcome);
 
         market.winning_outcome = Some(winning_outcome);
         market.is_resolved = true;
@@ -98,17 +99,18 @@ pub mod oracle_privacy {
     /// No personal data required for claiming
     pub fn claim_anonymous_winnings(
         ctx: Context<ClaimAnonymousWinnings>,
-        bet_proof: [u8; 32], // Proof of winning bet
+        _bet_proof: [u8; 32], // Proof of winning bet
     ) -> Result<()> {
         let bet = &ctx.accounts.bet;
         let market = &ctx.accounts.market;
         
         require!(market.is_resolved, ErrorCode::MarketNotResolved);
         require!(bet.outcome_index == market.winning_outcome.unwrap(), ErrorCode::NotWinningBet);
+        require!(bet.amount > 0, ErrorCode::InvalidBetAmount);
 
         // Calculate winnings proportionally
-        let total_winning_bets = market.total_staked; // Simplified calculation
-        let winnings = (bet.amount * market.total_staked) / total_winning_bets;
+        // For MVP: simple 1:1 payout for winning bets
+        let winnings = bet.amount;
 
         // Transfer winnings back to bettor
         let transfer_accounts = Transfer {
@@ -150,7 +152,7 @@ pub struct CreatePrivateMarket<'info> {
         init,
         payer = creator,
         space = 8 + 32 + 4 + 100 + 4 + 200 + 8 + 4 + 100 + 1 + 1 + 8 + 1 + 32 + 8,
-        seeds = [b"market", creator.key().as_ref(), title.as_bytes()],
+        seeds = [b"market", creator.key().as_ref()],
         bump
     )]
     pub market: Account<'info, Market>,
@@ -265,4 +267,8 @@ pub enum ErrorCode {
     MarketNotResolved,
     #[msg("Not winning bet")]
     NotWinningBet,
+    #[msg("Invalid outcome index")]
+    InvalidOutcome,
+    #[msg("Invalid bet amount")]
+    InvalidBetAmount,
 }

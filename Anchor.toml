@@ -6,19 +6,13 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-hello_anchor = "11111111111111111111111111111111"
-pda_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
-cpi_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
+oracle_privacy = "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
 
 [programs.devnet]
-hello_anchor = "11111111111111111111111111111111"
-pda_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
-cpi_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
+oracle_privacy = "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
 
 [programs.mainnet]
-hello_anchor = "11111111111111111111111111111111"
-pda_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
-cpi_messenger = "8KPzbM2Cwn4Yjak7QYAEH9wyoQh86NcBicaLuzPaejdw"
+oracle_privacy = "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
 
 [registry]
 url = "https://api.apr.dev"
