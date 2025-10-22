@@ -673,6 +673,128 @@ export default function OraculoApp() {
                 </div>
               </div>
             </div>
+
+            {/* Cypherpunk Manifesto & Prediction Markets Alignment */}
+            <div className="matrix-card-enhanced neural-floating p-8">
+              <div className="space-y-8">
+                <div className="text-center space-y-4">
+                  <h2 className="text-3xl font-bold matrix-text-green neural-text-glow">
+                    🔮 Cómo Cumplimos con "I must always reveal myself"
+                  </h2>
+                  <p className="text-lg matrix-text-white text-opacity-90">
+                    Oraculo se alinea con los principios cypherpunk y los mercados de predicción modernos
+                  </p>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                  {/* Cypherpunk Principles */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold matrix-text-green">🛡️ Principios Cypherpunk</h3>
+                    <div className="space-y-3">
+                      <div className="glass-status p-4">
+                        <p className="text-sm matrix-text-white">
+                          <strong className="matrix-text-green">"Privacy in an open society requires anonymous transaction systems"</strong>
+                        </p>
+                        <p className="text-xs matrix-text-white text-opacity-80 mt-2">
+                          Oraculo permite transacciones anónimas en Solana, donde los usuarios pueden participar sin revelar su identidad.
+                        </p>
+                      </div>
+                      <div className="glass-status p-4">
+                        <p className="text-sm matrix-text-white">
+                          <strong className="matrix-text-green">"We must defend our own privacy if we expect to have any"</strong>
+                        </p>
+                        <p className="text-xs matrix-text-white text-opacity-80 mt-2">
+                          Implementamos criptografía fuerte y sistemas descentralizados que protegen la privacidad del usuario.
+                        </p>
+                      </div>
+                      <div className="glass-status p-4">
+                        <p className="text-sm matrix-text-white">
+                          <strong className="matrix-text-green">"Cypherpunks write code"</strong>
+                        </p>
+                        <p className="text-xs matrix-text-white text-opacity-80 mt-2">
+                          Código abierto, auditable y descentralizado. Construimos la infraestructura para la privacidad.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Prediction Markets Alignment */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold matrix-text-green">📊 Alineación con Mercados de Predicción</h3>
+                    <div className="space-y-3">
+                      <div className="glass-status p-4">
+                        <p className="text-sm matrix-text-white">
+                          <strong className="matrix-text-green">Resolución Descentralizada</strong>
+                        </p>
+                        <p className="text-xs matrix-text-white text-opacity-80 mt-2">
+                          Usamos oráculos optimistas y cortes on-chain para resolver mercados de forma justa y transparente.
+                        </p>
+                      </div>
+                      <div className="glass-status p-4">
+                        <p className="text-sm matrix-text-white">
+                          <strong className="matrix-text-green">Diseño de Mercado AMM</strong>
+                        </p>
+                        <p className="text-xs matrix-text-white text-opacity-80 mt-2">
+                          Implementamos Automated Market Makers para liquidez continua y precios justos.
+                        </p>
+                      </div>
+                      <div className="glass-status p-4">
+                        <p className="text-sm matrix-text-white">
+                          <strong className="matrix-text-green">Infraestructura On-Chain</strong>
+                        </p>
+                        <p className="text-xs matrix-text-white text-opacity-80 mt-2">
+                          Construido en Solana para máxima velocidad, bajas comisiones y composabilidad DeFi.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Technical Implementation */}
+                <div className="glass-status p-6">
+                  <h3 className="text-lg font-bold matrix-text-green mb-4">🔧 Implementación Técnica</h3>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div className="text-center">
+                      <div className="text-2xl mb-2">⚡</div>
+                      <h4 className="font-bold matrix-text-white">Velocidad</h4>
+                      <p className="text-xs matrix-text-white text-opacity-80">Transacciones &lt;1s en Solana</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl mb-2">🔒</div>
+                      <h4 className="font-bold matrix-text-white">Privacidad</h4>
+                      <p className="text-xs matrix-text-white text-opacity-80">Transacciones anónimas y seguras</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl mb-2">🌐</div>
+                      <h4 className="font-bold matrix-text-white">Descentralización</h4>
+                      <p className="text-xs matrix-text-white text-opacity-80">Sin puntos de falla centralizados</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="text-center space-y-4">
+                  <p className="text-lg matrix-text-white">
+                    <strong className="matrix-text-green">"Information wants to be free"</strong> - 
+                    Los mercados de predicción liberan información y crean conocimiento colectivo.
+                  </p>
+                  <div className="flex justify-center gap-4">
+                    <button 
+                      onClick={() => setActiveTab('create')}
+                      className="glass-button font-bold px-6 py-3 rounded-lg"
+                    >
+                      🚀 Crear Mercado
+                    </button>
+                    <button 
+                      onClick={() => setActiveTab('markets')}
+                      className="glass-button font-bold px-6 py-3 rounded-lg"
+                    >
+                      📊 Explorar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
