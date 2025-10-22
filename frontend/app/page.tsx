@@ -5,7 +5,6 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { SafeDate } from '../components/HydrationBoundary';
 import { Layout, ContentArea, GridContainer } from '../components/Layout';
 import ResponsiveLayout from '../components/ResponsiveLayout';
-import { OracleDemo } from '../components/OracleDemo';
 import { MarketTemplates, MarketTemplate } from '../components/MarketTemplates';
 import { CreateMarketForm } from '../components/CreateMarketForm';
 import { RealMarketCreator } from '../components/RealMarketCreator';
@@ -78,7 +77,6 @@ export default function OraculoApp() {
   const { demoMarkets, resolveDemoMarket } = useDemoMarkets();
   const [activeTab, setActiveTab] = useState('markets');
   const [isClient, setIsClient] = useState(false);
-  const [showOracleDemo, setShowOracleDemo] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<MarketTemplate | undefined>();
   const [showTemplates, setShowTemplates] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -187,23 +185,6 @@ export default function OraculoApp() {
               <span className="font-medium">{item.label}</span>
             </button>
           ))}
-          
-          
-          <button
-            onClick={() => {
-              console.log('Oracle Demo button clicked, current state:', showOracleDemo);
-              setShowOracleDemo(!showOracleDemo);
-            }}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-              showOracleDemo 
-                ? 'bg-black text-green-400 matrix-glow' 
-                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
-            }`}
-          >
-            <Code className="w-5 h-5" />
-            <span className="font-medium">Oracle Demo</span>
-          </button>
-          
           
           <button
             onClick={() => setActiveTab('shipyard')}
@@ -1434,18 +1415,6 @@ export default function OraculoApp() {
             </div>
           </div>
         )}
-
-        {/* Oracle Demo Section */}
-        {showOracleDemo && (
-          <div className="mt-8">
-            <div className="matrix-card-enhanced p-6">
-              <h2 className="text-2xl font-bold matrix-text-green mb-4">🔮 Oracle Demo</h2>
-              <p className="matrix-text-white mb-4">Demostración del programa Oracle en Solana</p>
-              <OracleDemo />
-            </div>
-          </div>
-        )}
-
 
         {/* Demo Market Creator Section */}
         {showDemoCreator && (
