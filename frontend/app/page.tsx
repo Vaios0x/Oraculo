@@ -82,8 +82,6 @@ export default function OraculoApp() {
   const [selectedTemplate, setSelectedTemplate] = useState<MarketTemplate | undefined>();
   const [showTemplates, setShowTemplates] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showRealCreator, setShowRealCreator] = useState(false);
-  const [showRealMarkets, setShowRealMarkets] = useState(false);
   const [showDemoCreator, setShowDemoCreator] = useState(false);
   const [randomPercentages, setRandomPercentages] = useState<number[]>([]);
   const [showShipyardAward, setShowShipyardAward] = useState(false);
@@ -210,29 +208,6 @@ export default function OraculoApp() {
             <span className="font-medium">Oracle Demo</span>
           </button>
           
-          <button
-            onClick={() => setShowRealCreator(!showRealCreator)}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-              showRealCreator 
-                ? 'bg-green-500/20 text-green-400 matrix-glow' 
-                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
-            }`}
-          >
-            <Target className="w-5 h-5" />
-            <span className="font-medium">Crear Mercado</span>
-          </button>
-          
-          <button
-            onClick={() => setShowRealMarkets(!showRealMarkets)}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-              showRealMarkets 
-                ? 'bg-green-500/20 text-green-400 matrix-glow' 
-                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
-            }`}
-          >
-            <TrendingUp className="w-5 h-5" />
-            <span className="font-medium">Mercados Reales</span>
-          </button>
           
           <button
             onClick={() => setActiveTab('shipyard')}
@@ -1472,23 +1447,6 @@ export default function OraculoApp() {
           </div>
         )}
 
-        {/* Real Market Creator Section */}
-        {showRealCreator && (
-          <div className="mt-8">
-            <RealMarketCreator
-              selectedTemplate={selectedTemplate}
-              onTemplateSelect={setSelectedTemplate}
-              onMarketCreate={handleMarketCreate}
-            />
-          </div>
-        )}
-
-        {/* Real Markets List Section */}
-        {showRealMarkets && (
-          <div className="mt-8">
-            <RealMarketList />
-          </div>
-        )}
 
         {/* Demo Market Creator Section */}
         {showDemoCreator && (
