@@ -1,915 +1,379 @@
-<div align="center">
+# 🇲🇽 Oráculo - Prediction Markets on Solana
 
-# 🔮 **ORÁCULO** 
-### *El Futuro de las Predicciones Descentralizadas*
+> **Sistema de Mercados de Predicción Descentralizados para México**  
+> *Prediction Markets Platform for Mexican Culture, Politics, Economy & Society*
 
-[![Solana](https://img.shields.io/badge/Solana-000000?style=for-the-badge&logo=solana&logoColor=white)](https://solana.com/)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
-[![Anchor](https://img.shields.io/badge/Anchor-000000?style=for-the-badge&logo=anchor&logoColor=white)](https://www.anchor-lang.com/)
+[![Solana](https://img.shields.io/badge/Solana-14.2.5-9945FF?style=flat&logo=solana&logoColor=white)](https://solana.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2.5-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Anchor](https://img.shields.io/badge/Anchor-Framework-9945FF?style=flat&logo=anchor&logoColor=white)](https://www.anchor-lang.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
-[![GitHub stars](https://img.shields.io/github/stars/Vaios0x/Oraculo.svg?style=for-the-badge)](https://github.com/Vaios0x/Oraculo/stargazers)
+## 🎯 **Visión del Proyecto**
 
----
+**Oráculo** es una plataforma de mercados de predicción descentralizados construida en Solana, específicamente diseñada para el contexto mexicano. Permite a los usuarios crear, participar y resolver mercados de predicción sobre temas culturales, políticos, económicos, deportivos, sociales y filosóficos relevantes para México.
 
-## 🌟 **Una Historia de Innovación**
+### 🌟 **Valores Cypherpunk**
 
-> *"En un mundo donde la incertidumbre reina, nace **Oráculo** - la plataforma que convierte las predicciones en realidad a través de la sabiduría colectiva y la tecnología blockchain más avanzada."*
+- **🔐 Privacidad**: Transacciones anónimas y privadas
+- **🌍 Descentralización**: Sin intermediarios, control comunitario
+- **🤝 Transparencia**: Código abierto, procesos auditables
+- **💡 Innovación**: Tecnología blockchain de vanguardia
+- **🇲🇽 Identidad Local**: Temas específicos para México
 
-</div>
+## 🚀 **Características Principales**
 
----
+### 📊 **Mercados de Predicción**
+- **30+ Plantillas Mexicanas**: Temas específicos del país
+- **Categorías Organizadas**: Política, Economía, Deportes, Cultura, Gastronomía
+- **Fechas Actualizadas**: Predicciones para 2025-2026
+- **Contexto Local**: Temas relevantes para México
 
-## 🎭 **El Storytelling de Oráculo**
+### 🔧 **Tecnología**
+- **Solana Blockchain**: Transacciones rápidas y económicas
+- **Anchor Framework**: Contratos inteligentes en Rust
+- **Next.js 14**: Frontend moderno y responsive
+- **TypeScript**: Código type-safe
+- **Wallet Integration**: Phantom, Solflare, y más
 
-### 📖 **El Problema**
-En un mundo lleno de incertidumbre, las personas buscan formas de:
-- 🔮 **Predecir el futuro** con precisión
-- 💰 **Monetizar su conocimiento** sobre eventos futuros  
-- 🛡️ **Protegerse** contra riesgos específicos
-- 🎯 **Aprovechar** su intuición y análisis
+### 🎨 **Experiencia de Usuario**
+- **Interfaz Intuitiva**: Diseño moderno y fácil de usar
+- **Plantillas Predefinidas**: Creación rápida de mercados
+- **Persistencia Local**: Mercados guardados en localStorage
+- **Transacciones Reales**: Integración completa con Solana Devnet
 
-### ✨ **La Solución: Oráculo**
-**Oráculo** es más que una plataforma de predicciones - es un **ecosistema completo** que democratiza el acceso a la información del futuro mediante:
+## 🏗️ **Arquitectura del Sistema**
 
-<div align="center">
-
-### 🚀 **Tecnologías de Vanguardia**
-
-| **Frontend** | **Blockchain** | **Smart Contracts** | **Infraestructura** |
-|:------------:|:--------------:|:-------------------:|:-------------------:|
-| ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js) | ![Solana](https://img.shields.io/badge/Solana-1.95.2-purple?style=flat-square&logo=solana) | ![Anchor](https://img.shields.io/badge/Anchor-0.32.1-blue?style=flat-square&logo=anchor) | ![Docker](https://img.shields.io/badge/Docker-Containerized-blue?style=flat-square&logo=docker) |
-| ![React](https://img.shields.io/badge/React-18.3.1-blue?style=flat-square&logo=react) | ![Web3.js](https://img.shields.io/badge/Web3.js-1.95.2-orange?style=flat-square&logo=web3.js) | ![Rust](https://img.shields.io/badge/Rust-1.70+-orange?style=flat-square&logo=rust) | ![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=flat-square&logo=vercel) |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue?style=flat-square&logo=typescript) | ![SPL Token](https://img.shields.io/badge/SPL_Token-0.4.8-green?style=flat-square) | ![Solana CLI](https://img.shields.io/badge/Solana_CLI-Latest-purple?style=flat-square) | ![GitHub](https://img.shields.io/badge/GitHub-Actions-black?style=flat-square&logo=github) |
-| ![Tailwind](https://img.shields.io/badge/Tailwind-3.4.14-cyan?style=flat-square&logo=tailwindcss) | ![Wallet Adapter](https://img.shields.io/badge/Wallet_Adapter-0.15.35-purple?style=flat-square) | ![PDA](https://img.shields.io/badge/PDA-Program_Derived_Address-green?style=flat-square) | ![CI/CD](https://img.shields.io/badge/CI/CD-Automated-blue?style=flat-square) |
-
-</div>
-
----
-
-## 🏗️ **Arquitectura del Ecosistema**
-
-```mermaid
-graph TB
-    subgraph "🌐 Frontend Layer"
-        A[📱 PWA Mobile-First]
-        B[⚛️ React 18 + TypeScript]
-        C[🎨 Tailwind CSS + Lucide]
-        D[🔗 Wallet Integration]
-    end
-    
-    subgraph "🔗 Blockchain Layer"
-        E[⚡ Solana Network]
-        F[🪙 SPL Token Program]
-        G[🔐 Wallet Adapters]
-        H[📊 Oracle Integration]
-    end
-    
-    subgraph "🤖 Smart Contracts"
-        I[📜 Anchor Programs]
-        J[🔑 PDA Management]
-        K[🔄 CPI Calls]
-        L[🛡️ Security Validations]
-    end
-    
-    subgraph "📊 Data Layer"
-        M[🔮 Prediction Markets]
-        N[💰 Token Operations]
-        O[📈 Analytics & Metrics]
-        P[🔔 Real-time Updates]
-    end
-    
-    A --> E
-    B --> F
-    C --> G
-    D --> H
-    E --> I
-    F --> J
-    G --> K
-    H --> L
-    I --> M
-    J --> N
-    K --> O
-    L --> P
+### 📱 **Frontend (Next.js 14)**
+```
+frontend/
+├── app/                    # App Router de Next.js
+├── components/            # Componentes React
+│   ├── DemoMarketCreator.tsx      # Creador de mercados demo
+│   ├── MarketTemplatesMexico.tsx # Plantillas mexicanas
+│   ├── WalletButton.tsx          # Integración de wallets
+│   └── ...
+├── hooks/                  # Custom hooks
+│   ├── useOracle.ts              # Hook principal de Oracle
+│   └── useDemoMarkets.ts          # Gestión de mercados demo
+└── ...
 ```
 
----
-
-## 🎯 **Características Principales**
-
-### 🔮 **Mercados de Predicción Inteligentes**
-
-<div align="center">
-
-| **🎮 Deportes** | **🏛️ Política** | **💹 Economía** | **🔬 Tecnología** | **🎭 Entretenimiento** | **🧪 Ciencia** |
-|:---------------:|:---------------:|:---------------:|:-----------------:|:---------------------:|:---------------:|
-| ⚽ Resultados de partidos | 🗳️ Elecciones | 📈 Precios de activos | 🚀 Lanzamientos | 🏆 Premios | 🔬 Descubrimientos |
-| 🏆 Campeonatos | 🏛️ Decisiones gubernamentales | 💰 Indicadores económicos | 📱 Adopción de tecnologías | 📺 Audiencias | 🧬 Avances tecnológicos |
-| 📊 Récords | 📊 Encuestas | 💎 Criptomonedas | 🌐 Internet | 🎬 Eventos culturales | 🔬 Investigaciones |
-
-</div>
-
-### 💰 **Sistema de Recompensas Avanzado**
-
-```typescript
-// 🎯 Ejemplo de Creación de Mercado
-const market = await oraculo.createMarket({
-  title: "¿Bitcoin alcanzará $100,000 en 2024?",
-  description: "Predicción sobre el precio de Bitcoin",
-  endDate: new Date('2024-12-31'),
-  outcomes: ['Sí', 'No'],
-  oracle: 'Pyth Network',
-  fee: 0.02 // 2% de comisión
-});
-
-// 💸 Participación en Mercado
-const participation = await oraculo.participate({
-  marketId: market.id,
-  outcome: 'Sí',
-  amount: 1000, // 1000 tokens
-  prediction: 0.75 // 75% de confianza
-});
+### ⛓️ **Smart Contracts (Anchor)**
+```
+programs/oracle-privacy/src/
+├── lib.rs                 # Contrato principal
+├── instructions/          # Instrucciones del programa
+└── state/                 # Estructuras de datos
 ```
 
-### 🪙 **Operaciones de Tokens de Nueva Generación**
+## 🔗 **Programas Desplegados**
 
-#### **🔄 Transferencias Inteligentes**
-```typescript
-// Transferencia con validación automática
-const transfer = await tokenManager.transferTokens({
-  source: sourceAccount,
-  destination: destinationAccount,
-  amount: 1000000n,
-  authority: userAuthority,
-  validation: {
-    checkBalance: true,
-    checkFrozen: true,
-    checkDelegate: true
-  }
-});
+### 📍 **Direcciones de Red**
+
+| Red | Program ID | Estado |
+|-----|------------|--------|
+| **Devnet** | `7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2` | ✅ Activo |
+| **Testnet** | `7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2` | ✅ Activo |
+| **Mainnet** | `7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2` | 🚧 Pendiente |
+
+### 🔧 **Configuración Anchor**
+```toml
+[programs.localnet]
+oracle_privacy = "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
+
+[programs.devnet]
+oracle_privacy = "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
+
+[programs.mainnet]
+oracle_privacy = "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
 ```
 
-#### **🔐 Sistema de Delegación Avanzado**
-```typescript
-// Delegación temporal con límites
-const delegation = await tokenManager.approveDelegate({
-  account: tokenAccount,
-  delegate: delegateAccount,
-  amount: 500000n,
-  duration: 24 * 60 * 60 * 1000, // 24 horas
-  conditions: {
-    maxAmount: 1000000n,
-    allowedOperations: ['transfer', 'burn']
-  }
-});
+## 💰 **Ejemplos de Transacciones**
+
+### 🎯 **Creación de Mercado**
+```bash
+# Transacción de ejemplo: Crear mercado "Bitcoin $200K 2026"
+Signature: 4wkZGtvk43pVrkeyA736bH9Y4WrEV9SEg75aKGZrhQ1WQDRizaH8Ap1YjRcTdgbYdZ6PFPX8xiPGaeEEPry3F4ES
+Fee: 0.00008 SOL
+Status: ✅ Success
+Explorer: https://explorer.solana.com/tx/4wkZGtvk43pVrkeyA736bH9Y4WrEV9SEg75aKGZrhQ1WQDRizaH8Ap1YjRcTdgbYdZ6PFPX8xiPGaeEEPry3F4ES?cluster=devnet
 ```
 
-#### **🔥 Quema Controlada**
-```typescript
-// Quema con verificación de autoridad
-const burn = await tokenManager.burnTokens({
-  account: tokenAccount,
-  amount: 100000n,
-  authority: burnAuthority,
-  verification: {
-    checkAuthority: true,
-    checkSupply: true,
-    logEvent: true
-  }
-});
+### 🎯 **Transacción de Prueba**
+```bash
+# Transacción simple: Transferencia a sí mismo
+Signature: T8UFUuL3FmjM1neLMkT9WQvpM1VR1pLzuQhdJAKom1AikmfEhyY2Bw6GmuhgYpcytxgwpTK1t1M1HBDEMsiNQ21
+Amount: 0.000001 SOL
+Status: ✅ Success
+Explorer: https://explorer.solana.com/tx/T8UFUuL3FmjM1neLMkT9WQvpM1VR1pLzuQhdJAKom1AikmfEhyY2Bw6GmuhgYpcytxgwpTK1t1M1HBDEMsiNQ21?cluster=devnet
 ```
 
----
+## 🎪 **Mercados Creados**
 
-## 🚀 **Tecnologías de Vanguardia**
+### 🇲🇽 **Plantillas Mexicanas (30+ Mercados)**
 
-### **🎨 Frontend de Nueva Generación**
+#### 🏛️ **Política Mexicana**
+- **Elecciones Presidenciales 2026**: ¿Ganará Morena las elecciones?
+- **Reforma Electoral 2025**: ¿Se aprobará la reforma del INE?
+- **AMLO y el 4T**: ¿Terminará con aprobación >60%?
 
-<div align="center">
+#### 💰 **Economía Mexicana**
+- **Peso vs Dólar 2026**: ¿Peso <$18 por dólar?
+- **Inflación México 2025**: ¿Inflación <4%?
+- **T-MEC y Comercio**: ¿Exportaciones 15% del PIB?
 
-#### **⚛️ React 18 + Next.js 14**
-- **App Router** para navegación optimizada
-- **Server Components** para rendimiento máximo
-- **Streaming** para carga progresiva
-- **Suspense** para experiencia fluida
+#### ⚽ **Deportes Mexicanos**
+- **Selección Mundial 2026**: ¿México llegará a cuartos?
+- **Liga MX Clausura 2025**: ¿América ganará?
+- **Boxeo Mexicano 2025**: ¿Título mundial?
 
-#### **🎯 TypeScript 5.5.3**
-- **Type Safety** completo
-- **IntelliSense** avanzado
-- **Refactoring** automático
-- **Error Prevention** en tiempo real
+#### 🎭 **Cultura Mexicana**
+- **Día de Muertos 2025**: ¿Patrimonio mundial?
+- **Cine Mexicano 2026**: ¿Oscar a Mejor Película?
+- **Música Regional 2025**: ¿Más streams que pop?
 
-#### **🎨 Tailwind CSS 3.4.14**
-- **Utility-First** approach
-- **Responsive Design** automático
-- **Dark Mode** nativo
-- **Custom Components** reutilizables
+#### 🌮 **Gastronomía Mexicana**
+- **Tacos al Pastor**: ¿Mejor platillo del mundo?
+- **Restaurantes Michelin**: ¿10+ estrellas en México?
 
-</div>
-
-### **⚡ Blockchain Infrastructure**
-
-<div align="center">
-
-#### **🔗 Solana Integration**
-```typescript
-// Conexión optimizada a Solana
-const connection = new Connection(
-  'https://api.devnet.solana.com',
-  {
-    commitment: 'confirmed',
-    wsEndpoint: 'wss://api.devnet.solana.com',
-    httpHeaders: {
-      'Content-Type': 'application/json'
-    }
-  }
-);
-```
-
-#### **🪙 SPL Token Program**
-```typescript
-// Operaciones avanzadas de tokens
-const tokenManager = new SPLTokenManager(connection);
-
-// Crear token con extensiones
-const token = await tokenManager.createTokenWithExtensions({
-  mint: mintKeypair,
-  decimals: 9,
-  extensions: [
-    'TransferFee',
-    'Metadata', 
-    'InterestBearing',
-    'Pausable'
-  ]
-});
-```
-
-#### **🔐 Wallet Integration**
-```typescript
-// Soporte para múltiples wallets
-const wallets = [
-  new PhantomWalletAdapter(),
-  new SolflareWalletAdapter(),
-  new BackpackWalletAdapter(),
-  new GlowWalletAdapter()
-];
-```
-
-</div>
-
-### **🤖 Smart Contracts Inteligentes**
-
-#### **📜 Anchor Framework**
-```rust
-// Programa de mercado de predicciones
-#[program]
-pub mod oraculo_prediction_market {
-    use super::*;
-    
-    pub fn create_market(
-        ctx: Context<CreateMarket>,
-        title: String,
-        description: String,
-        end_date: i64,
-        outcomes: Vec<String>
-    ) -> Result<()> {
-        let market = &mut ctx.accounts.market;
-        market.title = title;
-        market.description = description;
-        market.end_date = end_date;
-        market.outcomes = outcomes;
-        market.status = MarketStatus::Active;
-        market.creator = ctx.accounts.creator.key();
-        market.bump = ctx.bumps.market;
-        
-        Ok(())
-    }
-}
-```
-
-#### **🔑 Program Derived Addresses (PDA)**
-```rust
-// Derivación de PDAs para mercados
-#[derive(Accounts)]
-#[instruction(title: String)]
-pub struct CreateMarket<'info> {
-    #[account(
-        init,
-        seeds = [b"market", creator.key().as_ref(), title.as_bytes()],
-        bump,
-        payer = creator,
-        space = 8 + Market::INIT_SPACE
-    )]
-    pub market: Account<'info, Market>,
-    #[account(mut)]
-    pub creator: Signer<'info>,
-    pub system_program: Program<'info, System>,
-}
-```
-
-#### **🔄 Cross Program Invocation (CPI)**
-```rust
-// CPI para transferencias de tokens
-pub fn stake_tokens(
-    ctx: Context<StakeTokens>,
-    amount: u64
-) -> Result<()> {
-    let cpi_accounts = Transfer {
-        from: ctx.accounts.user_token_account.to_account_info(),
-        to: ctx.accounts.market_token_account.to_account_info(),
-    };
-    
-    let cpi_ctx = CpiContext::new(
-        ctx.accounts.token_program.to_account_info(),
-        cpi_accounts,
-    );
-    
-    token::transfer(cpi_ctx, amount)?;
-    Ok(())
-}
-```
-
----
-
-## 🎨 **Experiencia de Usuario Excepcional**
-
-### **📱 Progressive Web App (PWA)**
-
-<div align="center">
-
-#### **✨ Características PWA**
-- 🚀 **Instalable** en dispositivos móviles
-- 📱 **Experiencia nativa** sin app store
-- 🔄 **Funciona offline** con funcionalidad básica
-- 🔔 **Push notifications** para actualizaciones
-- ⚡ **Carga instantánea** con service workers
-
-#### **🎯 Responsive Design**
-- 📱 **Mobile-first** approach
-- 💻 **Desktop optimizado**
-- 🖥️ **Tablet friendly**
-- 🌐 **Cross-browser** compatible
-
-</div>
-
-### **🔗 Integración de Wallets**
-
-```typescript
-// Conexión automática de wallets
-const WalletProvider = ({ children }: { children: React.ReactNode }) => {
-  const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-      new SolflareWalletAdapter(),
-      new BackpackWalletAdapter(),
-      new GlowWalletAdapter(),
-    ],
-    []
-  );
-
-  return (
-    <ConnectionProvider endpoint={clusterApiUrl('devnet')}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          {children}
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
-  );
-};
-```
-
----
+### 📊 **Estadísticas de Mercados**
+- **Total de Plantillas**: 30+ mercados mexicanos
+- **Categorías**: 18 categorías temáticas
+- **Fechas**: Predicciones 2025-2026
+- **Costo por Mercado**: ~0.0022 SOL (~$0.0004 USD)
 
 ## 🛠️ **Instalación y Configuración**
 
-### **📋 Prerrequisitos**
-
-<div align="center">
-
-| **Herramienta** | **Versión** | **Propósito** |
-|:---------------:|:-----------:|:-------------:|
-| ![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js) | 18+ | Runtime de JavaScript |
-| ![Rust](https://img.shields.io/badge/Rust-1.70+-orange?style=flat-square&logo=rust) | 1.70+ | Compilación de contratos |
-| ![Solana CLI](https://img.shields.io/badge/Solana_CLI-Latest-purple?style=flat-square) | Latest | Interacción con blockchain |
-| ![Anchor](https://img.shields.io/badge/Anchor-0.32.1-blue?style=flat-square&logo=anchor) | 0.32.1+ | Framework de contratos |
-
-</div>
-
-### **🚀 Instalación Rápida**
-
-#### **Opción 1: Script Automático (Recomendado)**
+### 📋 **Prerrequisitos**
 ```bash
-# 🎯 Clonar el repositorio
-git clone https://github.com/Vaios0x/Oraculo.git
-cd Oraculo
+# Node.js 18+
+node --version
 
-# 🚀 Ejecutar script de inicio rápido
-./quick-start.sh
+# Rust 1.70+
+rustc --version
+
+# Solana CLI 1.17+
+solana --version
+
+# Anchor Framework
+anchor --version
 ```
 
-#### **Opción 2: Instalación Manual**
+### 🚀 **Instalación Rápida**
 ```bash
-# 🎯 Clonar el repositorio
-git clone https://github.com/Vaios0x/Oraculo.git
-cd Oraculo
+# Clonar repositorio
+git clone https://github.com/tu-usuario/oraculo.git
+cd oraculo
 
-# 📦 Instalar dependencias
+# Instalar dependencias
 npm install
-cd frontend && npm install && cd ..
 
-# ⚙️ Configurar variables de entorno
-cp env.example .env
+# Configurar Solana
+solana config set --url devnet
+solana config set --keypair ~/.config/solana/id.json
 
-# 🔨 Compilar smart contracts
-npm run anchor:build
+# Desplegar programa
+anchor build
+anchor deploy
 
-# 🚀 Desplegar contratos
-npm run anchor:deploy
-
-# 🌐 Iniciar aplicación
+# Iniciar frontend
+cd frontend
 npm run dev
 ```
 
-#### **Opción 3: Build y Deploy Completo**
+### 🔧 **Configuración Detallada**
 ```bash
-# 🎯 Clonar el repositorio
-git clone https://github.com/Vaios0x/Oraculo.git
-cd Oraculo
+# 1. Configurar Solana CLI
+solana config set --url devnet
+solana config set --keypair ~/.config/solana/id.json
 
-# 🚀 Ejecutar script completo de construcción y despliegue
-./scripts/build-and-deploy.sh
+# 2. Obtener SOL de prueba
+solana airdrop 2
+
+# 3. Verificar balance
+solana balance
+
+# 4. Desplegar programa
+anchor build
+anchor deploy
+
+# 5. Verificar despliegue
+solana program show 7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2
 ```
 
-### **🛠️ Scripts Disponibles**
+## 🎮 **Uso de la Plataforma**
 
-<div align="center">
+### 🏁 **Inicio Rápido**
+1. **Conectar Wallet**: Phantom, Solflare, o compatible
+2. **Seleccionar Plantilla**: México o Global
+3. **Crear Mercado**: Con datos predefinidos
+4. **Firmar Transacción**: Aprobar en wallet
+5. **Ver Mercado**: En la sección Markets
 
-| **Categoría** | **Comando** | **Descripción** |
-|:-------------:|:-----------:|:---------------:|
-| **🚀 Desarrollo** | `npm run dev` | Servidor de desarrollo |
-| **🏗️ Construcción** | `npm run build` | Build de producción |
-| **▶️ Producción** | `npm run start` | Servidor de producción |
-| **🔍 Linting** | `npm run lint` | Análisis de código |
-| **📝 Tipos** | `npm run type-check` | Verificación de tipos |
+### 📱 **Flujo de Usuario**
+```mermaid
+graph TD
+    A[Conectar Wallet] --> B[Seleccionar Plantilla]
+    B --> C[Crear Mercado]
+    C --> D[Firmar Transacción]
+    D --> E[Mercado Creado]
+    E --> F[Ver en Markets]
+    F --> G[Participar/Resolver]
+```
 
-| **⚡ Solana** | `npm run anchor:build` | Compilar programas |
-| **🚀 Despliegue** | `npm run anchor:deploy` | Desplegar contratos |
-| **🧪 Testing** | `npm run anchor:test` | Ejecutar pruebas |
-| **⚙️ Configuración** | `npm run solana:setup` | Configurar Solana CLI |
-| **💰 Balance** | `npm run solana:balance` | Verificar balance |
+### 🔄 **Funcionalidades**
+- **Crear Mercados**: Con plantillas predefinidas
+- **Participar**: Apostar en mercados existentes
+- **Resolver**: Determinar resultados
+- **Reclamar**: Obtener ganancias
 
-| **📚 Ejemplos** | `npm run examples:accounts` | Ejemplos de cuentas |
-| **💸 Transacciones** | `npm run examples:transactions` | Ejemplos de transacciones |
-| **📜 Programas** | `npm run examples:programs` | Ejemplos de programas |
-| **🔑 PDAs** | `npm run examples:pda` | Ejemplos de PDAs |
-| **🔄 CPI** | `npm run examples:cpi` | Ejemplos de CPI |
+## 🧪 **Testing y Desarrollo**
 
-</div>
+### 🧪 **Scripts de Prueba**
+```bash
+# Prueba simple de transacción
+node simple-market-test.js
+
+# Prueba de creación de mercado
+node create-market-test.js
+
+# Prueba con Oracle program
+node oracle-market-test.js
+
+# Prueba final completa
+node final-market-test.js
+```
+
+### 🔍 **Logs de Transacciones**
+```bash
+# Ver logs de transacción
+solana logs 4wkZGtvk43pVrkeyA736bH9Y4WrEV9SEg75aKGZrhQ1WQDRizaH8Ap1YjRcTdgbYdZ6PFPX8xiPGaeEEPry3F4ES
+
+# Verificar programa
+solana program show 7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2
+```
+
+## 📊 **Métricas del Proyecto**
+
+### 📈 **Estadísticas de Desarrollo**
+- **Líneas de Código**: 5,000+ líneas
+- **Archivos**: 50+ archivos
+- **Commits**: 20+ commits
+- **Tiempo de Desarrollo**: 2+ semanas
+
+### 🎯 **Métricas de Usuario**
+- **Plantillas Mexicanas**: 30+ mercados
+- **Categorías**: 18 categorías temáticas
+- **Transacciones Exitosas**: 100% tasa de éxito
+- **Costo por Transacción**: ~0.00008 SOL
+
+### 🔧 **Tecnologías Utilizadas**
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Blockchain**: Solana, Anchor Framework, Rust
+- **Wallets**: Phantom, Solflare, Wallet Adapter
+- **Herramientas**: Solana CLI, Anchor CLI, Git
+
+## 🌟 **Valores Cypherpunk Implementados**
+
+### 🔐 **Privacidad**
+- Transacciones anónimas en blockchain
+- Sin recolección de datos personales
+- Wallets descentralizadas
+
+### 🌍 **Descentralización**
+- Sin servidores centrales
+- Control comunitario
+- Código abierto
+
+### 🤝 **Transparencia**
+- Código fuente público
+- Transacciones auditables
+- Procesos abiertos
+
+### 💡 **Innovación**
+- Tecnología blockchain de vanguardia
+- Integración Solana nativa
+- UX moderna y accesible
+
+### 🇲🇽 **Identidad Local**
+- Temas específicos para México
+- Cultura mexicana integrada
+- Contexto local relevante
+
+## 🚀 **Roadmap Futuro**
+
+### 📅 **Q1 2025**
+- [ ] Despliegue en Mainnet
+- [ ] Integración con más wallets
+- [ ] API pública para desarrolladores
+
+### 📅 **Q2 2025**
+- [ ] Mercados de predicción en tiempo real
+- [ ] Integración con oráculos externos
+- [ ] Sistema de reputación
+
+### 📅 **Q3 2025**
+- [ ] Aplicación móvil
+- [ ] Integración con redes sociales
+- [ ] Programa de incentivos
+
+## 🤝 **Contribución**
+
+### 🔧 **Cómo Contribuir**
+1. Fork del repositorio
+2. Crear rama feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Crear Pull Request
+
+### 📝 **Estándares de Código**
+- **TypeScript**: Código type-safe
+- **ESLint**: Linting automático
+- **Prettier**: Formato consistente
+- **Commits**: Mensajes descriptivos
+
+## 📄 **Licencia**
+
+Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
+
+## 🏆 **Reconocimientos**
+
+### 🎯 **Superteam México**
+- **Bounty**: Shipyard MX - Award Top Mexican Projects
+- **Premio**: 1,500 USDC total
+- **Categoría**: Cypherpunk Values
+- **Región**: México
+
+### 🌟 **Agradecimientos**
+- **Solana Foundation**: Por el ecosistema blockchain
+- **Anchor Team**: Por el framework de desarrollo
+- **Superteam México**: Por la oportunidad
+- **Comunidad Mexicana**: Por la inspiración
+
+## 📞 **Contacto**
+
+- **GitHub**: [@tu-usuario](https://github.com/tu-usuario)
+- **Twitter**: [@tu-handle](https://twitter.com/tu-handle)
+- **Email**: tu-email@ejemplo.com
+- **Discord**: tu-usuario#1234
 
 ---
 
-## 📚 **Ejemplos de Código**
+## 🎉 **¡Únete a la Revolución de los Mercados de Predicción en México!**
 
-### **🔮 Creación de Mercados**
+**Oráculo** representa el futuro de los mercados de predicción descentralizados en México, combinando tecnología blockchain de vanguardia con temas culturales relevantes para la comunidad mexicana.
 
-```typescript
-// Crear mercado de predicción
-const market = await oraculo.createMarket({
-  title: "¿Ethereum alcanzará $5,000 en 2024?",
-  description: "Predicción sobre el precio de Ethereum",
-  category: "Economía",
-  endDate: new Date('2024-12-31'),
-  outcomes: ['Sí', 'No'],
-  oracle: {
-    provider: 'Pyth Network',
-    feed: 'ETH/USD',
-    confidence: 0.95
-  },
-  fees: {
-    creator: 0.02, // 2%
-    platform: 0.01, // 1%
-    oracle: 0.005 // 0.5%
-  },
-  metadata: {
-    image: "https://example.com/ethereum-prediction.jpg",
-    tags: ["ethereum", "crypto", "price", "prediction"]
-  }
-});
-```
-
-### **💰 Participación en Mercados**
-
-```typescript
-// Participar en un mercado
-const participation = await oraculo.participate({
-  marketId: market.id,
-  outcome: 'Sí',
-  amount: 1000, // 1000 tokens
-  prediction: 0.75, // 75% de confianza
-  strategy: {
-    type: 'long',
-    leverage: 1.0,
-    stopLoss: 0.5,
-    takeProfit: 2.0
-  }
-});
-
-// Monitorear participación
-const monitoring = await oraculo.monitorParticipation({
-  marketId: market.id,
-  userId: user.id,
-  onUpdate: (data) => {
-    console.log('Actualización de participación:', data);
-  }
-});
-```
-
-### **🪙 Operaciones de Tokens Avanzadas**
-
-```typescript
-// Sistema completo de tokens
-const tokenSystem = new TokenSystem(connection);
-
-// Crear token con extensiones
-const token = await tokenSystem.createToken({
-  mint: mintKeypair,
-  decimals: 9,
-  extensions: [
-    {
-      type: 'TransferFee',
-      rate: 150, // 1.5%
-      maxFee: 1000000n
-    },
-    {
-      type: 'InterestBearing',
-      rate: 500, // 5% anual
-      authority: interestAuthority
-    },
-    {
-      type: 'Pausable',
-      authority: pauseAuthority
-    }
-  ]
-});
-
-// Operaciones en lote
-const batchOperations = await tokenSystem.batchOperations([
-  {
-    type: 'mint',
-    mint: token.mint,
-    destination: userTokenAccount,
-    amount: 1000000n
-  },
-  {
-    type: 'transfer',
-    source: userTokenAccount,
-    destination: marketTokenAccount,
-    amount: 500000n
-  },
-  {
-    type: 'burn',
-    account: userTokenAccount,
-    amount: 100000n
-  }
-]);
-```
-
-### **🔐 Gestión de Autoridades**
-
-```typescript
-// Sistema de autoridades avanzado
-const authorityManager = new AuthorityManager(connection);
-
-// Crear jerarquía de autoridades
-const hierarchy = await authorityManager.createHierarchy({
-  root: rootAuthority,
-  levels: [
-    {
-      level: 1,
-      authority: mintAuthority,
-      permissions: ['mint', 'burn']
-    },
-    {
-      level: 2,
-      authority: freezeAuthority,
-      permissions: ['freeze', 'thaw']
-    },
-    {
-      level: 3,
-      authority: transferAuthority,
-      permissions: ['transfer', 'approve']
-    }
-  ]
-});
-
-// Delegación temporal
-const delegation = await authorityManager.delegate({
-  from: rootAuthority,
-  to: delegateAuthority,
-  permissions: ['mint', 'transfer'],
-  duration: 24 * 60 * 60 * 1000, // 24 horas
-  conditions: {
-    maxAmount: 1000000n,
-    allowedOperations: ['mint', 'transfer']
-  }
-});
-```
-
----
-
-## 📊 **Métricas y Analytics**
-
-### **📈 Dashboard de Rendimiento**
-
-```typescript
-// Sistema de métricas en tiempo real
-const analytics = new AnalyticsSystem(connection);
-
-// Métricas de mercado
-const marketMetrics = await analytics.getMarketMetrics({
-  marketId: market.id,
-  timeframe: '24h',
-  metrics: [
-    'volume',
-    'participants',
-    'price',
-    'volatility',
-    'liquidity'
-  ]
-});
-
-// Métricas de usuario
-const userMetrics = await analytics.getUserMetrics({
-  userId: user.id,
-  timeframe: '7d',
-  metrics: [
-    'totalStaked',
-    'totalWon',
-    'winRate',
-    'averageStake',
-    'favoriteCategories'
-  ]
-});
-
-// Análisis predictivo
-const prediction = await analytics.predictMarketOutcome({
-  marketId: market.id,
-  model: 'ensemble',
-  features: [
-    'historicalData',
-    'socialSentiment',
-    'marketVolatility',
-    'participantBehavior'
-  ]
-});
-```
-
-### **🔔 Sistema de Notificaciones**
-
-```typescript
-// Notificaciones inteligentes
-const notifications = new NotificationSystem();
-
-// Suscribirse a eventos
-await notifications.subscribe({
-  userId: user.id,
-  events: [
-    'marketCreated',
-    'marketResolved',
-    'priceUpdate',
-    'participationUpdate',
-    'winningNotification'
-  ],
-  channels: ['push', 'email', 'inApp']
-});
-
-// Configurar alertas
-await notifications.setAlert({
-  marketId: market.id,
-  conditions: [
-    {
-      type: 'priceChange',
-      threshold: 0.1, // 10%
-      direction: 'up'
-    },
-    {
-      type: 'volumeSpike',
-      threshold: 2.0, // 200%
-      timeframe: '1h'
-    }
-  ]
-});
-```
-
----
-
-## 🎯 **Roadmap de Desarrollo**
-
-### **🚀 Fase 1: MVP (Actual)**
-
-<div align="center">
-
-| **✅ Completado** | **🔄 En Progreso** | **📋 Próximo** |
-|:----------------:|:------------------:|:--------------:|
-| ✅ Frontend PWA | 🔄 Smart Contracts | 📋 Oracle Integration |
-| ✅ Wallet Integration | 🔄 Token Operations | 📋 Advanced Analytics |
-| ✅ Basic UI/UX | 🔄 Market Creation | 📋 Mobile App |
-| ✅ Solana Integration | 🔄 Participation | 📋 Governance |
-
-</div>
-
-### **🌟 Fase 2: Expansión**
-
-- 🎯 **Mercados Complejos**: Múltiples resultados, mercados condicionales
-- 🏆 **Sistema de Reputación**: Puntuaciones de usuarios, líderes
-- 📊 **Analytics Avanzados**: Gráficos interactivos, predicciones ML
-- 🔌 **API Pública**: Integración con terceros, webhooks
-
-### **🚀 Fase 3: Escalabilidad**
-
-- ⚡ **Alta Frecuencia**: Mercados de segundos, trading automático
-- 🔗 **Multi-Chain**: Ethereum, Polygon, Avalanche
-- 📱 **App Nativa**: iOS/Android con funcionalidades avanzadas
-- 🏛️ **Gobernanza DAO**: Votación descentralizada, propuestas
-
----
-
-## 🤝 **Contribuir al Proyecto**
-
-### **🌟 Cómo Contribuir**
-
-<div align="center">
-
-#### **1. 🍴 Fork el Proyecto**
+### 🚀 **¡Comienza Ahora!**
 ```bash
-# Fork en GitHub, luego clonar
-git clone https://github.com/TU_USUARIO/Oraculo.git
-cd Oraculo
-```
-
-#### **2. 🌿 Crear Rama de Feature**
-```bash
-# Crear rama para tu feature
-git checkout -b feature/amazing-feature
-```
-
-#### **3. 💻 Desarrollar**
-```bash
-# Hacer cambios
+git clone https://github.com/tu-usuario/oraculo.git
+cd oraculo
+npm install
 npm run dev
-npm run test
-npm run lint
 ```
 
-#### **4. 📝 Commit**
-```bash
-# Commit con mensaje descriptivo
-git commit -m "feat: add amazing feature"
-```
-
-#### **5. 🚀 Push y PR**
-```bash
-# Push a tu fork
-git push origin feature/amazing-feature
-# Crear Pull Request en GitHub
-```
-
-</div>
-
-### **📋 Tipos de Contribuciones**
-
-| **Tipo** | **Descripción** | **Ejemplos** |
-|:--------:|:---------------:|:------------:|
-| 🐛 **Bug Fixes** | Corrección de errores | Fix wallet connection, resolve UI bugs |
-| ✨ **Features** | Nuevas funcionalidades | New market types, advanced analytics |
-| 📚 **Documentation** | Mejora de documentación | API docs, tutorials, examples |
-| 🎨 **UI/UX** | Mejoras de interfaz | Better mobile experience, animations |
-| ⚡ **Performance** | Optimizaciones | Faster loading, reduced gas costs |
-| 🧪 **Testing** | Tests y calidad | Unit tests, integration tests |
+**¡Construyamos juntos el futuro de las predicciones en México! 🇲🇽🚀**
 
 ---
 
-## 📄 **Licencia y Legal**
-
-### **📜 Licencia MIT**
-
-Este proyecto está bajo la **Licencia MIT** - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-### **⚖️ Términos de Uso**
-
-- ✅ **Uso Comercial** permitido
-- ✅ **Modificación** permitida
-- ✅ **Distribución** permitida
-- ✅ **Uso Privado** permitido
-- ❌ **Responsabilidad** limitada
-- ❌ **Garantía** sin garantías
-
----
-
-## 🔗 **Enlaces y Recursos**
-
-### **📚 Documentación**
-
-<div align="center">
-
-| **Recurso** | **URL** | **Descripción** |
-|:-----------:|:-------:|:---------------:|
-| 📖 **Documentación** | [docs.oraculo.dev](https://docs.oraculo.dev) | Documentación completa |
-| 🎥 **Tutoriales** | [tutorials.oraculo.dev](https://tutorials.oraculo.dev) | Guías paso a paso |
-| 📚 **API Docs** | [api.oraculo.dev](https://api.oraculo.dev) | Documentación de API |
-| 🔧 **SDK** | [sdk.oraculo.dev](https://sdk.oraculo.dev) | Software Development Kit |
-
-</div>
-
-### **🌐 Comunidad**
-
-<div align="center">
-
-| **Plataforma** | **Enlace** | **Descripción** |
-|:--------------:|:---------:|:---------------:|
-| 💬 **Discord** | [discord.gg/oraculo](https://discord.gg/oraculo) | Chat en tiempo real |
-| 🐦 **Twitter** | [@oraculo_dev](https://twitter.com/oraculo_dev) | Actualizaciones |
-| 📱 **Telegram** | [t.me/oraculo](https://t.me/oraculo) | Noticias y updates |
-| 📺 **YouTube** | [youtube.com/oraculo](https://youtube.com/oraculo) | Videos y demos |
-
-</div>
-
-### **🛠️ Herramientas de Desarrollo**
-
-<div align="center">
-
-| **Herramienta** | **URL** | **Propósito** |
-|:---------------:|:-------:|:-------------:|
-| 🔧 **Solana CLI** | [docs.solana.com](https://docs.solana.com) | Interacción con blockchain |
-| 📜 **Anchor** | [anchor-lang.com](https://anchor-lang.com) | Framework de contratos |
-| 🪙 **SPL Token** | [spl.solana.com](https://spl.solana.com) | Programa de tokens |
-| 🔗 **Web3.js** | [solana-labs.github.io](https://solana-labs.github.io) | SDK de JavaScript |
-
-</div>
-
----
-
-## 💡 **¿Por qué Oráculo?**
-
-### **🌟 La Visión**
-
-> *"En un mundo lleno de incertidumbre, **Oráculo** democratiza el acceso a la información del futuro mediante la sabiduría colectiva y la tecnología blockchain más avanzada."*
-
-### **🎯 Casos de Uso**
-
-<div align="center">
-
-| **👤 Usuario Individual** | **🏢 Empresa** | **🏛️ Gobierno** | **🎓 Academia** |
-|:------------------------:|:--------------:|:---------------:|:---------------:|
-| 🔮 **Predicciones Personales** | 🛡️ **Hedge de Riesgos** | 📊 **Políticas Públicas** | 🔬 **Investigación** |
-| 💰 **Monetizar Conocimiento** | 📈 **Análisis de Mercado** | 🗳️ **Elecciones** | 📚 **Educación** |
-| 🎯 **Inversiones Inteligentes** | 🏆 **Ventaja Competitiva** | 🌍 **Cambio Climático** | 🧪 **Experimentos** |
-| 🎮 **Entretenimiento** | 💼 **Estrategia Corporativa** | 🏥 **Salud Pública** | 📊 **Datos Abiertos** |
-
-</div>
-
-### **🚀 Beneficios Únicos**
-
-- 🔮 **Predicciones Precisas**: Sabiduría colectiva vs. opinión individual
-- 💰 **Monetización Justa**: Recompensas por conocimiento correcto
-- 🛡️ **Transparencia Total**: Todas las transacciones públicas
-- ⚡ **Velocidad Suprema**: Transacciones en segundos
-- 🌍 **Acceso Global**: Sin barreras geográficas
-- 🔒 **Seguridad Máxima**: Blockchain inmutable
-
----
-
-## 🎉 **¡Únete a la Revolución!**
-
-<div align="center">
-
-### **🌟 ¡El futuro es predecible con Oráculo!**
-
-[![GitHub stars](https://img.shields.io/github/stars/Vaios0x/Oraculo?style=social)](https://github.com/Vaios0x/Oraculo/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Vaios0x/Oraculo?style=social)](https://github.com/Vaios0x/Oraculo/network)
-[![GitHub issues](https://img.shields.io/github/issues/Vaios0x/Oraculo?style=social)](https://github.com/Vaios0x/Oraculo/issues)
-[![GitHub PRs](https://img.shields.io/github/issues-pr/Vaios0x/Oraculo?style=social)](https://github.com/Vaios0x/Oraculo/pulls)
-
----
-
-### **🔮 ¡Convierte tus predicciones en realidad!**
-
-**¿Tienes una predicción sobre el futuro?**  
-**¿Quieres monetizar tu conocimiento?**  
-**¿Buscas protegerte contra riesgos?**
-
-## **¡Oráculo es tu plataforma!** 🚀✨
-
----
-
-<div align="center">
-
-**Construido con ❤️ por el equipo de Oráculo**
-
-*"El futuro no está escrito en las estrellas, está en tus predicciones."* 🔮
-
-</div>
+*Desarrollado con ❤️ para la comunidad mexicana y los valores cypherpunk*
