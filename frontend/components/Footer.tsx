@@ -215,6 +215,25 @@ export function Footer() {
                 <span className="text-sm matrix-text-green font-medium">Network: Devnet</span>
               </div>
             </div>
+            
+            {/* México Flag and Text */}
+            <div className="flex items-center space-x-3 mt-4 pt-4 border-t border-white/20">
+              <div className="flex items-center space-x-2">
+                {/* México Flag */}
+                <div className="flex">
+                  <div className="w-3 h-2 bg-green-500"></div>
+                  <div className="w-3 h-2 bg-white"></div>
+                  <div className="w-3 h-2 bg-red-500 relative">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-1 h-1 bg-yellow-400 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+                <span className="text-sm matrix-text-white font-medium">
+                  🇲🇽 Hecho en México
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
