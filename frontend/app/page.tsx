@@ -467,7 +467,7 @@ export default function OraculoApp() {
                             // Show fallback emoji
                             const parent = e.currentTarget.parentElement;
                             if (parent) {
-                              parent.innerHTML = '<span class="text-2xl">🍇</span>';
+                              parent.innerHTML = '<span class="text-2xl">🍒</span>';
                             }
                           }}
                           onLoad={() => console.log('txD3 image loaded successfully')}
