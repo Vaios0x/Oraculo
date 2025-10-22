@@ -325,14 +325,14 @@ export default function OraculoApp() {
                       )}
                     </div>
                     
-                    <p className="text-gray-600 line-clamp-2">{market.description}</p>
+                    <p className="matrix-text-white text-opacity-90 line-clamp-2">{market.description}</p>
                     
                     <div className="space-y-3">
                       {market.outcomes.map((outcome, outcomeIndex) => (
                         <div key={outcomeIndex} className="neural-glass p-2 rounded-lg">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">{outcome}</span>
-                            <span className="text-sm font-medium text-neural-primary">
+                            <span className="text-sm matrix-text-white">{outcome}</span>
+                            <span className="text-sm font-medium matrix-text-green">
                               {isClient ? (randomPercentages[outcomeIndex] || 0) : 0}%
                             </span>
                           </div>
@@ -342,17 +342,17 @@ export default function OraculoApp() {
                     
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div className="neural-glass p-3 rounded-lg">
-                        <span className="text-gray-500 block">Total Staked</span>
-                        <span className="text-neural-primary font-semibold">
+                        <span className="matrix-text-white text-opacity-80 block">Total Staked</span>
+                        <span className="matrix-text-green font-semibold">
                           {market.totalStaked.toLocaleString()} SOL
                         </span>
                       </div>
                       <div className="neural-glass p-3 rounded-lg">
-                        <span className="text-gray-500 block">Ends</span>
+                        <span className="matrix-text-white text-opacity-80 block">Ends</span>
                         <SafeDate 
                           date={market.endTime}
                           format="date"
-                          className="text-gray-900 font-semibold"
+                          className="matrix-text-white font-semibold"
                           fallback="Loading..."
                         />
                       </div>
@@ -366,13 +366,13 @@ export default function OraculoApp() {
                       </div>
                     ) : (
                       <div className="flex space-x-2">
-                        <button className="neural-button flex-1 text-sm">
+                        <button className="matrix-button-enhanced flex-1 text-sm">
                           Stake
                         </button>
                         {publicKey && (
                           <button 
                             onClick={() => handleResolve(market.id, 'Yes')}
-                            className="neural-glass px-3 py-2 text-sm font-medium hover:bg-white/20 transition-colors"
+                            className="matrix-button-enhanced px-3 py-2 text-sm font-medium hover:bg-green-500/20 transition-colors"
                           >
                             Resolve
                           </button>
