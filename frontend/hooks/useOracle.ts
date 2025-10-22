@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { Connection, PublicKey, Keypair, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { OracleClient } from '../../src/oracle-client';
+import { OracleClient } from '../lib/oracle-client';
 
 /**
  * 🔮 useOracle Hook - Hook personalizado para interactuar con Oracle
