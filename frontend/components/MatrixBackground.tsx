@@ -44,8 +44,14 @@ export function MatrixBackground({
 
     // Configurar canvas
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const container = canvas.parentElement;
+      if (container) {
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+      } else {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
 
     resizeCanvas();
@@ -64,7 +70,7 @@ export function MatrixBackground({
     // Función de animación
     const animate = () => {
       // Fondo semi-transparente para efecto de rastro
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Color del texto Matrix
@@ -78,8 +84,10 @@ export function MatrixBackground({
         const y = columnsArray[i] * fontSize;
 
         // Efecto de brillo para el primer carácter
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.15) {
           ctx.fillStyle = '#ffffff';
+        } else if (Math.random() < 0.3) {
+          ctx.fillStyle = '#00ff88';
         } else {
           ctx.fillStyle = '#00ff00';
         }
@@ -108,10 +116,10 @@ export function MatrixBackground({
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed top-0 left-0 w-full h-full pointer-events-none z-0 ${className}`}
+      className={`absolute top-0 left-0 w-full h-full pointer-events-none z-0 ${className}`}
       style={{ 
         background: 'transparent',
-        opacity: 0.8
+        opacity: 0.9
       }}
     />
   );

@@ -5,6 +5,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { SafeDate } from '../components/HydrationBoundary';
 import { Layout, ContentArea, GridContainer } from '../components/Layout';
 import ResponsiveLayout from '../components/ResponsiveLayout';
+import { useResponsive } from '../lib/responsive';
 import { MarketTemplates, MarketTemplate } from '../components/MarketTemplates';
 import { CreateMarketForm } from '../components/CreateMarketForm';
 import { RealMarketCreator } from '../components/RealMarketCreator';
@@ -74,7 +75,8 @@ const mockMarkets = [
 export default function OraculoApp() {
   const { publicKey, signTransaction } = useWallet();
   const { demoMarkets, resolveDemoMarket } = useDemoMarkets();
-  const [activeTab, setActiveTab] = useState('markets');
+  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
+  const [activeTab, setActiveTab] = useState('home');
   const [isClient, setIsClient] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<MarketTemplate | undefined>();
   const [showTemplates, setShowTemplates] = useState(false);
@@ -136,7 +138,8 @@ export default function OraculoApp() {
   };
 
   const navItems = [
-    { id: 'markets', label: 'Markets', icon: <Home className="w-4 h-4" /> },
+    { id: 'home', label: 'Home', icon: <Home className="w-4 h-4" /> },
+    { id: 'markets', label: 'Markets', icon: <BarChart3 className="w-4 h-4" /> },
     { id: 'create', label: 'Create', icon: <Plus className="w-4 h-4" /> },
     { id: 'network', label: 'Network', icon: <Wifi className="w-4 h-4" /> },
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 className="w-4 h-4" /> },
@@ -145,21 +148,14 @@ export default function OraculoApp() {
   ];
 
   const sidebar = (
-    <div className="matrix-bg relative">
-      {/* Matrix Background Effects */}
-      <div className="absolute inset-0 overflow-hidden matrix-background-container pointer-events-none">
-        <MatrixBackground intensity="low" speed={0.6} />
-        <MatrixGrid />
-        <MatrixScan />
-      </div>
-      
+    <div className="bg-black relative min-h-screen">
       {/* Logo Section */}
       <div className="p-6 border-b border-white/20 relative z-10">
         <div className="flex items-center space-x-3">
-          <TrendingUp className="h-8 w-8 text-neural-primary neural-text-glow" />
+          <TrendingUp className="h-8 w-8 text-green-400" />
           <div>
-            <h1 className="text-2xl font-bold matrix-text-green neural-text-glow">Oráculo</h1>
-            <p className="text-sm matrix-text-white text-opacity-80">Prediction Markets on Solana</p>
+            <h1 className="text-2xl font-bold text-green-400">Oráculo</h1>
+            <p className="text-sm text-white text-opacity-80">Prediction Markets on Solana</p>
           </div>
         </div>
       </div>
@@ -170,47 +166,34 @@ export default function OraculoApp() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 relative z-10">
         <div className="space-y-2">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              className={`w-full flex items-center space-x-3 px-6 py-4 rounded-lg transition-all duration-200 border ${
                 activeTab === item.id 
-                  ? 'bg-black text-green-400 matrix-glow' 
-                  : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
+                  ? 'bg-green-900/20 text-green-400 border-green-400 shadow-lg shadow-green-400/20' 
+                  : 'text-green-400 hover:bg-green-500/30 hover:text-green-400 border-green-400/30 hover:border-green-400/60 bg-black/70 hover:shadow-lg hover:shadow-green-400/10'
               }`}
             >
               {item.icon}
-              <span className="font-medium">{item.label}</span>
+              <span className="font-black text-lg">{item.label}</span>
             </button>
           ))}
           
           <button
             onClick={() => setActiveTab('shipyard')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+            className={`w-full flex items-center space-x-3 px-6 py-4 rounded-lg transition-all duration-200 border ${
               activeTab === 'shipyard'
-                ? 'bg-black text-green-400 matrix-glow' 
-                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
+                ? 'bg-green-900/20 text-green-400 border-green-400 shadow-lg shadow-green-400/20' 
+                : 'text-green-400 hover:bg-green-500/30 hover:text-green-400 border-green-400/30 hover:border-green-400/60 bg-black/70 hover:shadow-lg hover:shadow-green-400/10'
             }`}
           >
             <Zap className="w-5 h-5" />
-            <span className="font-medium">🚀 Shipyard MX</span>
+            <span className="font-black text-lg">🚀 Shipyard MX</span>
           </button>
-          
-          <button
-            onClick={() => setShowDemoCreator(!showDemoCreator)}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-              showDemoCreator 
-                ? 'bg-black text-green-400 matrix-glow' 
-                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
-            }`}
-          >
-            <Zap className="w-5 h-5" />
-            <span className="font-medium">Demo Mercado</span>
-          </button>
-          
         </div>
       </nav>
     </div>
@@ -237,9 +220,304 @@ export default function OraculoApp() {
 
   return (
     <div className="min-h-screen">
-    <Layout sidebar={sidebar}>
+    <Layout 
+      sidebar={sidebar}
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
+      navItems={navItems}
+    >
       <ContentArea header={contentHeader}>
         {/* Tab Content */}
+        {activeTab === 'home' && (
+          <div className="space-y-12">
+            {/* Hero Section */}
+            <div className="text-center space-y-8">
+              <div className={`matrix-card-enhanced neural-floating ${
+                isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
+              }`}>
+                <div className="space-y-6">
+                  <div className={`flex items-center justify-center space-x-4 mb-8 ${
+                    isMobile ? 'flex-col space-x-0 space-y-4' : 'flex-row'
+                  }`}>
+                    <TrendingUp className={`text-green-400 matrix-glow ${
+                      isMobile ? 'h-12 w-12' : isTablet ? 'h-14 w-14' : 'h-16 w-16'
+                    }`} />
+                    <h1 className={`font-black matrix-text-green neural-text-glow ${
+                      isMobile ? 'text-4xl' : isTablet ? 'text-5xl' : 'text-6xl'
+                    }`}>
+                      ORÁCULO
+                    </h1>
+                  </div>
+                  <h2 className={`font-bold matrix-text-white ${
+                    isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
+                  }`}>
+                    Mercados de Predicción Descentralizados
+                  </h2>
+                  <p className={`matrix-text-white text-opacity-90 mx-auto ${
+                    isMobile ? 'text-base max-w-sm' : 
+                    isTablet ? 'text-lg max-w-2xl' : 
+                    'text-xl max-w-3xl'
+                  }`}>
+                    La plataforma más avanzada para crear, participar y resolver mercados de predicción 
+                    en Solana. Predice el futuro, gana recompensas, construye el mañana.
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4 mt-8">
+                    <span className="glass-status px-4 py-2">
+                      <span className="matrix-text-green font-bold">🚀 Solana Native</span>
+                    </span>
+                    <span className="glass-status px-4 py-2">
+                      <span className="matrix-text-green font-bold">⚡ Lightning Fast</span>
+                    </span>
+                    <span className="glass-status px-4 py-2">
+                      <span className="matrix-text-green font-bold">🔒 Decentralized</span>
+                    </span>
+                    <span className="glass-status px-4 py-2">
+                      <span className="matrix-text-green font-bold">💰 Low Fees</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Features Grid */}
+            <div className={`grid gap-6 ${
+              isMobile ? 'grid-cols-1' : 
+              isTablet ? 'grid-cols-1 md:grid-cols-2' : 
+              'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            }`}>
+              {/* Feature 1 */}
+              <div className={`matrix-card-enhanced neural-floating ${
+                isMobile ? 'p-4' : isTablet ? 'p-6' : 'p-8'
+              }`}>
+                <div className="space-y-4">
+                  <div className={`bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow ${
+                    isMobile ? 'w-12 h-12' : 'w-16 h-16'
+                  }`}>
+                    <Target className={`text-green-400 ${
+                      isMobile ? 'w-6 h-6' : 'w-8 h-8'
+                    }`} />
+                  </div>
+                  <h3 className={`font-bold matrix-text-green ${
+                    isMobile ? 'text-xl' : 'text-2xl'
+                  }`}>Predicciones Precisas</h3>
+                  <p className={`matrix-text-white text-opacity-90 ${
+                    isMobile ? 'text-sm' : 'text-base'
+                  }`}>
+                    Crea mercados sobre cualquier tema: criptomonedas, política, deportes, tecnología. 
+                    La sabiduría de la multitud en acción.
+                  </p>
+                  <div className="glass-status p-3">
+                    <span className="text-sm matrix-text-green font-bold">🎯 +1000 Mercados Activos</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 2 */}
+              <div className="matrix-card-enhanced neural-floating p-8">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
+                    <Zap className="w-8 h-8 text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold matrix-text-green">Velocidad Extrema</h3>
+                  <p className="matrix-text-white text-opacity-90">
+                    Transacciones instantáneas en Solana. Stake, trade y resuelve mercados 
+                    en segundos, no minutos.
+                  </p>
+                  <div className="glass-status p-3">
+                    <span className="text-sm matrix-text-green font-bold">⚡ &lt;1s Tiempo de Transacción</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="matrix-card-enhanced neural-floating p-8">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
+                    <Shield className="w-8 h-8 text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold matrix-text-green">Totalmente Descentralizado</h3>
+                  <p className="matrix-text-white text-opacity-90">
+                    Sin intermediarios, sin censura. Tus predicciones, tus recompensas. 
+                    Control total sobre tus activos.
+                  </p>
+                  <div className="glass-status p-3">
+                    <span className="text-sm matrix-text-green font-bold">🔒 100% On-Chain</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 4 */}
+              <div className="matrix-card-enhanced neural-floating p-8">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
+                    <DollarSign className="w-8 h-8 text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold matrix-text-green">Tarifas Mínimas</h3>
+                  <p className="matrix-text-white text-opacity-90">
+                    Comisiones ultra-bajas en Solana. Más ganancias para ti, 
+                    menos costos de transacción.
+                  </p>
+                  <div className="glass-status p-3">
+                    <span className="text-sm matrix-text-green font-bold">💰 Menos de $0.01 por Transacción</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 5 */}
+              <div className="matrix-card-enhanced neural-floating p-8">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
+                    <Users className="w-8 h-8 text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold matrix-text-green">Comunidad Global</h3>
+                  <p className="matrix-text-white text-opacity-90">
+                    Únete a miles de predictores de todo el mundo. 
+                    Comparte conocimiento, gana recompensas.
+                  </p>
+                  <div className="glass-status p-3">
+                    <span className="text-sm matrix-text-green font-bold">🌍 +50,000 Usuarios</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 6 */}
+              <div className="matrix-card-enhanced neural-floating p-8">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
+                    <Activity className="w-8 h-8 text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold matrix-text-green">Analytics Avanzados</h3>
+                  <p className="matrix-text-white text-opacity-90">
+                    Dashboard completo con métricas en tiempo real. 
+                    Trackea tu performance y optimiza tus predicciones.
+                  </p>
+                  <div className="glass-status p-3">
+                    <span className="text-sm matrix-text-green font-bold">📊 Analytics en Tiempo Real</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* How it Works */}
+            <div className={`matrix-card-enhanced neural-floating ${
+              isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
+            }`}>
+              <div className="text-center space-y-8">
+                <h2 className={`font-bold matrix-text-green neural-text-glow ${
+                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
+                }`}>
+                  ¿Cómo Funciona?
+                </h2>
+                <div className={`grid gap-6 ${
+                  isMobile ? 'grid-cols-1' : 
+                  isTablet ? 'grid-cols-1 md:grid-cols-3' : 
+                  'grid-cols-1 md:grid-cols-3'
+                }`}>
+                  <div className="space-y-4">
+                    <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center matrix-glow mx-auto">
+                      <span className="text-2xl font-bold matrix-text-green">1</span>
+                    </div>
+                    <h3 className="text-xl font-bold matrix-text-white">Crea o Participa</h3>
+                    <p className="matrix-text-white text-opacity-90">
+                      Crea mercados sobre cualquier tema o participa en mercados existentes. 
+                      Es simple y rápido.
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center matrix-glow mx-auto">
+                      <span className="text-2xl font-bold matrix-text-green">2</span>
+                    </div>
+                    <h3 className="text-xl font-bold matrix-text-white">Stake & Predice</h3>
+                    <p className="matrix-text-white text-opacity-90">
+                      Haz stake en tus predicciones favoritas. 
+                      Más stake = más confianza en tu predicción.
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center matrix-glow mx-auto">
+                      <span className="text-2xl font-bold matrix-text-green">3</span>
+                    </div>
+                    <h3 className="text-xl font-bold matrix-text-white">Gana Recompensas</h3>
+                    <p className="matrix-text-white text-opacity-90">
+                      Si tu predicción es correcta, gana recompensas proporcionales 
+                      a tu stake y la precisión de tu predicción.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats Section */}
+            <div className={`grid gap-4 ${
+              isMobile ? 'grid-cols-2' : 
+              isTablet ? 'grid-cols-2 md:grid-cols-4' : 
+              'grid-cols-2 md:grid-cols-4'
+            }`}>
+              <div className="matrix-card-enhanced neural-floating p-6 text-center">
+                <div className="text-3xl font-bold matrix-text-green mb-2">$2.5M+</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Total Volume</div>
+              </div>
+              <div className="matrix-card-enhanced neural-floating p-6 text-center">
+                <div className="text-3xl font-bold matrix-text-green mb-2">1,247</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Mercados Activos</div>
+              </div>
+              <div className="matrix-card-enhanced neural-floating p-6 text-center">
+                <div className="text-3xl font-bold matrix-text-green mb-2">52,891</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Usuarios Activos</div>
+              </div>
+              <div className="matrix-card-enhanced neural-floating p-6 text-center">
+                <div className="text-3xl font-bold matrix-text-green mb-2">94.2%</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Precisión Promedio</div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className={`matrix-card-enhanced neural-floating text-center ${
+              isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
+            }`}>
+              <div className="space-y-6">
+                <h2 className={`font-bold matrix-text-green neural-text-glow ${
+                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
+                }`}>
+                  ¿Listo para Predecir el Futuro?
+                </h2>
+                <p className={`matrix-text-white text-opacity-90 mx-auto ${
+                  isMobile ? 'text-base max-w-sm' : 
+                  isTablet ? 'text-lg max-w-xl' : 
+                  'text-xl max-w-2xl'
+                }`}>
+                  Únete a la revolución de los mercados de predicción descentralizados. 
+                  Tu conocimiento vale oro.
+                </p>
+                <div className={`flex justify-center gap-4 ${
+                  isMobile ? 'flex-col' : 'flex-wrap'
+                }`}>
+                  <button 
+                    onClick={() => setActiveTab('create')}
+                    className={`glass-button font-bold rounded-lg ${
+                      isMobile ? 'px-6 py-3 text-base w-full' : 
+                      isTablet ? 'px-6 py-3 text-lg' : 
+                      'px-8 py-4 text-lg'
+                    }`}
+                  >
+                    🚀 Crear Primer Mercado
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('markets')}
+                    className={`glass-button font-bold rounded-lg ${
+                      isMobile ? 'px-6 py-3 text-base w-full' : 
+                      isTablet ? 'px-6 py-3 text-lg' : 
+                      'px-8 py-4 text-lg'
+                    }`}
+                  >
+                    📊 Explorar Mercados
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {activeTab === 'markets' && (
           <div className="space-y-6">
             <GridContainer>
@@ -260,12 +538,12 @@ export default function OraculoApp() {
                         )}
                       </div>
                       {market.isResolved ? (
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 glass-status">
                           <div className="neural-pulse-dot bg-green-400 matrix-glow"></div>
                           <span className="text-sm matrix-text-green font-medium">Resolved</span>
                         </div>
                       ) : (
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 glass-status">
                           <div className="w-2 h-2 bg-green-400 rounded-full animate-neural-pulse matrix-glow"></div>
                           <span className="text-sm matrix-text-green font-medium">Active</span>
                         </div>
@@ -276,52 +554,58 @@ export default function OraculoApp() {
                     
                     <div className="space-y-3">
                       {market.outcomes.map((outcome, outcomeIndex) => (
-                        <div key={outcomeIndex} className="bg-black/50 p-2 rounded-lg matrix-glow">
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm matrix-text-white">{outcome}</span>
-                            <span className="text-sm font-medium matrix-text-green">
+                        <div key={outcomeIndex} className="glass-progress p-3">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm matrix-text-white font-medium">{outcome}</span>
+                            <span className="text-sm font-bold matrix-text-green">
                               {isClient ? (randomPercentages[outcomeIndex] || 0) : 0}%
                             </span>
+                          </div>
+                          <div className="glass-progress">
+                            <div 
+                              className="glass-progress-fill h-2 rounded-full transition-all duration-500"
+                              style={{ width: `${isClient ? (randomPercentages[outcomeIndex] || 0) : 0}%` }}
+                            ></div>
                           </div>
                         </div>
                       ))}
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="bg-black/50 p-3 rounded-lg matrix-glow">
-                        <span className="matrix-text-white text-opacity-80 block">Total Staked</span>
-                        <span className="matrix-text-green font-semibold">
+                      <div className="glass-status p-3">
+                        <span className="matrix-text-white text-opacity-80 block text-xs">Total Staked</span>
+                        <span className="matrix-text-green font-bold text-lg">
                           {market.totalStaked.toLocaleString()} SOL
                         </span>
                       </div>
-                      <div className="bg-black/50 p-3 rounded-lg matrix-glow">
-                        <span className="matrix-text-white text-opacity-80 block">Ends</span>
+                      <div className="glass-status p-3">
+                        <span className="matrix-text-white text-opacity-80 block text-xs">Ends</span>
                         <SafeDate 
                           date={market.endTime}
                           format="date"
-                          className="matrix-text-white font-semibold"
+                          className="matrix-text-white font-bold text-lg"
                           fallback="Loading..."
                         />
                       </div>
                     </div>
                     
                     {market.isResolved ? (
-                      <div className="bg-black/50 p-3 rounded-lg matrix-glow">
-                        <span className="text-sm matrix-text-green">
-                          Resolved: {market.winningOutcome}
+                      <div className="glass-status p-3">
+                        <span className="text-sm matrix-text-green font-bold">
+                          ✅ Resolved: {market.winningOutcome}
                         </span>
                       </div>
                     ) : (
                       <div className="flex space-x-2">
-                        <button className="matrix-button-enhanced flex-1 text-sm">
-                          Stake
+                        <button className="glass-button flex-1 text-sm py-3 px-4 rounded-lg font-bold">
+                          💰 Stake
                         </button>
                         {publicKey && (
                           <button 
                             onClick={() => handleResolve(market.id, 'Yes')}
-                            className="matrix-button-enhanced px-3 py-2 text-sm font-medium hover:bg-black transition-colors"
+                            className="glass-button px-4 py-3 text-sm font-bold rounded-lg"
                           >
-                            Resolve
+                            ⚡ Resolve
                           </button>
                         )}
                       </div>

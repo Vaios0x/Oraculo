@@ -78,14 +78,18 @@ export function WalletStatus() {
           <span className="text-sm text-green-700 font-medium">Wallet Conectada</span>
         </div>
         
-        <div className="flex items-center justify-between p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-          <div className="flex items-center space-x-2">
-            <Wallet className="h-4 w-4 text-gray-400" />
-            <span className="text-xs text-gray-500">Address:</span>
+        <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2">
+              <Wallet className="h-4 w-4 text-gray-400" />
+              <span className="text-xs text-gray-500">Address:</span>
+            </div>
+            <div className="bg-black/20 p-1 rounded border border-green-400/20">
+              <span className="text-xs font-mono matrix-text-green break-all leading-relaxed">
+                {publicKey.toString()}
+              </span>
+            </div>
           </div>
-          <span className="text-xs font-mono text-gray-900">
-            {publicKey.toString().substring(0, 6)}...{publicKey.toString().slice(-4)}
-          </span>
         </div>
 
         <div className="flex items-center justify-between p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">

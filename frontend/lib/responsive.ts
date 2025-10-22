@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 /**
  * 🔮 Responsive Utilities - Utilidades para diseño responsive
  * 
@@ -38,22 +40,33 @@ export function useResponsive() {
     isDesktop: boolean
     isLargeDesktop: boolean
     currentBreakpoint: Breakpoint
+    width: number
+    height: number
+    isLandscape: boolean
+    isPortrait: boolean
   }>({
     isMobile: false,
     isTablet: false,
     isDesktop: false,
     isLargeDesktop: false,
-    currentBreakpoint: 'xs'
+    currentBreakpoint: 'xs',
+    width: 0,
+    height: 0,
+    isLandscape: false,
+    isPortrait: false
   })
 
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth
+      const height = window.innerHeight
       
       const isMobile = width < 768
       const isTablet = width >= 768 && width < 1024
       const isDesktop = width >= 1024 && width < 1280
       const isLargeDesktop = width >= 1280
+      const isLandscape = width > height
+      const isPortrait = height > width
       
       let currentBreakpoint: Breakpoint = 'xs'
       if (width >= 1536) currentBreakpoint = '2xl'
@@ -67,7 +80,11 @@ export function useResponsive() {
         isTablet,
         isDesktop,
         isLargeDesktop,
-        currentBreakpoint
+        currentBreakpoint,
+        width,
+        height,
+        isLandscape,
+        isPortrait
       })
     }
 
@@ -102,4 +119,134 @@ export const getResponsiveClasses = (baseClasses: string, responsiveClasses: Rec
   }, baseClasses)
 }
 
-import { useState, useEffect } from 'react'
+/**
+ * Utilidades de grid responsive mejoradas
+ */
+export const getResponsiveGridClasses = (columns: {
+  mobile?: number
+  tablet?: number
+  desktop?: number
+  large?: number
+}) => {
+  const { mobile = 1, tablet = 2, desktop = 3, large = 4 } = columns
+  
+  return `grid grid-cols-${mobile} md:grid-cols-${tablet} lg:grid-cols-${desktop} xl:grid-cols-${large} gap-4 md:gap-6 lg:gap-8`
+}
+
+/**
+ * Utilidades de texto responsive
+ */
+export const getResponsiveTextClasses = (sizes: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'text-sm', tablet = 'text-base', desktop = 'text-lg', large = 'text-xl' } = sizes
+  
+  return `${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}
+
+/**
+ * Utilidades de padding responsive
+ */
+export const getResponsivePaddingClasses = (paddings: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'p-4', tablet = 'p-6', desktop = 'p-8', large = 'p-10' } = paddings
+  
+  return `${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}
+
+/**
+ * Utilidades de margin responsive
+ */
+export const getResponsiveMarginClasses = (margins: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'm-4', tablet = 'm-6', desktop = 'm-8', large = 'm-10' } = margins
+  
+  return `${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}
+
+/**
+ * Utilidades de spacing responsive
+ */
+export const getResponsiveSpacingClasses = (spacings: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'space-y-4', tablet = 'space-y-6', desktop = 'space-y-8', large = 'space-y-10' } = spacings
+  
+  return `${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}
+
+/**
+ * Utilidades de flex responsive
+ */
+export const getResponsiveFlexClasses = (flex: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'flex-col', tablet = 'flex-col', desktop = 'flex-row', large = 'flex-row' } = flex
+  
+  return `flex ${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}
+
+/**
+ * Utilidades de visibilidad responsive
+ */
+export const getResponsiveVisibilityClasses = (visibility: {
+  mobile?: boolean
+  tablet?: boolean
+  desktop?: boolean
+  large?: boolean
+}) => {
+  const { mobile = true, tablet = true, desktop = true, large = true } = visibility
+  
+  let classes = ''
+  if (!mobile) classes += 'hidden '
+  if (tablet) classes += 'md:block '
+  if (desktop) classes += 'lg:block '
+  if (large) classes += 'xl:block '
+  
+  return classes.trim()
+}
+
+/**
+ * Utilidades de altura responsive
+ */
+export const getResponsiveHeightClasses = (heights: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'h-auto', tablet = 'h-auto', desktop = 'h-screen', large = 'h-screen' } = heights
+  
+  return `${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}
+
+/**
+ * Utilidades de ancho responsive
+ */
+export const getResponsiveWidthClasses = (widths: {
+  mobile?: string
+  tablet?: string
+  desktop?: string
+  large?: string
+}) => {
+  const { mobile = 'w-full', tablet = 'w-full', desktop = 'w-3/4', large = 'w-2/3' } = widths
+  
+  return `${mobile} md:${tablet} lg:${desktop} xl:${large}`
+}

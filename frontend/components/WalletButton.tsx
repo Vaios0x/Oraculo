@@ -5,6 +5,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { useSolana } from './solana-provider';
+import { useResponsive } from '../lib/responsive';
 import { 
   Wallet, 
   Wifi, 
@@ -27,6 +28,7 @@ import {
 export function WalletButton() {
   const { publicKey, connected, connecting, disconnecting, connect, disconnect, select } = useWallet();
   const { network, setNetwork } = useSolana();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -83,20 +85,19 @@ export function WalletButton() {
 
           {/* Wallet Address */}
           <div className="p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-            <div className="flex items-center justify-between">
+            <div className="space-y-2">
               <span className="text-sm text-gray-500">Address:</span>
-              <span className="text-sm font-mono text-gray-900">
-                {publicKey.toString().substring(0, 8)}...{publicKey.toString().slice(-8)}
-              </span>
+              <div className="bg-black/20 p-2 rounded border border-green-400/20">
+                <span className="text-xs font-mono matrix-text-green break-all leading-relaxed">
+                  {publicKey.toString()}
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Disconnect Button */}
           {isClient && (
-            <WalletDisconnectButton className="w-full px-4 py-2 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white rounded-lg transition-colors flex items-center justify-center space-x-2">
-              <Wallet className="h-4 w-4" />
-              <span>Disconnect Wallet</span>
-            </WalletDisconnectButton>
+            <WalletDisconnectButton className="w-full px-4 py-2 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white rounded-lg transition-colors flex items-center justify-center space-x-2" />
           )}
         </div>
       ) : (
@@ -109,18 +110,19 @@ export function WalletButton() {
 
           {/* Connect Button */}
           {isClient && (
-            <WalletMultiButton className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white rounded-lg transition-colors flex items-center justify-center space-x-2">
-              <Wallet className="h-4 w-4" />
-              <span>Connect Wallet</span>
-            </WalletMultiButton>
+            <WalletMultiButton className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white rounded-lg transition-colors flex items-center justify-center space-x-2" />
           )}
         </div>
       )}
 
       {/* Network Selector */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">Select Network:</label>
-        <div className="grid grid-cols-3 gap-2">
+        <label className={`font-medium text-gray-700 ${
+          isMobile ? 'text-xs' : 'text-sm'
+        }`}>Select Network:</label>
+        <div className={`grid gap-2 ${
+          isMobile ? 'grid-cols-1' : 'grid-cols-3'
+        }`}>
           {[
             { network: WalletAdapterNetwork.Devnet, label: 'Devnet', color: 'bg-orange-500' },
             { network: WalletAdapterNetwork.Testnet, label: 'Testnet', color: 'bg-blue-500' },
@@ -129,7 +131,9 @@ export function WalletButton() {
             <button
               key={net}
               onClick={() => setNetwork(net)}
-              className={`px-3 py-2 text-xs font-medium rounded-lg transition-colors ${
+              className={`px-3 py-2 font-medium rounded-lg transition-colors ${
+                isMobile ? 'text-xs' : 'text-xs'
+              } ${
                 network === net
                   ? `${color} text-white`
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'

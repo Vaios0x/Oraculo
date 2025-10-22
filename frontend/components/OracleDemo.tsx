@@ -152,8 +152,11 @@ export function OracleDemo() {
             )}
           </p>
           {publicKey && (
-            <p className="text-xs text-gray-400 mt-1">
-              Address: {publicKey.toString().substring(0, 8)}...{publicKey.toString().slice(-8)}
+            <p className="text-xs mt-1">
+              <span className="text-gray-400">Address: </span>
+              <span className="matrix-text-green font-mono">
+                {publicKey.toString().substring(0, 8)}...{publicKey.toString().slice(-8)}
+              </span>
             </p>
           )}
         </div>

@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useResponsive } from '../lib/responsive';
+import { Footer } from './Footer';
+import { TrendingUp } from 'lucide-react';
+import { WalletButton } from './WalletButton';
 
 /**
  * 🔮 Layout Component - Componente de layout principal responsive
@@ -17,10 +20,17 @@ import { useResponsive } from '../lib/responsive';
 interface LayoutProps {
   children: React.ReactNode;
   sidebar: React.ReactNode;
+  activeTab?: string;
+  setActiveTab?: (tab: string) => void;
+  navItems?: Array<{
+    id: string;
+    label: string;
+    icon: React.ReactNode;
+  }>;
 }
 
-export function Layout({ children, sidebar }: LayoutProps) {
-  const { isMobile, isTablet, isDesktop } = useResponsive();
+export function Layout({ children, sidebar, activeTab = '', setActiveTab = () => {}, navItems = [] }: LayoutProps) {
+  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
   const [isClient, setIsClient] = useState(false);
 
@@ -39,11 +49,14 @@ export function Layout({ children, sidebar }: LayoutProps) {
   if (!isClient) {
     return (
       <div className="min-h-screen neural-mesh-bg flex">
-        <div className="w-64 bg-white/10 backdrop-blur-md border-r border-white/20 flex flex-col flex-shrink-0">
+        <div className="w-64 bg-black border-r border-green-400/30 flex flex-col flex-shrink-0 min-h-screen">
           {sidebar}
         </div>
         <main className="flex-1 flex flex-col min-w-0">
-          {children}
+          <div className="flex-1">
+            {children}
+          </div>
+          <Footer />
         </main>
       </div>
     );
@@ -61,26 +74,61 @@ export function Layout({ children, sidebar }: LayoutProps) {
 
       {/* Sidebar */}
       <div className={`
-        ${isMobile ? 'fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out' : 'w-64 flex-shrink-0'}
+        ${isMobile ? 'mobile-sidebar' : 
+           isTablet ? 'w-64 flex-shrink-0 relative' : 
+           isDesktop ? 'w-72 flex-shrink-0 relative' : 
+           'w-80 flex-shrink-0 relative'}
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        bg-white/10 backdrop-blur-md border-r border-white/20 flex flex-col
-        ${!isMobile ? 'relative' : ''}
+        ${!isMobile ? 'bg-black border-r border-green-400/30 flex flex-col min-h-screen relative' : ''}
       `}>
-        {/* Mobile Close Button */}
-        {isMobile && (
-          <div className="flex justify-end p-4 border-b border-white/20">
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+        {isMobile ? (
+          <div className="mobile-sidebar-content">
+            {/* Mobile Header */}
+            <div className="mobile-sidebar-header">
+              <div className="flex items-center space-x-3">
+                <TrendingUp className="h-8 w-8 text-green-400" />
+                <div>
+                  <h1 className="text-xl font-bold text-green-400">Oráculo</h1>
+                  <p className="text-sm text-green-300/80">Prediction Markets</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="mobile-close-btn"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Wallet Section - Hidden on Mobile */}
+            {!isMobile && (
+              <div className="p-4 border-b border-green-400/30">
+                <WalletButton />
+              </div>
+            )}
+
+            {/* Navigation */}
+            <div className="mobile-sidebar-nav">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setSidebarOpen(false);
+                  }}
+                  className={`mobile-nav-item ${activeTab === item.id ? 'active' : ''}`}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
+        ) : (
+          sidebar
         )}
-        
-        {sidebar}
       </div>
       
       {/* Main Content */}
@@ -101,7 +149,12 @@ export function Layout({ children, sidebar }: LayoutProps) {
           </div>
         )}
         
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
+        
+        {/* Footer */}
+        <Footer />
       </main>
     </div>
   );
@@ -113,21 +166,21 @@ interface ContentAreaProps {
 }
 
 export function ContentArea({ children, header }: ContentAreaProps) {
-  const { isMobile, isTablet, isDesktop } = useResponsive();
+  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
   
   return (
     <>
       {header && (
         <div className={`
           bg-white/5 backdrop-blur-sm border-b border-white/20
-          ${isMobile ? 'p-4' : isTablet ? 'p-5' : 'p-6'}
+          ${isMobile ? 'p-3' : isTablet ? 'p-4' : isDesktop ? 'p-5' : 'p-6'}
         `}>
           {header}
         </div>
       )}
       <div className={`
         flex-1 overflow-auto
-        ${isMobile ? 'p-4' : isTablet ? 'p-5' : 'p-6'}
+        ${isMobile ? 'p-3' : isTablet ? 'p-4' : isDesktop ? 'p-5' : 'p-6'}
       `}>
         {children}
       </div>
@@ -142,7 +195,7 @@ interface GridContainerProps {
 }
 
 export function GridContainer({ children, className = "", responsive = true }: GridContainerProps) {
-  const { isMobile, isTablet, isDesktop } = useResponsive();
+  const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
   
   if (!responsive) {
     return (
@@ -155,13 +208,15 @@ export function GridContainer({ children, className = "", responsive = true }: G
   // Grid responsive inteligente basado en el tamaño de pantalla
   const getGridClasses = () => {
     if (isMobile) {
-      return 'grid-cols-1 gap-4';
+      return 'grid-cols-1 gap-3';
     } else if (isTablet) {
-      return 'grid-cols-2 gap-5';
+      return 'grid-cols-2 gap-4';
     } else if (isDesktop) {
-      return 'grid-cols-3 gap-6';
-    } else {
+      return 'grid-cols-3 gap-5';
+    } else if (isLargeDesktop) {
       return 'grid-cols-4 gap-6';
+    } else {
+      return 'grid-cols-5 gap-6';
     }
   };
 
