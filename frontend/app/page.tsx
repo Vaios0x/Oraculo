@@ -76,7 +76,7 @@ const mockMarkets = [
 ];
 
 export default function OraculoApp() {
-  const { publicKey, signTransaction } = useWallet();
+  const { publicKey, signTransaction, sendTransaction } = useWallet();
   const { demoMarkets, resolveDemoMarket } = useDemoMarkets();
   const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
   const { stakeOnMarket, resolveMarket, isLoading: stakingLoading, error: stakingError } = useStaking();
@@ -260,9 +260,6 @@ export default function OraculoApp() {
       // Firmar la transacción con la cuenta de recompensas
       transaction.sign(rewardsKeyPair);
 
-      // Usar el wallet adapter para que el usuario firme la transacción
-      const { sendTransaction } = useWallet();
-      
       // Enviar la transacción para que el usuario la firme con Phantom
       const signature = await sendTransaction(transaction, connection);
 
