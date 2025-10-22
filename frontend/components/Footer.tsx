@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useResponsive } from '../lib/responsive';
 import { 
   Github, 
@@ -102,9 +103,6 @@ export function Footer() {
               'lg:col-span-2'
             }`}>
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-green-400/20 rounded-xl flex items-center justify-center matrix-glow">
-                  <TrendingUp className="w-6 h-6 text-green-400" />
-                </div>
                 <div>
                   <h3 className="text-2xl font-bold matrix-text-green neural-text-glow">
                     ORÁCULO
@@ -216,6 +214,15 @@ export function Footer() {
               <span>con</span>
               <Heart className="w-4 h-4 text-red-400 fill-current" />
               <span>en Solana</span>
+            </div>
+            
+            {/* Let's Fruta Build Section */}
+            <div className="flex items-center space-x-2 matrix-text-white text-opacity-80">
+              <span>Let's</span>
+              <span className="matrix-text-green font-bold">Fruta</span>
+              <span>Build</span>
+              <span className="text-lg">🍒</span>
+              <span className="text-lg">🍇</span>
             </div>
             
             <div className="flex items-center space-x-6">

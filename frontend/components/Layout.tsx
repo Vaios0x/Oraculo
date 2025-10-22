@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useResponsive } from '../lib/responsive';
 import { Footer } from './Footer';
 import { TrendingUp } from 'lucide-react';
@@ -86,7 +87,17 @@ export function Layout({ children, sidebar, activeTab = '', setActiveTab = () =>
             {/* Mobile Header */}
             <div className="mobile-sidebar-header">
               <div className="flex items-center space-x-3">
-                <TrendingUp className="h-8 w-8 text-green-400" />
+                <Image 
+                  src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
+                  alt="Oráculo Logo" 
+                  width={32}
+                  height={32}
+                  className="matrix-glow"
+                  style={{
+                    filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
+                    borderRadius: '8px'
+                  }}
+                />
                 <div>
                   <h1 className="text-xl font-bold text-green-400">Oráculo</h1>
                   <p className="text-sm text-green-300/80">Prediction Markets</p>

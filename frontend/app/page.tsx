@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-
+import Image from 'next/image';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, Connection, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { SafeDate } from '../components/HydrationBoundary';
@@ -310,7 +310,17 @@ export default function OraculoApp() {
       {/* Logo Section */}
       <div className="p-6 border-b border-white/20 relative z-10">
         <div className="flex items-center space-x-3">
-          <TrendingUp className="h-8 w-8 text-green-400" />
+          <Image 
+            src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
+            alt="Oráculo Logo" 
+            width={32}
+            height={32}
+            className="matrix-glow"
+            style={{
+              filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
+              borderRadius: '8px'
+            }}
+          />
           <div>
             <h1 className="text-2xl font-bold text-green-400">Oráculo</h1>
             <p className="text-sm text-white text-opacity-80">Prediction Markets on Solana</p>
@@ -397,14 +407,36 @@ export default function OraculoApp() {
                   <div className={`flex items-center justify-center space-x-4 mb-8 ${
                     isMobile ? 'flex-col space-x-0 space-y-4' : 'flex-row'
                   }`}>
-                    <TrendingUp className={`text-green-400 matrix-glow ${
-                      isMobile ? 'h-12 w-12' : isTablet ? 'h-14 w-14' : 'h-16 w-16'
-                    }`} />
+                    <Image 
+                      src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
+                      alt="Oráculo Logo" 
+                      width={isMobile ? 64 : isTablet ? 80 : 96}
+                      height={isMobile ? 64 : isTablet ? 80 : 96}
+                      className="matrix-glow"
+                      style={{
+                        filter: 'drop-shadow(0 0 10px #00ff00) drop-shadow(0 0 20px #00ff00)',
+                        borderRadius: '12px'
+                      }}
+                    />
                     <h1 className={`font-black matrix-text-green neural-text-glow ${
                       isMobile ? 'text-4xl' : isTablet ? 'text-5xl' : 'text-6xl'
                     }`}>
                       ORÁCULO
                     </h1>
+                    <div className="relative">
+                      <img 
+                        src="/images/txD31htO_400x400.png" 
+                        alt="Fruta Build Logo" 
+                        className={`matrix-glow object-cover rounded-full ${
+                          isMobile ? 'w-12 h-12' : isTablet ? 'w-14 h-14' : 'w-16 h-16'
+                        }`}
+                        style={{
+                          filter: 'drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 16px #00ff00)',
+                          border: '2px solid rgba(0, 255, 0, 0.4)'
+                        }}
+                      />
+                      <div className="absolute inset-0 rounded-full bg-green-400/20 animate-pulse"></div>
+                    </div>
                   </div>
                   <h2 className={`font-bold matrix-text-white ${
                     isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
