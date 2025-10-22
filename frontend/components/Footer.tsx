@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useResponsive } from '../lib/responsive';
 import { 
   Github, 
@@ -14,7 +14,17 @@ import {
   Code,
   BookOpen,
   Users,
-  TrendingUp
+  TrendingUp,
+  X,
+  ChevronRight,
+  Star,
+  GitBranch,
+  FileText,
+  MessageSquare,
+  Calendar,
+  Target,
+  Award,
+  Lightbulb
 } from 'lucide-react';
 
 /**
@@ -30,6 +40,7 @@ import {
 export function Footer() {
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const currentYear = new Date().getFullYear();
+  const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const socialLinks = [
     {
@@ -53,10 +64,10 @@ export function Footer() {
   ];
 
   const quickLinks = [
-    { name: 'Documentación', href: '#', icon: <BookOpen className="w-4 h-4" /> },
-    { name: 'API Reference', href: '#', icon: <Code className="w-4 h-4" /> },
-    { name: 'Comunidad', href: '#', icon: <Users className="w-4 h-4" /> },
-    { name: 'Roadmap', href: '#', icon: <TrendingUp className="w-4 h-4" /> }
+    { name: 'Documentación', id: 'documentation', icon: <BookOpen className="w-4 h-4" /> },
+    { name: 'API Reference', id: 'api', icon: <Code className="w-4 h-4" /> },
+    { name: 'Comunidad', id: 'community', icon: <Users className="w-4 h-4" /> },
+    { name: 'Roadmap', id: 'roadmap', icon: <TrendingUp className="w-4 h-4" /> }
   ];
 
   const features = [
@@ -125,16 +136,17 @@ export function Footer() {
               <h4 className="text-lg font-bold matrix-text-green">Enlaces Rápidos</h4>
               <div className="space-y-3">
                 {quickLinks.map((link, index) => (
-                  <a
+                  <button
                     key={index}
-                    href={link.href}
-                    className="flex items-center space-x-2 matrix-text-white text-opacity-80 hover:text-green-400 hover:text-opacity-100 transition-colors group"
+                    onClick={() => setActiveModal(link.id)}
+                    className="flex items-center space-x-2 matrix-text-white text-opacity-80 hover:text-green-400 hover:text-opacity-100 transition-colors group w-full text-left"
                   >
                     {link.icon}
                     <span className="group-hover:translate-x-1 transition-transform">
                       {link.name}
                     </span>
-                  </a>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+                  </button>
                 ))}
               </div>
             </div>
@@ -238,6 +250,315 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Modales */}
+      {activeModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="matrix-card-enhanced neural-floating max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* Header del Modal */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  {activeModal === 'documentation' && <BookOpen className="w-6 h-6 text-green-400" />}
+                  {activeModal === 'api' && <Code className="w-6 h-6 text-green-400" />}
+                  {activeModal === 'community' && <Users className="w-6 h-6 text-green-400" />}
+                  {activeModal === 'roadmap' && <TrendingUp className="w-6 h-6 text-green-400" />}
+                  <h2 className="text-2xl font-bold matrix-text-green">
+                    {activeModal === 'documentation' && 'Documentación'}
+                    {activeModal === 'api' && 'API Reference'}
+                    {activeModal === 'community' && 'Comunidad'}
+                    {activeModal === 'roadmap' && 'Roadmap'}
+                  </h2>
+                </div>
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5 text-white" />
+                </button>
+              </div>
+
+              {/* Contenido del Modal */}
+              <div className="space-y-6">
+                {activeModal === 'documentation' && (
+                  <div className="space-y-6">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <FileText className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Guía de Inicio</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Aprende los conceptos básicos de los mercados de predicción y cómo usar Oráculo.
+                        </p>
+                        <button className="matrix-button-enhanced text-sm">
+                          Leer Guía
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Target className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Tutoriales</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Tutoriales paso a paso para crear y participar en mercados.
+                        </p>
+                        <button className="matrix-button-enhanced text-sm">
+                          Ver Tutoriales
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Shield className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Seguridad</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Mejores prácticas de seguridad y protección de fondos.
+                        </p>
+                        <button className="matrix-button-enhanced text-sm">
+                          Guía de Seguridad
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Award className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Estrategias</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Estrategias avanzadas para maximizar ganancias en mercados.
+                        </p>
+                        <button className="matrix-button-enhanced text-sm">
+                          Ver Estrategias
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeModal === 'api' && (
+                  <div className="space-y-6">
+                    <div className="matrix-card-enhanced neural-floating p-6">
+                      <h3 className="text-xl font-bold matrix-text-green mb-4">API Endpoints</h3>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
+                          <div>
+                            <code className="text-green-400 font-mono">GET /api/markets</code>
+                            <p className="text-sm matrix-text-white text-opacity-70">Obtener lista de mercados</p>
+                          </div>
+                          <button className="matrix-button-enhanced text-xs">Probar</button>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
+                          <div>
+                            <code className="text-green-400 font-mono">POST /api/markets</code>
+                            <p className="text-sm matrix-text-white text-opacity-70">Crear nuevo mercado</p>
+                          </div>
+                          <button className="matrix-button-enhanced text-xs">Probar</button>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
+                          <div>
+                            <code className="text-green-400 font-mono">GET /api/markets/:id</code>
+                            <p className="text-sm matrix-text-white text-opacity-70">Obtener mercado específico</p>
+                          </div>
+                          <button className="matrix-button-enhanced text-xs">Probar</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <h4 className="text-lg font-bold matrix-text-green mb-3">SDK JavaScript</h4>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          SDK oficial para integrar Oráculo en aplicaciones JavaScript/TypeScript.
+                        </p>
+                        <button className="matrix-button-enhanced text-sm">
+                          Ver Documentación
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <h4 className="text-lg font-bold matrix-text-green mb-3">Webhooks</h4>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Recibe notificaciones en tiempo real de eventos importantes.
+                        </p>
+                        <button className="matrix-button-enhanced text-sm">
+                          Configurar Webhooks
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeModal === 'community' && (
+                  <div className="space-y-6">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <MessageSquare className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Discord</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Únete a nuestra comunidad Discord para soporte, discusiones y networking.
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                          <span className="text-sm matrix-text-green">2,847 miembros en línea</span>
+                        </div>
+                        <button className="matrix-button-enhanced text-sm mt-3">
+                          Unirse a Discord
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Github className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">GitHub</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Contribuye al desarrollo, reporta bugs y sugiere nuevas características.
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <Star className="w-4 h-4 text-yellow-400" />
+                          <span className="text-sm matrix-text-green">1,247 stars</span>
+                        </div>
+                        <button className="matrix-button-enhanced text-sm mt-3">
+                          Ver en GitHub
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Twitter className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Twitter</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Mantente al día con las últimas noticias y actualizaciones del proyecto.
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <Users className="w-4 h-4 text-blue-400" />
+                          <span className="text-sm matrix-text-green">15.2K seguidores</span>
+                        </div>
+                        <button className="matrix-button-enhanced text-sm mt-3">
+                          Seguir en Twitter
+                        </button>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <MessageCircle className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Telegram</h3>
+                        </div>
+                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
+                          Canal de noticias oficial y grupo de discusión en español.
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <Users className="w-4 h-4 text-blue-400" />
+                          <span className="text-sm matrix-text-green">3,421 miembros</span>
+                        </div>
+                        <button className="matrix-button-enhanced text-sm mt-3">
+                          Unirse a Telegram
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeModal === 'roadmap' && (
+                  <div className="space-y-6">
+                    <div className="space-y-4">
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Calendar className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">Q1 2024 - Completado ✅</h3>
+                        </div>
+                        <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span>Lanzamiento de la plataforma beta</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span>Integración con Solana Devnet</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span>Creación de mercados básicos</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Calendar className="w-5 h-5 text-blue-400" />
+                          <h3 className="text-lg font-bold matrix-text-blue">Q2 2024 - En Progreso 🚧</h3>
+                        </div>
+                        <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Integración con Solana Mainnet</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Sistema de reputación de usuarios</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>API pública para desarrolladores</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Calendar className="w-5 h-5 text-yellow-400" />
+                          <h3 className="text-lg font-bold matrix-text-yellow">Q3 2024 - Planificado 📋</h3>
+                        </div>
+                        <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span>Mercados de predicción avanzados</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span>Integración con oráculos externos</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span>Mobile app nativa</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div className="matrix-card-enhanced neural-floating p-4">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <Lightbulb className="w-5 h-5 text-purple-400" />
+                          <h3 className="text-lg font-bold matrix-text-purple">Futuro 🔮</h3>
+                        </div>
+                        <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Machine Learning para predicciones</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Integración con múltiples blockchains</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Token de gobernanza ORACLE</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
