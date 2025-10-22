@@ -749,7 +749,7 @@ export default function OraculoApp() {
               <div className="space-y-8">
                 <div className="text-center space-y-4">
                   <h2 className="text-3xl font-bold matrix-text-green neural-text-glow">
-                    🔮 Cómo Cumplimos con "I must always reveal myself"
+                    🔮 Cómo Cumplimos con &quot;I must always reveal myself&quot;
                   </h2>
                   <p className="text-lg matrix-text-white text-opacity-90">
                     Oraculo se alinea con los principios cypherpunk y los mercados de predicción modernos
@@ -763,7 +763,7 @@ export default function OraculoApp() {
                     <div className="space-y-3">
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
-                          <strong className="matrix-text-green">"Privacy in an open society requires anonymous transaction systems"</strong>
+                          <strong className="matrix-text-green">&quot;Privacy in an open society requires anonymous transaction systems&quot;</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
                           Oraculo permite transacciones anónimas en Solana, donde los usuarios pueden participar sin revelar su identidad.
@@ -771,7 +771,7 @@ export default function OraculoApp() {
                       </div>
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
-                          <strong className="matrix-text-green">"We must defend our own privacy if we expect to have any"</strong>
+                          <strong className="matrix-text-green">&quot;We must defend our own privacy if we expect to have any&quot;</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
                           Implementamos criptografía fuerte y sistemas descentralizados que protegen la privacidad del usuario.
@@ -779,7 +779,7 @@ export default function OraculoApp() {
                       </div>
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
-                          <strong className="matrix-text-green">"Cypherpunks write code"</strong>
+                          <strong className="matrix-text-green">&quot;Cypherpunks write code&quot;</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
                           Código abierto, auditable y descentralizado. Construimos la infraestructura para la privacidad.
@@ -845,7 +845,7 @@ export default function OraculoApp() {
                 {/* Call to Action */}
                 <div className="text-center space-y-4">
                   <p className="text-lg matrix-text-white">
-                    <strong className="matrix-text-green">"Information wants to be free"</strong> - 
+                    <strong className="matrix-text-green">&quot;Information wants to be free&quot;</strong> - 
                     Los mercados de predicción liberan información y crean conocimiento colectivo.
                   </p>
                   <div className="flex justify-center gap-4">

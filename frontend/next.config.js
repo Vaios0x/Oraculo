@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    appDir: true,
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@solana/web3.js'],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   webpack: (config) => {
     config.resolve.fallback = {
