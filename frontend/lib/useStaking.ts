@@ -33,19 +33,24 @@ export function useStaking() {
       // Conectar a Solana Devnet
       const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
       
+      // Crear una cuenta derivada para el mercado (simulada)
+      // En producción, esto sería una PDA (Program Derived Address) del programa de mercados
+      const marketSeed = `market_${marketId}_${outcome}`;
+      const [marketAccount] = PublicKey.findProgramAddressSync(
+        [Buffer.from(marketSeed)],
+        new PublicKey('11111111111111111111111111111111') // System Program como placeholder
+      );
+      
       // Crear transacción de staking
       const transaction = new Transaction();
-      
-      // Crear una cuenta de programa para el mercado (simulado)
-      const marketProgramId = new PublicKey('11111111111111111111111111111111'); // System Program como placeholder
       
       // Calcular lamports (1 SOL = 1,000,000,000 lamports)
       const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
       
-      // Crear instrucción de transferencia SOL
+      // Crear instrucción de transferencia SOL a la cuenta del mercado
       const transferInstruction = SystemProgram.transfer({
         fromPubkey: publicKey,
-        toPubkey: marketProgramId, // En producción sería la cuenta del programa de mercados
+        toPubkey: marketAccount,
         lamports: lamports,
       });
       
@@ -99,16 +104,20 @@ export function useStaking() {
       // Conectar a Solana Devnet
       const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
       
+      // Crear una cuenta derivada para el mercado (simulada)
+      const marketSeed = `market_${marketId}_resolve`;
+      const [marketAccount] = PublicKey.findProgramAddressSync(
+        [Buffer.from(marketSeed)],
+        new PublicKey('11111111111111111111111111111111') // System Program como placeholder
+      );
+      
       // Crear transacción de resolución
       const transaction = new Transaction();
       
-      // Crear una cuenta de programa para el mercado (simulado)
-      const marketProgramId = new PublicKey('11111111111111111111111111111111'); // System Program como placeholder
-      
-      // Crear instrucción de resolución (simulada)
+      // Crear instrucción de resolución (simulada) - solo fee mínimo
       const resolveInstruction = SystemProgram.transfer({
         fromPubkey: publicKey,
-        toPubkey: marketProgramId,
+        toPubkey: marketAccount,
         lamports: 1000, // Fee mínimo para la transacción
       });
       
