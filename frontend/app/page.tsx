@@ -6,6 +6,7 @@ import { SafeDate } from '../components/HydrationBoundary';
 import { Layout, ContentArea, GridContainer } from '../components/Layout';
 import ResponsiveLayout from '../components/ResponsiveLayout';
 import { useResponsive } from '../lib/responsive';
+import { useStaking } from '../lib/useStaking';
 import { MarketTemplates, MarketTemplate } from '../components/MarketTemplates';
 import { CreateMarketForm } from '../components/CreateMarketForm';
 import { RealMarketCreator } from '../components/RealMarketCreator';
@@ -76,6 +77,7 @@ export default function OraculoApp() {
   const { publicKey, signTransaction } = useWallet();
   const { demoMarkets, resolveDemoMarket } = useDemoMarkets();
   const { isMobile, isTablet, isDesktop, isLargeDesktop } = useResponsive();
+  const { stakeOnMarket, resolveMarket, isLoading: stakingLoading, error: stakingError } = useStaking();
   const [activeTab, setActiveTab] = useState('home');
   const [isClient, setIsClient] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<MarketTemplate | undefined>();
@@ -84,6 +86,10 @@ export default function OraculoApp() {
   const [showDemoCreator, setShowDemoCreator] = useState(false);
   const [randomPercentages, setRandomPercentages] = useState<number[]>([]);
   const [showShipyardAward, setShowShipyardAward] = useState(false);
+  const [showStakeModal, setShowStakeModal] = useState(false);
+  const [selectedMarket, setSelectedMarket] = useState<string>('');
+  const [stakeAmount, setStakeAmount] = useState<number>(10);
+  const [selectedOutcome, setSelectedOutcome] = useState<string>('');
 
   // Combinar mercados mock y demo
   const allMarkets = React.useMemo(() => {
@@ -111,15 +117,72 @@ export default function OraculoApp() {
     setRandomPercentages(allMarkets.map(() => Math.floor(Math.random() * 100)));
   }, [allMarkets]);
 
+  const handleStake = async (marketId: string, outcome: string, amount: number) => {
+    console.log(`Staking ${amount} SOL on market ${marketId} for outcome: ${outcome}`);
+    
+    // Verificar que el usuario tenga wallet conectado
+    if (!publicKey) {
+      alert('Please connect your wallet to stake');
+      return;
+    }
+
+    try {
+      // Usar staking on-chain
+      const result = await stakeOnMarket({
+        marketId,
+        outcome,
+        amount
+      });
+
+      if (result.success) {
+        alert(`Successfully staked ${amount} SOL on ${outcome}! Transaction: ${result.signature}`);
+      } else {
+        alert(`Failed to stake: ${result.error}`);
+      }
+    } catch (error: any) {
+      console.error('Staking error:', error);
+      alert(`Error staking: ${error.message}`);
+    }
+  };
+
+  const openStakeModal = (marketId: string) => {
+    setSelectedMarket(marketId);
+    setShowStakeModal(true);
+  };
+
+  const executeStake = async () => {
+    if (!selectedOutcome || stakeAmount <= 0) {
+      alert('Please select an outcome and enter a valid amount');
+      return;
+    }
+
+    await handleStake(selectedMarket, selectedOutcome, stakeAmount);
+    setShowStakeModal(false);
+    setSelectedOutcome('');
+    setStakeAmount(10);
+  };
+
   const handleResolve = async (marketId: string, winningOutcome: string) => {
     console.log(`Resolving market ${marketId} with outcome: ${winningOutcome}`);
     
-    // Si es un mercado demo, usar el hook de demo markets
-    if (marketId.startsWith('demo-')) {
-      resolveDemoMarket(marketId, winningOutcome);
-    } else {
-      // Para mercados mock, solo log
-      console.log(`Mock market ${marketId} resolved with: ${winningOutcome}`);
+    // Verificar que el usuario tenga wallet conectado
+    if (!publicKey) {
+      alert('Please connect your wallet to resolve');
+      return;
+    }
+
+    try {
+      // Usar resolución on-chain
+      const result = await resolveMarket(marketId, winningOutcome);
+
+      if (result.success) {
+        alert(`Market resolved with outcome: ${winningOutcome}! Transaction: ${result.signature}`);
+      } else {
+        alert(`Failed to resolve: ${result.error}`);
+      }
+    } catch (error: any) {
+      console.error('Resolve error:', error);
+      alert(`Error resolving: ${error.message}`);
     }
   };
 
@@ -597,15 +660,20 @@ export default function OraculoApp() {
                       </div>
                     ) : (
                       <div className="flex space-x-2">
-                        <button className="glass-button flex-1 text-sm py-3 px-4 rounded-lg font-bold">
-                          💰 Stake
+                        <button 
+                          onClick={() => openStakeModal(market.id)}
+                          disabled={stakingLoading}
+                          className="glass-button flex-1 text-sm py-3 px-4 rounded-lg font-bold hover:bg-green-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {stakingLoading ? '⏳ Staking...' : '💰 Stake'}
                         </button>
                         {publicKey && (
                           <button 
                             onClick={() => handleResolve(market.id, 'Yes')}
-                            className="glass-button px-4 py-3 text-sm font-bold rounded-lg"
+                            disabled={stakingLoading}
+                            className="glass-button px-4 py-3 text-sm font-bold rounded-lg hover:bg-green-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            ⚡ Resolve
+                            {stakingLoading ? '⏳ Resolving...' : '⚡ Resolve'}
                           </button>
                         )}
                       </div>
@@ -1706,6 +1774,80 @@ export default function OraculoApp() {
 
       </ContentArea>
     </Layout>
+
+    {/* Stake Modal */}
+    {showStakeModal && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="bg-black border border-green-400/30 rounded-lg p-6 w-full max-w-md mx-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold text-green-400">Stake on Market</h3>
+            <button
+              onClick={() => setShowStakeModal(false)}
+              className="text-white hover:text-green-400 transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-white mb-2">Select Outcome</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setSelectedOutcome('Yes')}
+                  className={`p-3 rounded-lg border transition-colors ${
+                    selectedOutcome === 'Yes'
+                      ? 'bg-green-500/20 border-green-400 text-green-400'
+                      : 'bg-black/50 border-green-400/30 text-white hover:bg-green-500/10'
+                  }`}
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => setSelectedOutcome('No')}
+                  className={`p-3 rounded-lg border transition-colors ${
+                    selectedOutcome === 'No'
+                      ? 'bg-green-500/20 border-green-400 text-green-400'
+                      : 'bg-black/50 border-green-400/30 text-white hover:bg-green-500/10'
+                  }`}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-white mb-2">Amount (SOL)</label>
+              <input
+                type="number"
+                value={stakeAmount}
+                onChange={(e) => setStakeAmount(Number(e.target.value))}
+                className="w-full p-3 bg-black/50 border border-green-400/30 rounded-lg text-white focus:border-green-400 focus:outline-none"
+                placeholder="Enter amount"
+                min="0.1"
+                step="0.1"
+              />
+            </div>
+            
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowStakeModal(false)}
+                className="flex-1 p-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={executeStake}
+                disabled={stakingLoading}
+                className="flex-1 p-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {stakingLoading ? '⏳ Staking...' : 'Stake'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
     </div>
   );
 }
