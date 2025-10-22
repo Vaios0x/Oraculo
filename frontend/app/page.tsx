@@ -145,9 +145,14 @@ export default function OraculoApp() {
   ];
 
   const sidebar = (
-    <>
+    <div className="matrix-bg relative">
+      {/* Matrix Background Effects */}
+      <MatrixBackground intensity="medium" speed={1} />
+      <MatrixGrid />
+      <MatrixScan />
+      
       {/* Logo Section */}
-      <div className="p-6 border-b border-white/20">
+      <div className="p-6 border-b border-white/20 relative z-10">
         <div className="flex items-center space-x-3">
           <TrendingUp className="h-8 w-8 text-neural-primary neural-text-glow" />
           <div>
@@ -206,7 +211,7 @@ export default function OraculoApp() {
           
         </div>
       </nav>
-    </>
+    </div>
   );
 
   const contentHeader = (
@@ -229,12 +234,7 @@ export default function OraculoApp() {
   );
 
   return (
-    <div className="matrix-bg min-h-screen">
-      {/* Matrix Background Effects */}
-      <MatrixBackground intensity="medium" speed={1} />
-      <MatrixGrid />
-      <MatrixScan />
-      
+    <div className="min-h-screen">
     <Layout sidebar={sidebar}>
       <ContentArea header={contentHeader}>
         {/* Tab Content */}
