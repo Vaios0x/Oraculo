@@ -11,7 +11,6 @@ import { RealMarketCreator } from '../components/RealMarketCreator';
 import { RealMarketList } from '../components/RealMarketList';
 import { DemoMarketCreator } from '../components/DemoMarketCreator';
 import { WalletButton } from '../components/WalletButton';
-import { WalletStatus } from '../components/WalletStatus';
 import { MatrixBackground, MatrixGrid, MatrixScan } from '../components/MatrixBackground';
 import { CypherpunkManifesto } from '../components/CypherpunkManifesto';
 import { CypherpunkStats } from '../components/CypherpunkStats';
@@ -161,11 +160,6 @@ export default function OraculoApp() {
       {/* Wallet Connection */}
       <div className="p-4 border-b border-white/20">
         <WalletButton />
-      </div>
-
-      {/* Wallet Status Compact */}
-      <div className="p-4 border-b border-white/20">
-        <WalletStatus />
       </div>
 
       {/* Navigation */}
