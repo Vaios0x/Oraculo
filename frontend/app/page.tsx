@@ -310,16 +310,28 @@ export default function OraculoApp() {
       {/* Logo Section */}
       <div className="p-6 border-b border-white/20 relative z-10">
         <div className="flex items-center space-x-3">
-          <img 
-            src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
-            alt="Oráculo Logo" 
-            className="w-8 h-8 matrix-glow"
-            style={{
-              filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
-              borderRadius: '8px',
-              objectFit: 'cover'
-            }}
-          />
+          <div className="w-8 h-8 matrix-glow flex items-center justify-center"
+          style={{
+            filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
+            borderRadius: '8px',
+            backgroundColor: '#000000',
+            border: '1px solid rgba(0, 255, 0, 0.3)'
+          }}>
+            <img 
+              src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
+              alt="Oráculo Logo" 
+              className="w-full h-full object-cover rounded"
+              onError={(e) => {
+                console.log('Error loading sidebar logo:', e);
+                e.currentTarget.style.display = 'none';
+                const parent = e.currentTarget.parentElement;
+                if (parent) {
+                  parent.innerHTML = '<span class="text-sm">🔮</span>';
+                }
+              }}
+              onLoad={() => console.log('Sidebar logo loaded successfully')}
+            />
+          </div>
           <div>
             <h1 className="text-2xl font-bold text-green-400">Oráculo</h1>
             <p className="text-sm text-white text-opacity-80">Prediction Markets on Solana</p>
@@ -406,18 +418,31 @@ export default function OraculoApp() {
                   <div className={`flex items-center justify-center space-x-4 mb-8 ${
                     isMobile ? 'flex-col space-x-0 space-y-4' : 'flex-row'
                   }`}>
-                    <img 
-                      src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
-                      alt="Oráculo Logo" 
-                      className={`matrix-glow ${
-                        isMobile ? 'w-16 h-16' : isTablet ? 'w-20 h-20' : 'w-24 h-24'
-                      }`}
-                      style={{
-                        filter: 'drop-shadow(0 0 10px #00ff00) drop-shadow(0 0 20px #00ff00)',
-                        borderRadius: '12px',
-                        objectFit: 'cover'
-                      }}
-                    />
+                    <div className={`matrix-glow flex items-center justify-center ${
+                      isMobile ? 'w-16 h-16' : isTablet ? 'w-20 h-20' : 'w-24 h-24'
+                    }`}
+                    style={{
+                      filter: 'drop-shadow(0 0 10px #00ff00) drop-shadow(0 0 20px #00ff00)',
+                      borderRadius: '12px',
+                      backgroundColor: '#000000',
+                      border: '2px solid rgba(0, 255, 0, 0.3)'
+                    }}>
+                      <img 
+                        src="/images/6bfaee8f-15e1-4a4f-94ca-375350592475.png" 
+                        alt="Oráculo Logo" 
+                        className="w-full h-full object-cover rounded-lg"
+                        onError={(e) => {
+                          console.log('Error loading Oráculo logo:', e);
+                          e.currentTarget.style.display = 'none';
+                          // Show fallback
+                          const parent = e.currentTarget.parentElement;
+                          if (parent) {
+                            parent.innerHTML = '<span class="text-2xl">🔮</span>';
+                          }
+                        }}
+                        onLoad={() => console.log('Oráculo logo loaded successfully')}
+                      />
+                    </div>
                     <h1 className={`font-black matrix-text-green neural-text-glow ${
                       isMobile ? 'text-4xl' : isTablet ? 'text-5xl' : 'text-6xl'
                     }`}>
