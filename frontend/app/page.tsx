@@ -6,8 +6,14 @@ import { SafeDate } from '../components/HydrationBoundary';
 import { Layout, ContentArea, GridContainer } from '../components/Layout';
 import ResponsiveLayout from '../components/ResponsiveLayout';
 import { OracleDemo } from '../components/OracleDemo';
+import { MarketTemplates, MarketTemplate } from '../components/MarketTemplates';
+import { CreateMarketForm } from '../components/CreateMarketForm';
+import { RealMarketCreator } from '../components/RealMarketCreator';
+import { RealMarketList } from '../components/RealMarketList';
+import { DemoMarketCreator } from '../components/DemoMarketCreator';
 import { WalletButton } from '../components/WalletButton';
 import { WalletStatus } from '../components/WalletStatus';
+import { useDemoMarkets } from '../hooks/useDemoMarkets';
 import { 
   Home, 
   Plus, 
@@ -18,15 +24,15 @@ import {
   TrendingUp,
   BookOpen,
   Code,
-  Zap,
   Activity,
   CheckCircle,
   Clock,
   Users,
   DollarSign,
   BarChart,
-  Settings,
-  ExternalLink
+  ExternalLink,
+  Target,
+  Zap
 } from 'lucide-react';
 
 // Mock data
@@ -65,18 +71,67 @@ const mockMarkets = [
 
 export default function OraculoApp() {
   const { publicKey, signTransaction } = useWallet();
+  const { demoMarkets, resolveDemoMarket } = useDemoMarkets();
   const [activeTab, setActiveTab] = useState('markets');
   const [isClient, setIsClient] = useState(false);
   const [showOracleDemo, setShowOracleDemo] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<MarketTemplate | undefined>();
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showRealCreator, setShowRealCreator] = useState(false);
+  const [showRealMarkets, setShowRealMarkets] = useState(false);
+  const [showDemoCreator, setShowDemoCreator] = useState(false);
   const [randomPercentages, setRandomPercentages] = useState<number[]>([]);
+
+  // Combinar mercados mock y demo
+  const allMarkets = React.useMemo(() => {
+    const combinedMarkets = [...mockMarkets];
+    
+    // Agregar mercados demo
+    demoMarkets.forEach(demoMarket => {
+      combinedMarkets.push({
+        id: demoMarket.id,
+        title: demoMarket.title,
+        description: demoMarket.question,
+        outcomes: demoMarket.outcomes,
+        totalStaked: demoMarket.totalStaked,
+        endTime: demoMarket.endTime,
+        isResolved: demoMarket.isResolved,
+        winningOutcome: demoMarket.winningOutcome || null
+      });
+    });
+    
+    return combinedMarkets;
+  }, [demoMarkets]);
 
   useEffect(() => {
     setIsClient(true);
-    setRandomPercentages(mockMarkets.map(() => Math.floor(Math.random() * 100)));
-  }, []);
+    setRandomPercentages(allMarkets.map(() => Math.floor(Math.random() * 100)));
+  }, [allMarkets]);
 
   const handleResolve = async (marketId: string, winningOutcome: string) => {
     console.log(`Resolving market ${marketId} with outcome: ${winningOutcome}`);
+    
+    // Si es un mercado demo, usar el hook de demo markets
+    if (marketId.startsWith('demo-')) {
+      resolveDemoMarket(marketId, winningOutcome);
+    } else {
+      // Para mercados mock, solo log
+      console.log(`Mock market ${marketId} resolved with: ${winningOutcome}`);
+    }
+  };
+
+  const handleTemplateSelect = (template: MarketTemplate) => {
+    setSelectedTemplate(template);
+    setShowTemplates(false);
+    setShowCreateForm(true);
+    setActiveTab('create');
+  };
+
+  const handleMarketCreate = async (marketData: any) => {
+    console.log('Creating market with data:', marketData);
+    // Aquí implementarías la lógica de creación del mercado
+    // Usando el hook useOracle o el cliente Oracle
   };
 
   const navItems = [
@@ -131,6 +186,14 @@ export default function OraculoApp() {
           ))}
           
           <button
+            onClick={() => setShowTemplates(true)}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 hover:bg-white/10 hover:text-gray-900"
+          >
+            <Target className="w-5 h-5" />
+            <span className="font-medium">Plantillas</span>
+          </button>
+          
+          <button
             onClick={() => setShowOracleDemo(!showOracleDemo)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showOracleDemo 
@@ -141,6 +204,43 @@ export default function OraculoApp() {
             <Code className="w-5 h-5" />
             <span className="font-medium">Oracle Demo</span>
           </button>
+          
+          <button
+            onClick={() => setShowRealCreator(!showRealCreator)}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              showRealCreator 
+                ? 'bg-neural-primary/20 text-neural-primary' 
+                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+            }`}
+          >
+            <Target className="w-5 h-5" />
+            <span className="font-medium">Crear Mercado</span>
+          </button>
+          
+          <button
+            onClick={() => setShowRealMarkets(!showRealMarkets)}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              showRealMarkets 
+                ? 'bg-neural-primary/20 text-neural-primary' 
+                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+            }`}
+          >
+            <TrendingUp className="w-5 h-5" />
+            <span className="font-medium">Mercados Reales</span>
+          </button>
+          
+          <button
+            onClick={() => setShowDemoCreator(!showDemoCreator)}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              showDemoCreator 
+                ? 'bg-neural-primary/20 text-neural-primary' 
+                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+            }`}
+          >
+            <Zap className="w-5 h-5" />
+            <span className="font-medium">Demo Mercado</span>
+          </button>
+          
         </div>
       </nav>
     </>
@@ -151,6 +251,7 @@ export default function OraculoApp() {
       <h2 className="text-2xl font-bold text-gray-900 neural-text-glow">
         {activeTab === 'markets' && 'Prediction Markets'}
         {activeTab === 'create' && 'Create Market'}
+        {activeTab === 'templates' && 'Market Templates'}
         {activeTab === 'network' && 'Network Status'}
         {activeTab === 'dashboard' && 'Dashboard'}
         {activeTab === 'tokens' && 'Token Management'}
@@ -172,7 +273,7 @@ export default function OraculoApp() {
         {activeTab === 'markets' && (
           <div className="space-y-6">
             <GridContainer>
-              {mockMarkets.map((market, index) => (
+              {allMarkets.map((market, index) => (
                 <div 
                   key={market.id} 
                   className="neural-card neural-floating"
@@ -180,7 +281,14 @@ export default function OraculoApp() {
                 >
                   <div className="space-y-4">
                     <div className="flex items-start justify-between">
-                      <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">{market.title}</h3>
+                      <div className="flex items-center space-x-2">
+                        <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">{market.title}</h3>
+                        {market.id.startsWith('demo-') && (
+                          <span className="px-2 py-1 text-xs font-semibold text-purple-700 bg-purple-100 rounded-full">
+                            DEMO
+                          </span>
+                        )}
+                      </div>
                       {market.isResolved ? (
                         <div className="flex items-center space-x-2">
                           <div className="neural-pulse-dot bg-green-500"></div>
@@ -256,45 +364,67 @@ export default function OraculoApp() {
         )}
 
         {activeTab === 'create' && (
-          <div className="max-w-2xl mx-auto">
-            <div className="neural-card neural-floating">
-              <h3 className="text-xl font-semibold text-gray-900 neural-text-glow mb-6">Create New Market</h3>
-              <form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Market Question</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-4 py-3 neural-glass rounded-lg border-0 focus:ring-2 focus:ring-neural-primary/50"
-                    placeholder="e.g., Will Bitcoin reach $100,000 by end of 2024?"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Outcomes</label>
-                  <div className="space-y-2">
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-3 neural-glass rounded-lg border-0 focus:ring-2 focus:ring-neural-primary/50"
-                      placeholder="Yes"
-                    />
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-3 neural-glass rounded-lg border-0 focus:ring-2 focus:ring-neural-primary/50"
-                      placeholder="No"
-                    />
+          <div className="space-y-6">
+            {!showCreateForm ? (
+              <div className="neural-card neural-floating p-6">
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-bold text-gray-900 neural-text-glow">
+                    Crear Nuevo Mercado
+                  </h3>
+                  <p className="text-gray-600">
+                    Elige cómo quieres crear tu mercado de predicciones
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <button
+                      onClick={() => setShowTemplates(true)}
+                      className="neural-card neural-floating p-6 hover:scale-105 transition-all duration-200 cursor-pointer"
+                    >
+                      <div className="text-center space-y-3">
+                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto">
+                          <Plus className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="text-lg font-semibold text-gray-900 neural-text-glow">
+                          Usar Plantilla
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          Selecciona una plantilla predefinida con datos actualizados para 2026
+                        </p>
+                      </div>
+                    </button>
+                    
+                    <button
+                      onClick={() => setShowCreateForm(true)}
+                      className="neural-card neural-floating p-6 hover:scale-105 transition-all duration-200 cursor-pointer"
+                    >
+                      <div className="text-center space-y-3">
+                        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto">
+                          <Plus className="w-6 h-6 text-white" />
+                        </div>
+                        <h4 className="text-lg font-semibold text-gray-900 neural-text-glow">
+                          Crear Personalizado
+                        </h4>
+                        <p className="text-sm text-gray-600">
+                          Crea tu mercado desde cero con tus propias preguntas y opciones
+                        </p>
+                      </div>
+                    </button>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
-                  <input 
-                    type="datetime-local" 
-                    className="w-full px-4 py-3 neural-glass rounded-lg border-0 focus:ring-2 focus:ring-neural-primary/50"
-                  />
-                </div>
-                <button type="submit" className="neural-button w-full">
-                  Create Market
-                </button>
-              </form>
-            </div>
+              </div>
+            ) : (
+              <CreateMarketForm
+                selectedTemplate={selectedTemplate}
+                onTemplateSelect={handleTemplateSelect}
+                onMarketCreate={handleMarketCreate}
+              />
+            )}
+          </div>
+        )}
+
+        {activeTab === 'templates' && (
+          <div className="space-y-6">
+            <MarketTemplates onSelectTemplate={handleTemplateSelect} />
           </div>
         )}
 
@@ -489,12 +619,59 @@ export default function OraculoApp() {
           </div>
         )}
 
+        {/* Templates Modal */}
+        {showTemplates && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="neural-card neural-floating max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 neural-text-glow">
+                  🔮 Plantillas de Mercados
+                </h2>
+                <button
+                  onClick={() => setShowTemplates(false)}
+                  className="neural-glass p-2 rounded-lg hover:bg-white/20 transition-colors"
+                >
+                  <span className="text-xl">×</span>
+                </button>
+              </div>
+              <MarketTemplates onSelectTemplate={handleTemplateSelect} />
+            </div>
+          </div>
+        )}
+
         {/* Oracle Demo Section */}
         {showOracleDemo && (
           <div className="mt-8">
             <OracleDemo />
           </div>
         )}
+
+        {/* Real Market Creator Section */}
+        {showRealCreator && (
+          <div className="mt-8">
+            <RealMarketCreator
+              selectedTemplate={selectedTemplate}
+              onTemplateSelect={setSelectedTemplate}
+              onMarketCreate={handleMarketCreate}
+            />
+          </div>
+        )}
+
+        {/* Real Markets List Section */}
+        {showRealMarkets && (
+          <div className="mt-8">
+            <RealMarketList />
+          </div>
+        )}
+
+        {/* Demo Market Creator Section */}
+        {showDemoCreator && (
+          <div className="mt-8">
+            <DemoMarketCreator />
+          </div>
+        )}
+
+
       </ContentArea>
     </Layout>
   );

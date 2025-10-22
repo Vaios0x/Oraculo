@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * 🔮 CleanProvider - Limpieza segura de propiedades globales
+ * 🔮 CleanProvider - Provider completamente seguro
  * 
- * Provider que maneja la limpieza segura de propiedades del objeto window
- * para evitar errores de "Cannot delete property"
+ * Provider que NO realiza ninguna limpieza para evitar errores
+ * de "Cannot delete property" en propiedades no configurables
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -22,30 +22,19 @@ export function CleanProvider({ children }: CleanProviderProps) {
 }
 
 /**
- * Hook para limpieza manual de propiedades
+ * Hook para limpieza manual de propiedades - DESHABILITADO para evitar errores
  */
 export function useCleanup() {
+  // Hook completamente deshabilitado para evitar errores de "Cannot delete property"
   const cleanupProperty = (propertyName: string) => {
-    try {
-      if (window.hasOwnProperty(propertyName)) {
-        const descriptor = Object.getOwnPropertyDescriptor(window, propertyName);
-        
-        if (descriptor && descriptor.configurable) {
-          delete (window as any)[propertyName];
-          return true;
-        }
-      }
-      return false;
-    } catch (error) {
-      console.warn(`Error cleaning up ${propertyName}:`, error);
-      return false;
-    }
+    console.warn(`⚠️ Cleanup disabled for ${propertyName} to prevent errors`);
+    return false;
   };
 
   const cleanupMultiple = (properties: string[]) => {
     return properties.map(prop => ({
       property: prop,
-      cleaned: cleanupProperty(prop)
+      cleaned: false
     }));
   };
 
