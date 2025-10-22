@@ -145,7 +145,7 @@ export default function OraculoApp() {
     { id: 'network', label: 'Network', icon: <Wifi className="w-4 h-4" /> },
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 className="w-4 h-4" /> },
     { id: 'tokens', label: 'Tokens', icon: <Coins className="w-4 h-4" /> },
-    { id: 'migration', label: 'Migration', icon: <Shield className="w-4 h-4" /> },
+    { id: 'analytics', label: 'Analytics', icon: <BarChart3 className="w-4 h-4" /> },
     { id: 'cookbook', label: 'Cookbook', icon: <BookOpen className="w-4 h-4" /> }
   ];
 
@@ -272,7 +272,7 @@ export default function OraculoApp() {
         {activeTab === 'network' && 'Network Status'}
         {activeTab === 'dashboard' && 'Dashboard'}
         {activeTab === 'tokens' && 'Token Management'}
-        {activeTab === 'migration' && 'Migration Tools'}
+        {activeTab === 'analytics' && 'Market Analytics'}
         {activeTab === 'cookbook' && 'Developer Cookbook'}
       </h2>
       {activeTab === 'markets' && (
@@ -1161,20 +1161,224 @@ export default function OraculoApp() {
           </div>
         )}
 
-        {activeTab === 'migration' && (
-          <div className="space-y-6">
-            <div className="neural-card neural-floating">
-              <h3 className="text-xl font-semibold text-gray-900 neural-text-glow mb-6">Migration Tools</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="neural-glass p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-900 mb-2">Token Migration</h4>
-                  <p className="text-sm text-gray-600 mb-4">Migrate tokens to new program versions</p>
-                  <button className="neural-button text-sm">Start Migration</button>
+        {activeTab === 'analytics' && (
+          <div className="space-y-8">
+            {/* Analytics Header */}
+            <div className="matrix-card-enhanced p-6 text-center">
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+                <h2 className="text-3xl font-bold matrix-text-green">Market Analytics</h2>
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+              </div>
+              <p className="matrix-text-white text-opacity-80">Advanced market insights and performance metrics</p>
+            </div>
+
+            {/* Analytics Overview Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Total Markets */}
+              <div className="matrix-card-enhanced neural-floating">
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-green-400 text-2xl">📊</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Total Markets</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">47</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">Active predictions</p>
+                  <div className="mt-3 flex items-center justify-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs matrix-text-green">Live</span>
+                  </div>
                 </div>
-                <div className="neural-glass p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-900 mb-2">Account Migration</h4>
-                  <p className="text-sm text-gray-600 mb-4">Migrate account data to new formats</p>
-                  <button className="neural-button text-sm">Start Migration</button>
+              </div>
+              
+              {/* Total Volume */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.1s' }}>
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-blue-400 text-2xl">💰</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Total Volume</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">2,847</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">SOL staked</p>
+                  <div className="mt-3">
+                    <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="bg-blue-400 h-2 rounded-full" style={{ width: '85%' }}></div>
+                    </div>
+                    <span className="text-xs matrix-text-blue mt-1 block">85% growth</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Success Rate */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.2s' }}>
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-purple-400 text-2xl">🎯</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Success Rate</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">78.5%</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">Prediction accuracy</p>
+                  <div className="mt-3 flex items-center justify-center space-x-2">
+                    <span className="text-xs matrix-text-green">+12.3%</span>
+                    <span className="text-xs matrix-text-white">vs last month</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Active Users */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.3s' }}>
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-orange-400 text-2xl">👥</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Active Users</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">1,247</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">Monthly active</p>
+                  <div className="mt-3">
+                    <div className="flex items-center justify-center space-x-1">
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+                    </div>
+                    <span className="text-xs matrix-text-orange mt-1 block">High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Market Performance Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Top Performing Markets */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-green-400 text-xl">🏆</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Top Markets</h3>
+                      <p className="matrix-text-white text-opacity-80">Best performing predictions</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Bitcoin Price 2025</span>
+                        <span className="matrix-text-green text-sm">+23.4%</span>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70 text-sm">1,247 participants</div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Ethereum Merge</span>
+                        <span className="matrix-text-green text-sm">+18.7%</span>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70 text-sm">892 participants</div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Solana TVL Growth</span>
+                        <span className="matrix-text-green text-sm">+15.2%</span>
+                      </div>
+                      <div className="matrix-text-white text-opacity-70 text-sm">456 participants</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Market Categories */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-blue-400 text-xl">📈</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Categories</h3>
+                      <p className="matrix-text-white text-opacity-80">Market distribution</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Cryptocurrency</span>
+                        <span className="matrix-text-green text-sm">45%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-green-400 h-2 rounded-full" style={{ width: '45%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Politics</span>
+                        <span className="matrix-text-blue text-sm">25%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-blue-400 h-2 rounded-full" style={{ width: '25%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Sports</span>
+                        <span className="matrix-text-purple text-sm">20%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-purple-400 h-2 rounded-full" style={{ width: '20%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-black/50 rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="matrix-text-white font-medium">Economy</span>
+                        <span className="matrix-text-orange text-sm">10%</span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div className="bg-orange-400 h-2 rounded-full" style={{ width: '10%' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Analytics Actions */}
+            <div className="matrix-card-enhanced">
+              <div className="p-6">
+                <h3 className="text-2xl font-bold matrix-text-green mb-6 text-center">Analytics Tools</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <button className="matrix-button-enhanced p-4 text-center">
+                    <div className="text-2xl mb-2">📊</div>
+                    <div className="font-semibold matrix-text-white">View Charts</div>
+                    <div className="text-sm matrix-text-white text-opacity-70">Detailed market graphs</div>
+                  </button>
+                  
+                  <button className="matrix-button-enhanced p-4 text-center">
+                    <div className="text-2xl mb-2">📈</div>
+                    <div className="font-semibold matrix-text-white">Export Data</div>
+                    <div className="text-sm matrix-text-white text-opacity-70">Download analytics</div>
+                  </button>
+                  
+                  <button className="matrix-button-enhanced p-4 text-center">
+                    <div className="text-2xl mb-2">🔔</div>
+                    <div className="font-semibold matrix-text-white">Set Alerts</div>
+                    <div className="text-sm matrix-text-white text-opacity-70">Market notifications</div>
+                  </button>
                 </div>
               </div>
             </div>
