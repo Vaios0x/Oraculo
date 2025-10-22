@@ -254,17 +254,17 @@ export default function OraculoApp() {
       );
 
       // Configurar la transacción
-      transaction.feePayer = rewardsKeyPair.publicKey;
+      transaction.feePayer = publicKey; // El usuario paga las fees
       transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
       // Firmar la transacción con la cuenta de recompensas
       transaction.sign(rewardsKeyPair);
 
-      // Enviar la transacción a la red
-      const signature = await connection.sendTransaction(transaction, [rewardsKeyPair], {
-        skipPreflight: false,
-        preflightCommitment: 'confirmed'
-      });
+      // Usar el wallet adapter para que el usuario firme la transacción
+      const { sendTransaction } = useWallet();
+      
+      // Enviar la transacción para que el usuario la firme con Phantom
+      const signature = await sendTransaction(transaction, connection);
 
       // Confirmar la transacción
       await connection.confirmTransaction(signature, 'confirmed');
