@@ -147,7 +147,7 @@ export default function OraculoApp() {
   const sidebar = (
     <div className="matrix-bg relative">
       {/* Matrix Background Effects */}
-      <div className="absolute inset-0 overflow-hidden matrix-background-container">
+      <div className="absolute inset-0 overflow-hidden matrix-background-container pointer-events-none">
         <MatrixBackground intensity="low" speed={0.6} />
         <MatrixGrid />
         <MatrixScan />
