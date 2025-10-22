@@ -156,8 +156,8 @@ export default function OraculoApp() {
         <div className="flex items-center space-x-3">
           <TrendingUp className="h-8 w-8 text-neural-primary neural-text-glow" />
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 neural-text-glow">Oráculo</h1>
-            <p className="text-sm text-gray-600">Prediction Markets on Solana</p>
+            <h1 className="text-2xl font-bold matrix-text-green neural-text-glow">Oráculo</h1>
+            <p className="text-sm matrix-text-white text-opacity-80">Prediction Markets on Solana</p>
           </div>
         </div>
       </div>
@@ -181,8 +181,8 @@ export default function OraculoApp() {
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                 activeTab === item.id 
-                  ? 'bg-neural-primary/20 text-neural-primary' 
-                  : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+                  ? 'bg-green-500/20 text-green-400 matrix-glow' 
+                  : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
               }`}
             >
               {item.icon}
@@ -192,7 +192,7 @@ export default function OraculoApp() {
           
           <button
             onClick={() => setShowTemplates(true)}
-            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 text-gray-600 hover:bg-white/10 hover:text-gray-900"
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 matrix-text-white hover:bg-green-500/10 hover:text-green-400"
           >
             <Target className="w-5 h-5" />
             <span className="font-medium">Plantillas</span>
@@ -202,8 +202,8 @@ export default function OraculoApp() {
             onClick={() => setShowOracleDemo(!showOracleDemo)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showOracleDemo 
-                ? 'bg-neural-primary/20 text-neural-primary' 
-                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+                ? 'bg-green-500/20 text-green-400 matrix-glow' 
+                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
             }`}
           >
             <Code className="w-5 h-5" />
@@ -214,8 +214,8 @@ export default function OraculoApp() {
             onClick={() => setShowRealCreator(!showRealCreator)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showRealCreator 
-                ? 'bg-neural-primary/20 text-neural-primary' 
-                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+                ? 'bg-green-500/20 text-green-400 matrix-glow' 
+                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
             }`}
           >
             <Target className="w-5 h-5" />
@@ -226,8 +226,8 @@ export default function OraculoApp() {
             onClick={() => setShowRealMarkets(!showRealMarkets)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showRealMarkets 
-                ? 'bg-neural-primary/20 text-neural-primary' 
-                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+                ? 'bg-green-500/20 text-green-400 matrix-glow' 
+                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
             }`}
           >
             <TrendingUp className="w-5 h-5" />
@@ -238,8 +238,8 @@ export default function OraculoApp() {
             onClick={() => setActiveTab('shipyard')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               activeTab === 'shipyard'
-                ? 'bg-green-500/20 text-green-400' 
-                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+                ? 'bg-green-500/20 text-green-400 matrix-glow' 
+                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
             }`}
           >
             <Zap className="w-5 h-5" />
@@ -250,8 +250,8 @@ export default function OraculoApp() {
             onClick={() => setShowDemoCreator(!showDemoCreator)}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               showDemoCreator 
-                ? 'bg-neural-primary/20 text-neural-primary' 
-                : 'text-gray-600 hover:bg-white/10 hover:text-gray-900'
+                ? 'bg-green-500/20 text-green-400 matrix-glow' 
+                : 'matrix-text-white hover:bg-green-500/10 hover:text-green-400'
             }`}
           >
             <Zap className="w-5 h-5" />
@@ -265,7 +265,7 @@ export default function OraculoApp() {
 
   const contentHeader = (
     <div className="flex justify-between items-center">
-      <h2 className="text-2xl font-bold text-gray-900 neural-text-glow">
+      <h2 className="text-2xl font-bold matrix-text-green neural-text-glow">
         {activeTab === 'markets' && 'Prediction Markets'}
         {activeTab === 'create' && 'Create Market'}
         {activeTab === 'templates' && 'Market Templates'}
@@ -276,7 +276,7 @@ export default function OraculoApp() {
         {activeTab === 'cookbook' && 'Developer Cookbook'}
       </h2>
       {activeTab === 'markets' && (
-        <button className="neural-button" onClick={() => setActiveTab('create')}>
+        <button className="matrix-button-enhanced" onClick={() => setActiveTab('create')}>
           Create Market
         </button>
       )}
