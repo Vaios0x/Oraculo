@@ -382,19 +382,19 @@ solana program show 7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2
 
 ## 🚀 **Roadmap Futuro**
 
-### 📅 **Q1 2025**
+### 📅 **Q1 2026**
 - [ ] Despliegue en Mainnet
 - [ ] Integración con más wallets
 - [ ] API pública para desarrolladores
 - [ ] Sistema de reputación
 
-### 📅 **Q2 2025**
+### 📅 **Q2 2026**
 - [ ] Mercados de predicción en tiempo real
 - [ ] Integración con oráculos externos
 - [ ] Aplicación móvil
 - [ ] Integración con redes sociales
 
-### 📅 **Q3 2025**
+### 📅 **Q3 2026**
 - [ ] Programa de incentivos
 - [ ] Sistema de gobernanza
 - [ ] Integración con DeFi

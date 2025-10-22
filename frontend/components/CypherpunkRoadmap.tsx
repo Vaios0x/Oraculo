@@ -62,7 +62,7 @@ const roadmapItems: RoadmapItem[] = [
     icon: <Shield className="w-8 h-8" />,
     color: 'text-green-400',
     status: 'completed',
-    date: 'Q4 2024',
+    date: 'Q4 2025',
     cypherpunkValues: ['Privacidad', 'Descentralización', 'Transparencia']
   },
   {
@@ -80,7 +80,7 @@ const roadmapItems: RoadmapItem[] = [
     icon: <Lock className="w-8 h-8" />,
     color: 'text-blue-400',
     status: 'current',
-    date: 'Q1 2025',
+    date: 'Q1 2026',
     cypherpunkValues: ['Privacidad', 'Innovación', 'Libertad']
   },
   {
@@ -98,7 +98,7 @@ const roadmapItems: RoadmapItem[] = [
     icon: <Globe className="w-8 h-8" />,
     color: 'text-purple-400',
     status: 'upcoming',
-    date: 'Q2 2025',
+    date: 'Q2 2026',
     cypherpunkValues: ['Descentralización', 'Innovación', 'Comunidad']
   }
 ];

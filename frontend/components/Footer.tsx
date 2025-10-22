@@ -478,7 +478,7 @@ export function Footer() {
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Calendar className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Q1 2024 - Completado ✅</h3>
+                          <h3 className="text-lg font-bold matrix-text-green">Q4 2025 - Completado ✅</h3>
                         </div>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
@@ -499,7 +499,7 @@ export function Footer() {
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Calendar className="w-5 h-5 text-blue-400" />
-                          <h3 className="text-lg font-bold matrix-text-blue">Q2 2024 - En Progreso 🚧</h3>
+                          <h3 className="text-lg font-bold matrix-text-blue">Q1 2026 - En Progreso 🚧</h3>
                         </div>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
@@ -520,7 +520,7 @@ export function Footer() {
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Calendar className="w-5 h-5 text-yellow-400" />
-                          <h3 className="text-lg font-bold matrix-text-yellow">Q3 2024 - Planificado 📋</h3>
+                          <h3 className="text-lg font-bold matrix-text-yellow">Q2 2026 - Planificado 📋</h3>
                         </div>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
