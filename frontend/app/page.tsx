@@ -124,6 +124,7 @@ export default function OraculoApp() {
     }
   };
 
+
   const handleTemplateSelect = (template: MarketTemplate) => {
     setSelectedTemplate(template);
     setShowTemplates(false);
@@ -144,7 +145,6 @@ export default function OraculoApp() {
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 className="w-4 h-4" /> },
     { id: 'tokens', label: 'Tokens', icon: <Coins className="w-4 h-4" /> },
     { id: 'analytics', label: 'Analytics', icon: <BarChart3 className="w-4 h-4" /> },
-    { id: 'cookbook', label: 'Cookbook', icon: <BookOpen className="w-4 h-4" /> }
   ];
 
   const sidebar = (
@@ -188,13 +188,6 @@ export default function OraculoApp() {
             </button>
           ))}
           
-          <button
-            onClick={() => setShowTemplates(true)}
-            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 matrix-text-white hover:bg-green-500/10 hover:text-green-400"
-          >
-            <Target className="w-5 h-5" />
-            <span className="font-medium">Plantillas</span>
-          </button>
           
           <button
             onClick={() => setShowOracleDemo(!showOracleDemo)}
@@ -248,7 +241,6 @@ export default function OraculoApp() {
         {activeTab === 'dashboard' && 'Dashboard'}
         {activeTab === 'tokens' && 'Token Management'}
         {activeTab === 'analytics' && 'Market Analytics'}
-        {activeTab === 'cookbook' && 'Developer Cookbook'}
       </h2>
       {activeTab === 'markets' && (
         <button className="matrix-button-enhanced" onClick={() => setActiveTab('create')}>
