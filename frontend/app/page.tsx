@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+
 import { useWallet } from '@solana/wallet-adapter-react';
+import { Keypair, Connection, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { SafeDate } from '../components/HydrationBoundary';
 import { Layout, ContentArea, GridContainer } from '../components/Layout';
 import ResponsiveLayout from '../components/ResponsiveLayout';
@@ -209,6 +211,67 @@ export default function OraculoApp() {
     }
   };
 
+  const handleClaimRewards = async (marketId: string) => {
+    console.log(`Claiming rewards for market ${marketId}`);
+    
+    // Verificar que el usuario tenga wallet conectado
+    if (!publicKey) {
+      alert('Please connect your wallet to claim rewards');
+      return;
+    }
+
+    try {
+      // Crear la key pair de recompensas desde el array proporcionado
+      const rewardsKeyPair = Keypair.fromSecretKey(
+        new Uint8Array([199,70,106,129,252,48,22,63,83,106,139,192,137,151,67,176,135,123,198,162,113,193,246,161,172,84,140,96,143,248,175,129,4,125,130,220,196,223,143,169,6,159,120,136,121,29,251,188,177,8,16,156,17,211,171,200,190,113,233,181,108,146,5,31])
+      );
+
+      // Conectar a Solana devnet
+      const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
+      
+      // Crear transacción de transferencia de recompensas
+      const transaction = new Transaction();
+      
+      // Calcular recompensas (1.5 SOL como recompensa)
+      const rewardAmount = 1.5 * LAMPORTS_PER_SOL;
+      
+      // Agregar instrucción de transferencia desde la cuenta de recompensas al usuario
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: rewardsKeyPair.publicKey,
+          toPubkey: publicKey,
+          lamports: rewardAmount,
+        })
+      );
+
+      // Configurar la transacción
+      transaction.feePayer = publicKey;
+      transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+
+      // Firmar la transacción con la cuenta de recompensas
+      transaction.sign(rewardsKeyPair);
+
+      // Enviar la transacción para que el usuario la firme con Phantom
+      const signature = await (window as any).solana.signAndSendTransaction(transaction);
+
+      // Asegurar que signature sea una string
+      const signatureString = typeof signature === 'string' ? signature : signature.toString();
+
+      // Mostrar modal de éxito
+      setSuccessData({
+        amount: 1.5,
+        outcome: 'rewards',
+        signature: signatureString
+      });
+      setShowSuccessModal(true);
+
+      console.log(`Rewards claimed: 1.5 SOL, Signature: ${signature}`);
+      
+    } catch (error: any) {
+      console.error('Claim rewards error:', error);
+      alert(`Error claiming rewards: ${error.message}`);
+    }
+  };
 
   const handleTemplateSelect = (template: MarketTemplate) => {
     setSelectedTemplate(template);
@@ -676,10 +739,19 @@ export default function OraculoApp() {
                     </div>
                     
                     {market.isResolved ? (
-                      <div className="glass-status p-3">
-                        <span className="text-sm matrix-text-green font-bold">
-                          ✅ Resolved: {market.winningOutcome}
-                        </span>
+                      <div className="space-y-3">
+                        <div className="glass-status p-3">
+                          <span className="text-sm matrix-text-green font-bold">
+                            ✅ Resolved: {market.winningOutcome}
+                          </span>
+                        </div>
+                        <button 
+                          onClick={() => handleClaimRewards(market.id)}
+                          disabled={stakingLoading}
+                          className="glass-button w-full text-sm py-3 px-4 rounded-lg font-bold hover:bg-green-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {stakingLoading ? '⏳ Claiming...' : '🎁 Claim Rewards'}
+                        </button>
                       </div>
                     ) : (
                       <div className="flex space-x-2">
@@ -1902,11 +1974,17 @@ export default function OraculoApp() {
               <p className="text-sm text-white/70 mb-2">Transaction Hash:</p>
               <div className="flex items-center justify-center space-x-2">
                 <code className="text-green-400 text-xs font-mono bg-black/30 px-2 py-1 rounded">
-                  {successData.signature.slice(0, 8)}...{successData.signature.slice(-8)}
+                  {typeof successData.signature === 'string' 
+                    ? `${successData.signature.slice(0, 8)}...${successData.signature.slice(-8)}`
+                    : successData.signature.toString().slice(0, 8) + '...' + successData.signature.toString().slice(-8)
+                  }
                 </code>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(successData.signature);
+                    const signatureText = typeof successData.signature === 'string' 
+                      ? successData.signature 
+                      : successData.signature.toString();
+                    navigator.clipboard.writeText(signatureText);
                     alert('Transaction hash copied to clipboard!');
                   }}
                   className="p-1 hover:bg-green-400/20 rounded transition-colors"
