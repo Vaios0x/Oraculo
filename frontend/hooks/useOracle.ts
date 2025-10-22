@@ -109,7 +109,7 @@ export function useOracle() {
       console.log('📝 Signature final:', signature);
       console.log('💰 Transferencia de 1000 lamports completada');
 
-      // Generar un ID único para el mercado demo
+      // Generar un ID único para el mercado DEVNET
       const marketId = `demo-${Date.now()}`;
       const mockMarketAddress = new PublicKey(publicKey.toBuffer().slice(0, 32));
 
@@ -300,12 +300,73 @@ export function useOracle() {
     }
   }, [oracleClient]);
 
+  /**
+   * Obtener todos los mercados creados
+   */
+  const getAllMarkets = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const markets = await oracleClient.getAllMarkets();
+      return markets;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [oracleClient]);
+
+  /**
+   * Obtener mercados por creador
+   */
+  const getMarketsByCreator = useCallback(async (creatorPubkey: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const creator = new PublicKey(creatorPubkey);
+      const markets = await oracleClient.getMarketsByCreator(creator);
+      return markets;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [oracleClient]);
+
+  /**
+   * Obtener mercados activos
+   */
+  const getActiveMarkets = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const markets = await oracleClient.getActiveMarkets();
+      return markets;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [oracleClient]);
+
   return {
     createMarket,
     placeBet,
     resolveMarket,
     claimWinnings,
     getMarketInfo,
+    getAllMarkets,
+    getMarketsByCreator,
+    getActiveMarkets,
     loading,
     error,
     connection,

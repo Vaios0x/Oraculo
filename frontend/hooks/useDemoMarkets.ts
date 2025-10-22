@@ -61,6 +61,16 @@ export function useDemoMarkets() {
     marketAddress: PublicKey;
     endTime: number;
   }) => {
+    // Verificar que la fecha sea de noviembre 2025 en adelante
+    const november2025 = Math.floor(new Date('2025-11-01').getTime() / 1000);
+    let finalEndTime = marketData.endTime;
+    
+    if (finalEndTime < november2025) {
+      // Si la fecha es anterior a noviembre 2025, establecer a diciembre 2025
+      finalEndTime = Math.floor(new Date('2025-12-31').getTime() / 1000);
+      console.log('⚠️ Fecha de mercado DEVNET corregida a diciembre 2025');
+    }
+    
     const newMarket: DemoMarket = {
       id: `demo-${Date.now()}`,
       title: marketData.title,
@@ -71,7 +81,7 @@ export function useDemoMarkets() {
       signature: marketData.signature,
       marketAddress: marketData.marketAddress.toString(),
       createdAt: Date.now(),
-      endTime: marketData.endTime,
+      endTime: finalEndTime,
       isResolved: false,
       totalStaked: Math.floor(Math.random() * 1000) + 100, // Mock staked amount
     };

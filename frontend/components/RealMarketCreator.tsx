@@ -119,10 +119,19 @@ export function RealMarketCreator({
       console.log('📋 Datos del formulario:', formData);
 
       const endDateTime = new Date(`${formData.endDate}T${formData.endTime}`);
-      const endTimestamp = Math.floor(endDateTime.getTime() / 1000);
+      let endTimestamp = Math.floor(endDateTime.getTime() / 1000);
+      
+      // Asegurar que la fecha sea de noviembre 2025 en adelante
+      const november2025 = Math.floor(new Date('2025-11-01').getTime() / 1000);
+      if (endTimestamp < november2025) {
+        // Si la fecha es anterior a noviembre 2025, establecer a diciembre 2025
+        const futureDate = new Date('2025-12-31');
+        endTimestamp = Math.floor(futureDate.getTime() / 1000);
+        console.log('⚠️ Fecha corregida a diciembre 2025:', futureDate.toLocaleString());
+      }
 
       console.log('⏰ Timestamp de finalización:', endTimestamp);
-      console.log('📅 Fecha de finalización:', endDateTime.toLocaleString());
+      console.log('📅 Fecha de finalización:', new Date(endTimestamp * 1000).toLocaleString());
 
       const marketData = {
         question: formData.question,

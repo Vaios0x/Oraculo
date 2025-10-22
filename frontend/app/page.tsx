@@ -46,10 +46,10 @@ const mockMarkets = [
   {
     id: '1',
     title: 'Bitcoin Price Prediction',
-    description: 'Will Bitcoin reach $100,000 by the end of 2024?',
+    description: 'Will Bitcoin reach $200,000 by the end of 2026?',
     outcomes: ['Yes', 'No'],
     totalStaked: 1250,
-    endTime: new Date('2024-12-31').getTime(),
+    endTime: Math.floor(new Date('2026-12-31').getTime() / 1000), // Convertir a segundos
     isResolved: false,
     winningOutcome: null
   },
@@ -59,17 +59,17 @@ const mockMarkets = [
     description: 'Will the Ethereum merge be completed successfully?',
     outcomes: ['Success', 'Failure'],
     totalStaked: 890,
-    endTime: new Date('2024-11-15').getTime(),
+    endTime: Math.floor(new Date('2026-06-15').getTime() / 1000), // Convertir a segundos
     isResolved: true,
     winningOutcome: 'Success'
   },
   {
     id: '3',
     title: 'Solana TVL Growth',
-    description: 'Will Solana TVL exceed $10B by Q1 2025?',
+    description: 'Will Solana TVL exceed $50B by Q1 2026?',
     outcomes: ['Yes', 'No'],
     totalStaked: 2100,
-    endTime: new Date('2025-03-31').getTime(),
+    endTime: Math.floor(new Date('2026-03-31').getTime() / 1000), // Convertir a segundos
     isResolved: false,
     winningOutcome: null
   }
@@ -882,8 +882,8 @@ export default function OraculoApp() {
                       <div className="flex items-center space-x-2">
                         <h3 className="text-lg font-semibold matrix-text-green neural-text-glow">{market.title}</h3>
                         {market.id.startsWith('demo-') && (
-                          <span className="px-2 py-1 text-xs font-semibold matrix-text-white bg-black/50 rounded-full matrix-glow">
-                            DEMO
+                          <span className="px-2 py-1 text-xs font-semibold matrix-text-white bg-blue-500/80 rounded-full matrix-glow">
+                            DEVNET
                           </span>
                         )}
                       </div>

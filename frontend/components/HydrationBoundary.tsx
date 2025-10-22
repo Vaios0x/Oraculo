@@ -56,11 +56,28 @@ export function SafeDate({
   }
 
   const formatDate = (date: Date | number | string) => {
-    const dateObj = new Date(date);
+    let dateObj: Date;
+    
+    // Si es un número, verificar si es timestamp en segundos o milisegundos
+    if (typeof date === 'number') {
+      // Si el número es menor que 1e12, es probablemente un timestamp en segundos
+      if (date < 1e12) {
+        dateObj = new Date(date * 1000); // Convertir de segundos a milisegundos
+      } else {
+        dateObj = new Date(date); // Ya está en milisegundos
+      }
+    } else {
+      dateObj = new Date(date);
+    }
+    
+    // Verificar si la fecha es válida
+    if (isNaN(dateObj.getTime())) {
+      return 'Fecha inválida';
+    }
     
     switch (format) {
       case 'datetime':
-        return dateObj.toLocaleString('en-US', {
+        return dateObj.toLocaleString('es-MX', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
@@ -70,10 +87,10 @@ export function SafeDate({
         });
       case 'relative':
         // Implementar lógica de fecha relativa si es necesario
-        return dateObj.toLocaleDateString();
+        return dateObj.toLocaleDateString('es-MX');
       case 'date':
       default:
-        return dateObj.toLocaleDateString('en-US', {
+        return dateObj.toLocaleDateString('es-MX', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit'

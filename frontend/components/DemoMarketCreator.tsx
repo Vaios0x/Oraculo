@@ -67,13 +67,24 @@ export function DemoMarketCreator() {
       console.log(`⏳ Delay de ${delay}ms para evitar duplicados...`);
       await new Promise(resolve => setTimeout(resolve, delay));
       
-      console.log('🚀 Creando mercado demo con plantilla...');
+      console.log('🚀 Creando mercado DEVNET con plantilla...');
       console.log('📊 Plantilla seleccionada:', selectedTemplate);
 
       // Calcular fecha de finalización basada en endTime (días desde hoy)
       const endDate = new Date();
       endDate.setDate(endDate.getDate() + selectedTemplate.endTime);
-      const endTimestamp = Math.floor(endDate.getTime() / 1000);
+      let endTimestamp = Math.floor(endDate.getTime() / 1000);
+      
+      // Asegurar que la fecha sea de noviembre 2025 en adelante
+      const november2025 = Math.floor(new Date('2025-11-01').getTime() / 1000);
+      if (endTimestamp < november2025) {
+        // Si la fecha es anterior a noviembre 2025, establecer a diciembre 2025
+        endDate.setFullYear(2025);
+        endDate.setMonth(11); // Diciembre (0-indexado)
+        endDate.setDate(31);
+        endTimestamp = Math.floor(endDate.getTime() / 1000);
+        console.log('⚠️ Fecha corregida a diciembre 2025:', new Date(endTimestamp * 1000).toLocaleString());
+      }
 
       console.log('⏰ Timestamp de finalización:', endTimestamp);
       console.log('📅 Fecha de finalización:', endDate.toLocaleString());
@@ -86,7 +97,7 @@ export function DemoMarketCreator() {
         1 // Privacy level público
       );
 
-      console.log('✅ Mercado demo creado exitosamente:', result);
+      console.log('✅ Mercado DEVNET creado exitosamente:', result);
       setCreatedMarket(result);
       setShowSuccess(true);
 
@@ -103,7 +114,7 @@ export function DemoMarketCreator() {
       });
 
     } catch (error) {
-      console.error('❌ Error creando mercado demo:', error);
+      console.error('❌ Error creando mercado DEVNET:', error);
     } finally {
       setIsCreating(false);
     }
@@ -124,15 +135,15 @@ export function DemoMarketCreator() {
           <div className="text-center mb-8">
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
             <h2 className="text-4xl font-bold text-gray-900 neural-text-glow mb-4">
-              ¡Mercado Demo Creado Exitosamente!
+              ¡Mercado DEVNET Creado Exitosamente!
             </h2>
             <p className="text-xl text-gray-600">
-              Tu mercado de demostración ha sido creado en Solana Devnet
+              Tu mercado DEVNET ha sido creado en Solana Devnet
             </p>
           </div>
 
           <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">🎯 Datos del Mercado Demo</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">🎯 Datos del Mercado DEVNET</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
@@ -286,7 +297,7 @@ export function DemoMarketCreator() {
               <div className="flex items-center justify-center space-x-3">
                 <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
                 <p className="text-blue-800 text-lg font-medium">
-                  🔄 Creando mercado demo en Solana Devnet...
+                  🔄 Creando mercado DEVNET en Solana Devnet...
                 </p>
               </div>
             </div>
@@ -299,7 +310,7 @@ export function DemoMarketCreator() {
                 <div className="flex items-center space-x-3">
                   <AlertCircle className="w-6 h-6 text-red-600" />
                   <div>
-                    <p className="text-red-800 font-medium">❌ Error creando mercado demo</p>
+                    <p className="text-red-800 font-medium">❌ Error creando mercado DEVNET</p>
                     <p className="text-red-700 text-sm">{error}</p>
                     {retryCount > 0 && (
                       <p className="text-red-600 text-xs mt-1">
@@ -368,18 +379,18 @@ export function DemoMarketCreator() {
               {loading || isCreating ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Creando Mercado Demo...</span>
+                  <span>Creando Mercado DEVNET...</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-6 h-6" />
-                  <span>🚀 Crear Mercado Demo Real</span>
+                  <span>🚀 Crear Mercado DEVNET</span>
                 </>
               )}
             </button>
             
             <p className="text-sm text-gray-500 mt-4">
-              Este mercado será creado en Solana Devnet usando la plantilla seleccionada
+              Este mercado DEVNET será creado en Solana Devnet usando la plantilla seleccionada
             </p>
           </div>
         </div>
@@ -394,11 +405,11 @@ export function DemoMarketCreator() {
           <div className="flex items-center justify-center space-x-3 mb-4">
             <Sparkles className="w-8 h-8 text-yellow-500" />
             <h2 className="text-3xl font-bold text-gray-900 neural-text-glow">
-              🎯 Mercados Demo con Plantillas
+              🎯 Mercados DEVNET con Plantillas
             </h2>
           </div>
           <p className="text-lg text-gray-600">
-            Selecciona una plantilla para crear tu mercado de demostración
+            Selecciona una plantilla para crear tu mercado en Solana Devnet
           </p>
         </div>
 

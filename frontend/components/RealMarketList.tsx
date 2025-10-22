@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useRealMarkets } from '../hooks/useRealMarkets';
 import { useOracle } from '../hooks/useOracle';
+import { MarketNotification, useMarketNotifications } from './MarketNotification';
 import { 
   ExternalLink,
   Copy,
@@ -12,7 +14,8 @@ import {
   AlertCircle,
   RefreshCw,
   Eye,
-  TrendingUp
+  TrendingUp,
+  BarChart3
 } from 'lucide-react';
 
 /**
@@ -39,52 +42,51 @@ interface RealMarket {
 }
 
 export function RealMarketList() {
-  const { getMarketInfo, programId, connected } = useOracle();
-  const [markets, setMarkets] = useState<RealMarket[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    markets,
+    loading,
+    error,
+    showActiveOnly,
+    setShowActiveOnly,
+    loadMarkets,
+    refreshMarkets,
+    totalMarkets,
+    activeMarkets,
+    resolvedMarkets,
+    totalStaked
+  } = useRealMarkets();
 
-  // Mercados de ejemplo para demostración
-  const exampleMarkets: RealMarket[] = [
-    {
-      address: "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2",
-      title: "¿Llegará Bitcoin a $200,000 en 2026?",
-      description: "Predicción sobre el precio de Bitcoin para finales de 2026",
-      endTime: Math.floor(Date.now() / 1000) + 86400 * 365, // 1 año
-      outcomes: ["Sí", "No"],
-      totalStaked: 1250,
-      isResolved: false,
-      privacyLevel: 1,
-      creator: "7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2"
-    },
-    {
-      address: "DPdNmG6KptafxXNpeTX2UEnuVqikTh5WWjumsrnzoGo1",
-      title: "¿Será lanzado GPT-6 en 2026?",
-      description: "Predicción sobre el lanzamiento de GPT-6 por OpenAI",
-      endTime: Math.floor(Date.now() / 1000) + 86400 * 180, // 6 meses
-      outcomes: ["Sí", "No"],
-      totalStaked: 890,
-      isResolved: false,
-      privacyLevel: 1,
-      creator: "DPdNmG6KptafxXNpeTX2UEnuVqikTh5WWjumsrnzoGo1"
-    },
-    {
-      address: "11111111111111111111111111111111",
-      title: "¿Ganará Argentina el Mundial 2026?",
-      description: "Predicción sobre el ganador del Mundial de Fútbol 2026",
-      endTime: Math.floor(Date.now() / 1000) + 86400 * 90, // 3 meses
-      outcomes: ["Sí", "No"],
-      totalStaked: 2100,
-      isResolved: true,
-      winningOutcome: 0,
-      privacyLevel: 1,
-      creator: "11111111111111111111111111111111"
-    }
-  ];
+  // Obtener programId del hook useOracle
+  const { programId } = useOracle();
 
+  // Notificaciones
+  const {
+    notifications,
+    removeNotification,
+    addSuccessNotification,
+    addErrorNotification,
+    addInfoNotification
+  } = useMarketNotifications();
+
+  // Detectar cambios en los mercados y mostrar notificaciones
   useEffect(() => {
-    setMarkets(exampleMarkets);
-  }, []);
+    if (totalMarkets > 0 && !loading) {
+      addInfoNotification(
+        'Mercados Actualizados',
+        `Se encontraron ${totalMarkets} mercados. ${activeMarkets} activos, ${resolvedMarkets} resueltos.`
+      );
+    }
+  }, [totalMarkets, activeMarkets, resolvedMarkets, loading]);
+
+  // Mostrar notificación de error
+  useEffect(() => {
+    if (error) {
+      addErrorNotification(
+        'Error Cargando Mercados',
+        error
+      );
+    }
+  }, [error]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -143,12 +145,53 @@ export function RealMarketList() {
         </div>
       </div>
 
-      {!connected && (
-        <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+      {/* Controles de filtro y carga */}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => setShowActiveOnly(!showActiveOnly)}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              showActiveOnly 
+                ? 'bg-green-100 text-green-800 border border-green-200' 
+                : 'bg-gray-100 text-gray-800 border border-gray-200'
+            }`}
+          >
+            {showActiveOnly ? 'Solo Activos' : 'Todos los Mercados'}
+          </button>
+          
+          <button
+            onClick={refreshMarkets}
+            disabled={loading}
+            className="neural-button-secondary flex items-center space-x-2 disabled:opacity-50"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            <span>Actualizar</span>
+          </button>
+        </div>
+
+        <div className="text-sm text-gray-500">
+          {loading ? 'Cargando...' : `${totalMarkets} mercados encontrados`}
+        </div>
+      </div>
+
+      {/* Estados de carga y error */}
+      {loading && (
+        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <div className="flex items-center space-x-2">
-            <AlertCircle className="w-5 h-5 text-yellow-600" />
-            <p className="text-yellow-800">
-              Conecta tu wallet para interactuar con los mercados
+            <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-blue-800">
+              🔄 Cargando mercados desde Solana...
+            </p>
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="flex items-center space-x-2">
+            <AlertCircle className="w-5 h-5 text-red-600" />
+            <p className="text-red-800">
+              ❌ Error cargando mercados: {error}
             </p>
           </div>
         </div>
@@ -271,38 +314,76 @@ export function RealMarketList() {
         ))}
       </div>
 
-      {/* Load More Button */}
-      <div className="mt-8 text-center">
-        <button className="neural-button-secondary flex items-center space-x-2 mx-auto">
-          <RefreshCw className="w-4 h-4" />
-          <span>Cargar Más Mercados</span>
-        </button>
-      </div>
+      {/* Mensaje cuando no hay mercados */}
+      {totalMarkets === 0 && !loading && (
+        <div className="text-center py-12">
+          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <BarChart3 className="w-12 h-12 text-gray-400" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            No hay mercados disponibles
+          </h3>
+          <p className="text-gray-600 mb-6">
+            {showActiveOnly 
+              ? 'No se encontraron mercados activos. Intenta cambiar el filtro o crear un nuevo mercado.'
+              : 'No se encontraron mercados. Crea el primer mercado de predicciones.'
+            }
+          </p>
+          <button
+            onClick={refreshMarkets}
+            disabled={loading}
+            className="neural-button-primary"
+          >
+            Recargar Mercados
+          </button>
+        </div>
+      )}
 
       {/* Info Panel */}
-      <div className="mt-8 neural-card neural-floating p-6">
-        <h3 className="text-lg font-semibold text-gray-900 neural-text-glow mb-4">
-          Información del Sistema
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <span className="text-gray-500">Total de Mercados:</span>
-            <span className="ml-2 font-semibold">{markets.length}</span>
+      {totalMarkets > 0 && (
+        <div className="mt-8 neural-card neural-floating p-6">
+          <h3 className="text-lg font-semibold text-gray-900 neural-text-glow mb-4">
+            Información del Sistema
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+            <div>
+              <span className="text-gray-500">Total de Mercados:</span>
+              <span className="ml-2 font-semibold">{totalMarkets}</span>
+            </div>
+            <div>
+              <span className="text-gray-500">Mercados Activos:</span>
+              <span className="ml-2 font-semibold text-orange-600">
+                {activeMarkets}
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-500">Mercados Resueltos:</span>
+              <span className="ml-2 font-semibold text-green-600">
+                {resolvedMarkets}
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-500">Total Apostado:</span>
+              <span className="ml-2 font-semibold text-purple-600">
+                {totalStaked.toLocaleString()} SOL
+              </span>
+            </div>
           </div>
-          <div>
-            <span className="text-gray-500">Mercados Activos:</span>
-            <span className="ml-2 font-semibold text-orange-600">
-              {markets.filter(m => !m.isResolved).length}
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-500">Mercados Resueltos:</span>
-            <span className="ml-2 font-semibold text-green-600">
-              {markets.filter(m => m.isResolved).length}
-            </span>
+          
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="flex items-center justify-between text-xs text-gray-500">
+              <span>Última actualización: {new Date().toLocaleTimeString()}</span>
+              <span>Red: Solana Devnet</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Notificaciones */}
+      <MarketNotification 
+        notifications={notifications}
+        onRemove={removeNotification}
+      />
     </div>
   );
 }

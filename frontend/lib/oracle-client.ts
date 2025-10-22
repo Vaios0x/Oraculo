@@ -329,6 +329,68 @@ export class OracleClient {
       resolvedAt,
     };
   }
+
+  /**
+   * Obtener todos los mercados creados
+   * Busca todas las cuentas de mercado usando Program Derived Addresses
+   */
+  async getAllMarkets(): Promise<MarketAccount[]> {
+    try {
+      // Obtener todas las cuentas del programa
+      const accounts = await this.connection.getProgramAccounts(this.programId, {
+        filters: [
+          {
+            dataSize: 8 + 32 + 4 + 100 + 4 + 200 + 8 + 4 + 100 + 1 + 1 + 8 + 1 + 32 + 8, // Tamaño de Market account
+          }
+        ]
+      });
+
+      const markets: MarketAccount[] = [];
+
+      for (const account of accounts) {
+        try {
+          const marketInfo = await this.getMarketInfo(account.pubkey);
+          markets.push(marketInfo);
+        } catch (error) {
+          console.warn(`Error parsing market ${account.pubkey.toString()}:`, error);
+          // Continuar con el siguiente mercado
+        }
+      }
+
+      // Ordenar por fecha de creación (más recientes primero)
+      return markets.sort((a, b) => b.endTime - a.endTime);
+    } catch (error) {
+      console.error('Error fetching all markets:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Obtener mercados por creador
+   */
+  async getMarketsByCreator(creatorPubkey: PublicKey): Promise<MarketAccount[]> {
+    try {
+      const allMarkets = await this.getAllMarkets();
+      return allMarkets.filter(market => market.creator === creatorPubkey.toString());
+    } catch (error) {
+      console.error('Error fetching markets by creator:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Obtener mercados activos (no resueltos)
+   */
+  async getActiveMarkets(): Promise<MarketAccount[]> {
+    try {
+      const allMarkets = await this.getAllMarkets();
+      const now = Math.floor(Date.now() / 1000);
+      return allMarkets.filter(market => !market.isResolved && market.endTime > now);
+    } catch (error) {
+      console.error('Error fetching active markets:', error);
+      throw error;
+    }
+  }
 }
 
 // Instrucciones del programa Oracle
