@@ -262,23 +262,94 @@ export default function OraculoApp() {
         {/* Tab Content */}
         {activeTab === 'markets' && (
           <div className="space-y-6">
-            <div className="matrix-card-enhanced p-8 text-center">
-              <div className="flex items-center justify-center space-x-3 mb-4">
-                <Zap className="w-8 h-8 text-green-400 matrix-glow" />
-                <h2 className="text-3xl font-bold matrix-text-green neural-text-glow">
-                  🎯 Mercados de Predicción
-                </h2>
-              </div>
-              <p className="text-lg matrix-text-white text-opacity-80 mb-6">
-                Crea mercados de predicción usando nuestras plantillas
-              </p>
-              <button
-                onClick={() => setActiveTab('create')}
-                className="matrix-button-enhanced px-6 py-3 text-lg"
-              >
-                <span className="matrix-text-green font-semibold">Crear Mercado</span>
-              </button>
-            </div>
+            <GridContainer>
+              {allMarkets.map((market, index) => (
+                <div 
+                  key={market.id} 
+                  className="neural-card neural-floating"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-2">
+                        <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">{market.title}</h3>
+                        {market.id.startsWith('demo-') && (
+                          <span className="px-2 py-1 text-xs font-semibold text-purple-700 bg-purple-100 rounded-full">
+                            DEMO
+                          </span>
+                        )}
+                      </div>
+                      {market.isResolved ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="neural-pulse-dot bg-green-500"></div>
+                          <span className="text-sm text-green-600 font-medium">Resolved</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-orange-500 rounded-full animate-neural-pulse"></div>
+                          <span className="text-sm text-orange-600 font-medium">Active</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <p className="matrix-text-white text-opacity-90 line-clamp-2">{market.description}</p>
+                    
+                    <div className="space-y-3">
+                      {market.outcomes.map((outcome, outcomeIndex) => (
+                        <div key={outcomeIndex} className="neural-glass p-2 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm matrix-text-white">{outcome}</span>
+                            <span className="text-sm font-medium matrix-text-green">
+                              {isClient ? (randomPercentages[outcomeIndex] || 0) : 0}%
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="neural-glass p-3 rounded-lg">
+                        <span className="matrix-text-white text-opacity-80 block">Total Staked</span>
+                        <span className="matrix-text-green font-semibold">
+                          {market.totalStaked.toLocaleString()} SOL
+                        </span>
+                      </div>
+                      <div className="neural-glass p-3 rounded-lg">
+                        <span className="matrix-text-white text-opacity-80 block">Ends</span>
+                        <SafeDate 
+                          date={market.endTime}
+                          format="date"
+                          className="matrix-text-white font-semibold"
+                          fallback="Loading..."
+                        />
+                      </div>
+                    </div>
+                    
+                    {market.isResolved ? (
+                      <div className="neural-connection p-3 rounded-lg">
+                        <span className="text-sm text-green-700">
+                          Resolved: {market.winningOutcome}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex space-x-2">
+                        <button className="matrix-button-enhanced flex-1 text-sm">
+                          Stake
+                        </button>
+                        {publicKey && (
+                          <button 
+                            onClick={() => handleResolve(market.id, 'Yes')}
+                            className="matrix-button-enhanced px-3 py-2 text-sm font-medium hover:bg-green-500/20 transition-colors"
+                          >
+                            Resolve
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </GridContainer>
           </div>
         )}
 
@@ -355,8 +426,8 @@ export default function OraculoApp() {
               <div className="matrix-card-enhanced neural-floating">
                 <div className="text-center p-6">
                   <div className="flex items-center justify-center mb-4">
-                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-blue-400 text-lg">#</span>
+                    <div className="w-8 h-8 bg-black/50 rounded-lg flex items-center justify-center mr-3 matrix-glow">
+                      <span className="text-green-400 text-lg">#</span>
                     </div>
                     <h3 className="text-lg font-semibold matrix-text-white">Current Slot</h3>
                   </div>
@@ -373,7 +444,7 @@ export default function OraculoApp() {
               <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.1s' }}>
                 <div className="text-center p-6">
                   <div className="flex items-center justify-center mb-4">
-                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                    <div className="w-8 h-8 bg-black/50 rounded-lg flex items-center justify-center mr-3 matrix-glow">
                       <span className="text-green-400 text-lg">⚡</span>
                 </div>
                     <h3 className="text-lg font-semibold matrix-text-white">TPS</h3>
@@ -393,8 +464,8 @@ export default function OraculoApp() {
               <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.2s' }}>
                 <div className="text-center p-6">
                   <div className="flex items-center justify-center mb-4">
-                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-purple-400 text-lg">🔗</span>
+                    <div className="w-8 h-8 bg-black/50 rounded-lg flex items-center justify-center mr-3 matrix-glow">
+                      <span className="text-green-400 text-lg">🔗</span>
                     </div>
                     <h3 className="text-lg font-semibold matrix-text-white">Block Height</h3>
                   </div>
@@ -410,7 +481,7 @@ export default function OraculoApp() {
               <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.3s' }}>
                 <div className="text-center p-6">
                   <div className="flex items-center justify-center mb-4">
-                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                    <div className="w-8 h-8 bg-black/50 rounded-lg flex items-center justify-center mr-3 matrix-glow">
                       <span className="text-green-400 text-lg">💚</span>
                     </div>
                     <h3 className="text-lg font-semibold matrix-text-white">Health</h3>
@@ -437,8 +508,8 @@ export default function OraculoApp() {
               <div className="matrix-card-enhanced">
                 <div className="p-6">
                   <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                      <span className="text-blue-400 text-xl">🛡️</span>
+                    <div className="w-10 h-10 bg-black/50 rounded-lg flex items-center justify-center matrix-glow">
+                      <span className="text-green-400 text-xl">🛡️</span>
                     </div>
                     <div>
                       <h3 className="text-xl font-bold matrix-text-green">Validator Network</h3>
@@ -471,7 +542,7 @@ export default function OraculoApp() {
               <div className="matrix-card-enhanced">
                 <div className="p-6">
                   <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 bg-black/50 rounded-lg flex items-center justify-center matrix-glow">
                       <span className="text-green-400 text-xl">📊</span>
                     </div>
                     <div>
@@ -1065,9 +1136,9 @@ export default function OraculoApp() {
                 <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
                 <h2 className="text-3xl font-bold matrix-text-green">Market Analytics</h2>
                 <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
-              </div>
+                </div>
               <p className="matrix-text-white text-opacity-80">Advanced market insights and performance metrics</p>
-            </div>
+                </div>
 
             {/* Analytics Overview Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1077,7 +1148,7 @@ export default function OraculoApp() {
                   <div className="flex items-center justify-center mb-4">
                     <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
                       <span className="text-green-400 text-2xl">📊</span>
-                    </div>
+              </div>
                     <h3 className="text-lg font-semibold matrix-text-white">Total Markets</h3>
                   </div>
                   <p className="text-3xl font-bold matrix-text-green neural-text-glow">47</p>
