@@ -157,16 +157,6 @@ export default function OraculoApp() {
         </div>
       </div>
 
-      {/* Wallet Connection */}
-      <div className="p-4 border-b border-white/20">
-        <WalletButton />
-      </div>
-
-      {/* Wallet Status Compact */}
-      <div className="p-4 border-b border-white/20">
-        <WalletStatus />
-      </div>
-
       {/* Navigation */}
       <nav className="flex-1 p-4">
         <div className="space-y-2">
@@ -266,9 +256,33 @@ export default function OraculoApp() {
     </div>
   );
 
+  // Top Navigation Bar with Wallet Info
+  const topNavbar = (
+    <div className="bg-white/10 backdrop-blur-sm border-b border-white/20 p-4">
+      <div className="flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center space-x-3">
+          <TrendingUp className="h-6 w-6 text-neural-primary neural-text-glow" />
+          <div>
+            <h1 className="text-xl font-bold text-gray-900 neural-text-glow">Oráculo</h1>
+            <p className="text-xs text-gray-600">Prediction Markets on Solana</p>
+          </div>
+        </div>
+
+        {/* Wallet Info */}
+        <div className="flex items-center space-x-4">
+          <WalletStatus />
+          <WalletButton />
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <Layout sidebar={sidebar}>
-      <ContentArea header={contentHeader}>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      {topNavbar}
+      <Layout sidebar={sidebar}>
+        <ContentArea header={contentHeader}>
         {/* Tab Content */}
         {activeTab === 'markets' && (
           <div className="space-y-6">
@@ -621,5 +635,6 @@ export default function OraculoApp() {
 
       </ContentArea>
     </Layout>
+    </div>
   );
 }
