@@ -39,13 +39,14 @@ const nextConfig = {
   },
   // Optimize images for responsive design
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'oraculoss.vercel.app'],
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: true, // Para Vercel
   },
   // Enable compression
   compress: true,

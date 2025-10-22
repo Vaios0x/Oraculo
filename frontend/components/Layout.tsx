@@ -97,6 +97,7 @@ export function Layout({ children, sidebar, activeTab = '', setActiveTab = () =>
                     filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
                     borderRadius: '8px'
                   }}
+                  unoptimized
                 />
                 <div>
                   <h1 className="text-xl font-bold text-green-400">Oráculo</h1>

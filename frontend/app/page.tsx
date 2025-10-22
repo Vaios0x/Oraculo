@@ -320,6 +320,7 @@ export default function OraculoApp() {
               filter: 'drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00)',
               borderRadius: '8px'
             }}
+            unoptimized
           />
           <div>
             <h1 className="text-2xl font-bold text-green-400">Oráculo</h1>
@@ -417,6 +418,7 @@ export default function OraculoApp() {
                         filter: 'drop-shadow(0 0 10px #00ff00) drop-shadow(0 0 20px #00ff00)',
                         borderRadius: '12px'
                       }}
+                      unoptimized
                     />
                     <h1 className={`font-black matrix-text-green neural-text-glow ${
                       isMobile ? 'text-4xl' : isTablet ? 'text-5xl' : 'text-6xl'
@@ -424,16 +426,17 @@ export default function OraculoApp() {
                       ORÁCULO
                     </h1>
                     <div className="relative">
-                      <img 
+                      <Image 
                         src="/images/txD31htO_400x400.png" 
                         alt="Fruta Build Logo" 
-                        className={`matrix-glow object-cover rounded-full ${
-                          isMobile ? 'w-12 h-12' : isTablet ? 'w-14 h-14' : 'w-16 h-16'
-                        }`}
+                        width={isMobile ? 48 : isTablet ? 56 : 64}
+                        height={isMobile ? 48 : isTablet ? 56 : 64}
+                        className="matrix-glow object-cover rounded-full"
                         style={{
                           filter: 'drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 16px #00ff00)',
                           border: '2px solid rgba(0, 255, 0, 0.4)'
                         }}
+                        unoptimized
                       />
                       <div className="absolute inset-0 rounded-full bg-green-400/20 animate-pulse"></div>
                     </div>
