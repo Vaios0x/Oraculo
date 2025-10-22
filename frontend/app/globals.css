@@ -75,10 +75,44 @@
   
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    background: #000000;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Matrix Neural Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.08) 0%, transparent 50%);
+    z-index: -3;
+    animation: matrix-pulse 8s ease-in-out infinite;
+  }
+
+  /* Matrix Grid Overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -2;
+    animation: matrix-grid 20s linear infinite;
   }
   
   /* Scrollbar personalizada */
@@ -684,6 +718,170 @@
       display: none !important;
     }
   }
+
+  /* Matrix Neural Components */
+  .matrix-bg {
+    background: #000000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.08) 0%, transparent 50%);
+    z-index: -1;
+    animation: matrix-pulse 8s ease-in-out infinite;
+  }
+
+  .matrix-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: matrix-grid 20s linear infinite;
+  }
+
+  .matrix-rain {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-rain::before {
+    content: '';
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    width: 2px;
+    height: 100vh;
+    background: linear-gradient(to bottom, transparent, rgba(0, 255, 0, 0.8), transparent);
+    animation: matrix-rain 3s linear infinite;
+  }
+
+  .matrix-glow {
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+    animation: matrix-glow 2s ease-in-out infinite;
+  }
+
+  .matrix-flicker {
+    animation: matrix-flicker 0.1s linear infinite;
+  }
+
+  .matrix-scan {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-scan::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.8), transparent);
+    animation: matrix-scan 4s linear infinite;
+    z-index: 10;
+  }
+
+  .matrix-connect {
+    animation: matrix-connect 2s ease-in-out infinite;
+  }
+
+  .matrix-data-flow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-data-flow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+    animation: matrix-data-flow 3s linear infinite;
+  }
+
+  .matrix-text {
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+    color: #00ff00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+
+  .matrix-button {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 255, 0, 0.05) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .matrix-button:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2) 0%, rgba(0, 255, 0, 0.1) 100%);
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    transform: scale(1.05);
+  }
+
+  .matrix-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+  }
+
+  .matrix-card:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+    transform: scale(1.02);
+  }
+
+  .matrix-input {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #00ff00;
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  }
+
+  .matrix-input:focus {
+    border-color: rgba(0, 255, 0, 0.6);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    outline: none;
+  }
+
+  .matrix-nav {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .matrix-nav-item {
+    color: #00ff00;
+    transition: all 0.3s ease;
+  }
+
+  .matrix-nav-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+  }
+
+  .matrix-nav-item-active {
+    background: rgba(0, 255, 0, 0.2);
+    text-shadow: 0 0 15px rgba(0, 255, 0, 1);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  }
 }
 
 /* Neural Animations */
@@ -766,5 +964,117 @@
   100% { 
     opacity: 0.9;
     transform: translateY(-5px) scale(1);
+  }
+}
+
+/* Matrix Neural Effects */
+@keyframes matrix-pulse {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes matrix-grid {
+  0% { 
+    transform: translateY(0);
+    opacity: 0.1;
+  }
+  50% { 
+    opacity: 0.3;
+  }
+  100% { 
+    transform: translateY(-20px);
+    opacity: 0.1;
+  }
+}
+
+@keyframes matrix-rain {
+  0% { 
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% { 
+    opacity: 1;
+  }
+  90% { 
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes matrix-glow {
+  0%, 100% { 
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    color: #00ff00;
+  }
+  50% { 
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.4);
+    color: #ffffff;
+  }
+}
+
+@keyframes matrix-flicker {
+  0%, 100% { 
+    opacity: 1;
+  }
+  50% { 
+    opacity: 0.8;
+  }
+  75% { 
+    opacity: 0.9;
+  }
+}
+
+@keyframes matrix-scan {
+  0% { 
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  50% { 
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes matrix-connect {
+  0% { 
+    opacity: 0;
+    transform: scale(0.5);
+    box-shadow: 0 0 0px rgba(0, 255, 0, 0);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+  }
+  100% { 
+    opacity: 0.7;
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  }
+}
+
+@keyframes matrix-data-flow {
+  0% { 
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% { 
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
