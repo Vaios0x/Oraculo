@@ -290,8 +290,8 @@ export default function OraculoApp() {
       <MatrixGrid />
       <MatrixScan />
       
-      <Layout sidebar={sidebar}>
-        <ContentArea header={contentHeader}>
+    <Layout sidebar={sidebar}>
+      <ContentArea header={contentHeader}>
         {/* Tab Content */}
         {activeTab === 'markets' && (
           <div className="space-y-6">
@@ -389,7 +389,7 @@ export default function OraculoApp() {
         {activeTab === 'create' && (
           <div className="space-y-6">
             <DemoMarketCreator />
-          </div>
+                        </div>
         )}
 
         {activeTab === 'shipyard' && (
@@ -404,25 +404,25 @@ export default function OraculoApp() {
                   </h1>
                   <p className="text-xl matrix-text-white">
                     Top Mexican Projects with Cypherpunk Values
-                  </p>
-                </div>
+                        </p>
+                      </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="matrix-card-enhanced p-4">
                   <div className="text-3xl font-bold matrix-text-green">1,500</div>
                   <div className="text-sm matrix-text-white">USDC Total Prizes</div>
-                </div>
+                        </div>
                 <div className="matrix-card-enhanced p-4">
                   <div className="text-3xl font-bold matrix-text-green">🇲🇽</div>
                   <div className="text-sm matrix-text-white">Mexican Innovation</div>
-                </div>
+                      </div>
                 <div className="matrix-card-enhanced p-4">
                   <div className="text-3xl font-bold matrix-text-green">🔐</div>
                   <div className="text-sm matrix-text-white">Cypherpunk Values</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
             {/* Cypherpunk Manifesto */}
             <CypherpunkManifesto />
@@ -449,10 +449,10 @@ export default function OraculoApp() {
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
                 <h2 className="text-2xl font-bold matrix-text-green">Solana Network Status</h2>
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
-              </div>
+                </div>
               <p className="matrix-text-white text-opacity-80">Real-time blockchain metrics and network health</p>
-            </div>
-
+              </div>
+              
             {/* Main Network Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Current Slot */}
@@ -479,17 +479,17 @@ export default function OraculoApp() {
                   <div className="flex items-center justify-center mb-4">
                     <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
                       <span className="text-green-400 text-lg">⚡</span>
-                    </div>
+                </div>
                     <h3 className="text-lg font-semibold matrix-text-white">TPS</h3>
-                  </div>
+              </div>
                   <p className="text-3xl font-bold matrix-text-green neural-text-glow">3,247</p>
                   <p className="text-sm matrix-text-white text-opacity-70 mt-2">Transactions per second</p>
                   <div className="mt-3">
                     <div className="w-full bg-gray-700 rounded-full h-2">
                       <div className="bg-green-400 h-2 rounded-full" style={{ width: '85%' }}></div>
-                    </div>
+            </div>
                     <span className="text-xs matrix-text-green mt-1 block">85% capacity</span>
-                  </div>
+          </div>
                 </div>
               </div>
               
@@ -550,16 +550,16 @@ export default function OraculoApp() {
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
                       <span className="matrix-text-white">Active Validators</span>
                       <span className="matrix-text-green font-semibold">1,847</span>
-                    </div>
-                    <div className="flex justify-between items-center">
+                  </div>
+                  <div className="flex justify-between items-center">
                       <span className="matrix-text-white">Stake Weight</span>
                       <span className="matrix-text-green font-semibold">98.2%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
+                  </div>
+                  <div className="flex justify-between items-center">
                       <span className="matrix-text-white">Epoch Progress</span>
                       <span className="matrix-text-green font-semibold">67.3%</span>
                     </div>
@@ -570,7 +570,7 @@ export default function OraculoApp() {
                   </div>
                 </div>
               </div>
-
+              
               {/* Network Performance */}
               <div className="matrix-card-enhanced">
                 <div className="p-6">
@@ -742,29 +742,29 @@ export default function OraculoApp() {
                     </div>
                   </div>
                   
-                  <div className="space-y-3">
+                <div className="space-y-3">
                     <button className="matrix-button-enhanced w-full p-3 text-left">
-                      <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-3">
                         <span className="text-xl">🎯</span>
                         <div>
                           <div className="font-semibold matrix-text-white">Create Market</div>
                           <div className="text-sm matrix-text-white text-opacity-70">Start new prediction</div>
-                        </div>
+                  </div>
                       </div>
                     </button>
                     
                     <button className="matrix-button-enhanced w-full p-3 text-left">
-                      <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-3">
                         <span className="text-xl">📊</span>
                         <div>
                           <div className="font-semibold matrix-text-white">View Analytics</div>
                           <div className="text-sm matrix-text-white text-opacity-70">Detailed insights</div>
-                        </div>
+                  </div>
                       </div>
                     </button>
                     
                     <button className="matrix-button-enhanced w-full p-3 text-left">
-                      <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-3">
                         <span className="text-xl">🔔</span>
                         <div>
                           <div className="font-semibold matrix-text-white">Set Alerts</div>
@@ -896,39 +896,266 @@ export default function OraculoApp() {
         )}
 
         {activeTab === 'tokens' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="neural-card neural-floating">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="neural-glass p-2 rounded-lg">
-                    <Coins className="h-6 w-6 text-neural-primary" />
+          <div className="space-y-8">
+            {/* Token Management Header */}
+            <div className="matrix-card-enhanced p-6 text-center">
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
+                <h2 className="text-3xl font-bold matrix-text-green">Token Management</h2>
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse matrix-glow"></div>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">SOL Balance</h3>
+              <p className="matrix-text-white text-opacity-80">Manage your SOL tokens and staking positions</p>
                 </div>
-                <p className="text-3xl font-bold text-neural-primary neural-text-glow">1,250.50</p>
-                <p className="text-sm text-gray-500 mt-2">Available for staking</p>
+
+            {/* Token Overview Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* SOL Balance */}
+              <div className="matrix-card-enhanced neural-floating">
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-green-400 text-2xl">💰</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">SOL Balance</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">1,250.50</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">Available for staking</p>
+                  <div className="mt-3 flex items-center justify-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs matrix-text-green">Live</span>
+                  </div>
+                </div>
               </div>
               
-              <div className="neural-card neural-floating" style={{ animationDelay: '0.1s' }}>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="neural-glass p-2 rounded-lg">
-                    <TrendingUp className="h-6 w-6 text-green-500" />
+              {/* Staked Amount */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.1s' }}>
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-blue-400 text-2xl">🔒</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">Staked Amount</h3>
+                    <h3 className="text-lg font-semibold matrix-text-white">Staked Amount</h3>
                 </div>
-                <p className="text-3xl font-bold text-green-600 neural-text-glow">890.25</p>
-                <p className="text-sm text-gray-500 mt-2">Currently staked</p>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">890.25</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">Currently staked</p>
+                  <div className="mt-3">
+                    <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="bg-blue-400 h-2 rounded-full" style={{ width: '71%' }}></div>
+                    </div>
+                    <span className="text-xs matrix-text-blue mt-1 block">71% staked</span>
+                  </div>
+                </div>
               </div>
               
-              <div className="neural-card neural-floating" style={{ animationDelay: '0.2s' }}>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="neural-glass p-2 rounded-lg">
-                    <DollarSign className="h-6 w-6 text-blue-500" />
+              {/* Total Value */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.2s' }}>
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-purple-400 text-2xl">💎</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">Total Value</h3>
+                    <h3 className="text-lg font-semibold matrix-text-white">Total Value</h3>
                 </div>
-                <p className="text-3xl font-bold text-blue-600 neural-text-glow">$2,140.75</p>
-                <p className="text-sm text-gray-500 mt-2">USD equivalent</p>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">$2,140.75</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">USD equivalent</p>
+                  <div className="mt-3 flex items-center justify-center space-x-2">
+                    <span className="text-xs matrix-text-green">+5.2%</span>
+                    <span className="text-xs matrix-text-white">24h</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Rewards */}
+              <div className="matrix-card-enhanced neural-floating" style={{ animationDelay: '0.3s' }}>
+                <div className="p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <span className="text-orange-400 text-2xl">🎁</span>
+                    </div>
+                    <h3 className="text-lg font-semibold matrix-text-white">Rewards</h3>
+                  </div>
+                  <p className="text-3xl font-bold matrix-text-green neural-text-glow">45.75</p>
+                  <p className="matrix-text-white text-opacity-70 mt-2">SOL earned</p>
+                  <div className="mt-3">
+                    <div className="flex items-center justify-center space-x-1">
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+                    </div>
+                    <span className="text-xs matrix-text-orange mt-1 block">High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Token Actions */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Staking Actions */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-green-400 text-xl">⚡</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Staking Actions</h3>
+                      <p className="matrix-text-white text-opacity-80">Manage your staking positions</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <button className="matrix-button-enhanced w-full p-4 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">🔒</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Stake SOL</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Lock tokens for rewards</div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <button className="matrix-button-enhanced w-full p-4 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">🔓</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Unstake SOL</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Release staked tokens</div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <button className="matrix-button-enhanced w-full p-4 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">💰</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Claim Rewards</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Withdraw earned rewards</div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Token Transfers */}
+              <div className="matrix-card-enhanced">
+                <div className="p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-blue-400 text-xl">🔄</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold matrix-text-green">Token Transfers</h3>
+                      <p className="matrix-text-white text-opacity-80">Send and receive tokens</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <button className="matrix-button-enhanced w-full p-4 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">📤</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Send SOL</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Transfer to another wallet</div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <button className="matrix-button-enhanced w-full p-4 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">📥</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Receive SOL</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">Get your wallet address</div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <button className="matrix-button-enhanced w-full p-4 text-left">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">📊</span>
+                        <div>
+                          <div className="font-semibold matrix-text-white">Transaction History</div>
+                          <div className="text-sm matrix-text-white text-opacity-70">View all transactions</div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Token Portfolio */}
+            <div className="matrix-card-enhanced">
+              <div className="p-6">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                    <span className="text-purple-400 text-xl">📈</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold matrix-text-green">Token Portfolio</h3>
+                    <p className="matrix-text-white text-opacity-80">Your token holdings and performance</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-black/50 rounded-lg">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="matrix-text-white font-medium">SOL</span>
+                      <span className="matrix-text-green text-sm">+5.2%</span>
+                    </div>
+                    <div className="matrix-text-white text-2xl font-bold">1,250.50</div>
+                    <div className="matrix-text-white text-opacity-70 text-sm">$2,140.75</div>
+                  </div>
+                  
+                  <div className="p-4 bg-black/50 rounded-lg">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="matrix-text-white font-medium">USDC</span>
+                      <span className="matrix-text-white text-sm">0.0%</span>
+                    </div>
+                    <div className="matrix-text-white text-2xl font-bold">0.00</div>
+                    <div className="matrix-text-white text-opacity-70 text-sm">$0.00</div>
+                  </div>
+                  
+                  <div className="p-4 bg-black/50 rounded-lg">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="matrix-text-white font-medium">Rewards</span>
+                      <span className="matrix-text-green text-sm">+12.3%</span>
+                    </div>
+                    <div className="matrix-text-white text-2xl font-bold">45.75</div>
+                    <div className="matrix-text-white text-opacity-70 text-sm">$78.25</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Token Statistics */}
+            <div className="matrix-card-enhanced">
+              <div className="p-6">
+                <h3 className="text-2xl font-bold matrix-text-green mb-6 text-center">Token Statistics</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">1,250</div>
+                    <div className="matrix-text-white text-sm">Total SOL</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">890</div>
+                    <div className="matrix-text-white text-sm">Staked SOL</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">45.75</div>
+                    <div className="matrix-text-white text-sm">Rewards Earned</div>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-black/50 rounded-lg">
+                    <div className="text-3xl font-bold matrix-text-green mb-2">5.2%</div>
+                    <div className="matrix-text-white text-sm">APY</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
