@@ -4,22 +4,22 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, Connection, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { SafeDate } from '../components/HydrationBoundary';
-import { Layout, ContentArea, GridContainer } from '../components/Layout';
-import ResponsiveLayout from '../components/ResponsiveLayout';
-import { useResponsive } from '../lib/responsive';
-import { useStaking } from '../lib/useStaking';
-import { MarketTemplates, MarketTemplate } from '../components/MarketTemplates';
-import { CreateMarketForm } from '../components/CreateMarketForm';
-import { RealMarketCreator } from '../components/RealMarketCreator';
-import { RealMarketList } from '../components/RealMarketList';
-import { DemoMarketCreator } from '../components/DemoMarketCreator';
-import { WalletButton } from '../components/WalletButton';
-import { MatrixBackground, MatrixGrid, MatrixScan } from '../components/MatrixBackground';
-import { CypherpunkManifesto } from '../components/CypherpunkManifesto';
-import { CypherpunkStats } from '../components/CypherpunkStats';
-import { CypherpunkRoadmap } from '../components/CypherpunkRoadmap';
-import { useDemoMarkets } from '../hooks/useDemoMarkets';
+import { SafeDate } from '../../components/HydrationBoundary';
+import { Layout, ContentArea, GridContainer } from '../../components/Layout';
+import ResponsiveLayout from '../../components/ResponsiveLayout';
+import { useResponsive } from '../../lib/responsive';
+import { useStaking } from '../../lib/useStaking';
+import { MarketTemplates, MarketTemplate } from '../../components/MarketTemplates';
+import { CreateMarketForm } from '../../components/CreateMarketForm';
+import { RealMarketCreator } from '../../components/RealMarketCreator';
+import { RealMarketList } from '../../components/RealMarketList';
+import { DemoMarketCreator } from '../../components/DemoMarketCreator';
+import { WalletButton } from '../../components/WalletButton';
+import { MatrixBackground, MatrixGrid, MatrixScan } from '../../components/MatrixBackground';
+import { CypherpunkManifesto } from '../../components/CypherpunkManifesto';
+import { CypherpunkStats } from '../../components/CypherpunkStats';
+import { CypherpunkRoadmap } from '../../components/CypherpunkRoadmap';
+import { useDemoMarkets } from '../../hooks/useDemoMarkets';
 import { 
   Home, 
   Plus, 
@@ -989,36 +989,36 @@ export default function OraculoApp() {
         )}
 
         {activeTab === 'shipyard' && (
-          <div className="space-y-4 sm:space-y-6 lg:space-y-8 p-4 sm:p-6 lg:p-8">
+          <div className="space-y-8">
             {/* Shipyard MX Award Header */}
-            <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 text-center space-y-4 sm:space-y-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Zap className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-green-400 matrix-glow flex-shrink-0" />
-                <div className="text-center sm:text-left">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold matrix-text-green">
+            <div className="matrix-card-enhanced p-8 text-center space-y-6">
+              <div className="flex items-center justify-center space-x-4">
+                <Zap className="w-16 h-16 text-green-400 matrix-glow" />
+                <div>
+                  <h1 className="text-4xl font-bold matrix-text-green">
                     🚀 Shipyard MX Award
                   </h1>
-                  <p className="text-sm sm:text-base lg:text-xl matrix-text-white mt-2">
+                  <p className="text-xl matrix-text-white">
                     Top Mexican Projects with Cypherpunk Values
-                  </p>
-                </div>
+                        </p>
+                      </div>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-                <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">1,500</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">USDC Total Prizes</div>
-                </div>
-                <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">🇲🇽</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">Mexican Innovation</div>
-                </div>
-                <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">🔐</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">Cypherpunk Values</div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="matrix-card-enhanced p-4">
+                  <div className="text-3xl font-bold matrix-text-green">1,500</div>
+                  <div className="text-sm matrix-text-white">USDC Total Prizes</div>
+                        </div>
+                <div className="matrix-card-enhanced p-4">
+                  <div className="text-3xl font-bold matrix-text-green">🇲🇽</div>
+                  <div className="text-sm matrix-text-white">Mexican Innovation</div>
+                      </div>
+                <div className="matrix-card-enhanced p-4">
+                  <div className="text-3xl font-bold matrix-text-green">🔐</div>
+                  <div className="text-sm matrix-text-white">Cypherpunk Values</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
             {/* Cypherpunk Manifesto */}
             <CypherpunkManifesto />

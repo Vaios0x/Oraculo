@@ -134,19 +134,19 @@ export function CypherpunkManifesto() {
   };
 
   return (
-    <div className="matrix-card-enhanced p-8 space-y-8">
+    <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center space-x-3">
-          <Shield className="w-12 h-12 text-green-400 matrix-glow" />
-          <h2 className="text-4xl font-bold matrix-text-green">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
+          <Shield className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-green-400 matrix-glow flex-shrink-0" />
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold matrix-text-green">
             🔐 Manifesto Cypherpunk
           </h2>
         </div>
-        <p className="text-xl matrix-text-white">
+        <p className="text-sm sm:text-base lg:text-xl matrix-text-white">
           Valores fundamentales para el Shipyard MX Award
         </p>
-        <div className="flex items-center justify-center space-x-2 text-sm matrix-text-green">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm matrix-text-green">
           <Cpu className="w-4 h-4" />
           <span>Built with Cypherpunk Values</span>
           <Network className="w-4 h-4" />
@@ -154,17 +154,17 @@ export function CypherpunkManifesto() {
       </div>
 
       {/* Values Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {cypherpunkValues.map((value, index) => (
           <div
             key={value.id}
-            className={`matrix-card-enhanced p-6 cursor-pointer transition-all duration-500 ${
+            className={`matrix-card-enhanced p-4 sm:p-6 cursor-pointer transition-all duration-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: `${index * 200}ms` }}
             onClick={() => setSelectedValue(value)}
           >
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div className="flex items-center justify-between">
                 <div className={`${value.color} matrix-glow`}>
                   {value.icon}
@@ -173,10 +173,10 @@ export function CypherpunkManifesto() {
               </div>
               
               <div>
-                <h3 className="text-xl font-bold matrix-text-white mb-2">
+                <h3 className="text-lg sm:text-xl font-bold matrix-text-white mb-2">
                   {value.title}
                 </h3>
-                <p className="text-sm matrix-text-white opacity-80 mb-3">
+                <p className="text-xs sm:text-sm matrix-text-white opacity-80 mb-3">
                   {value.description}
                 </p>
                 <div className="flex items-center justify-between">

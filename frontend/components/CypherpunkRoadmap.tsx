@@ -133,76 +133,76 @@ export function CypherpunkRoadmap() {
   };
 
   return (
-    <div className="matrix-card-enhanced p-8 space-y-8">
+    <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center space-x-3">
-          <MapPin className="w-10 h-10 text-green-400 matrix-glow" />
-          <h2 className="text-3xl font-bold matrix-text-green">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
+          <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-green-400 matrix-glow flex-shrink-0" />
+          <h2 className="text-2xl sm:text-3xl font-bold matrix-text-green">
             🗺️ Roadmap Cypherpunk
           </h2>
         </div>
-        <p className="text-lg matrix-text-white">
+        <p className="text-sm sm:text-base lg:text-lg matrix-text-white">
           Hoja de ruta hacia la revolución cypherpunk de los mercados de predicción
         </p>
-        <div className="flex items-center justify-center space-x-2 text-sm matrix-text-green">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm matrix-text-green">
           <Rocket className="w-4 h-4" />
           <span>Shipyard MX Award Vision</span>
         </div>
       </div>
 
       {/* Roadmap Timeline */}
-      <div className="space-y-8">
+      <div className="space-y-6 sm:space-y-8">
         {roadmapItems.map((item, index) => (
           <div
             key={item.id}
-            className={`matrix-card-enhanced p-6 cursor-pointer transition-all duration-300 hover:scale-105 ${
+            className={`matrix-card-enhanced p-4 sm:p-6 cursor-pointer transition-all duration-300 hover:scale-105 ${
               item.status === 'current' ? 'border-green-400' : ''
             }`}
             onClick={() => setSelectedPhase(item)}
           >
-            <div className="flex items-start space-x-6">
+            <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
               {/* Phase Icon */}
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 mx-auto sm:mx-0">
                 <div className={`${item.color} matrix-glow`}>
                   {item.icon}
                 </div>
               </div>
 
               {/* Content */}
-              <div className="flex-1 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-sm font-semibold matrix-text-green">
+              <div className="flex-1 space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
+                  <div className="text-center sm:text-left">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3">
+                      <span className="text-xs sm:text-sm font-semibold matrix-text-green">
                         {item.phase}
                       </span>
-                      <span className="text-sm matrix-text-white opacity-60">
+                      <span className="text-xs sm:text-sm matrix-text-white opacity-60">
                         {item.date}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold matrix-text-white mt-1">
+                    <h3 className="text-lg sm:text-xl font-bold matrix-text-white mt-1">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-center sm:justify-end space-x-2">
                     {getStatusIcon(item.status)}
-                    <span className="text-sm matrix-text-white">
+                    <span className="text-xs sm:text-sm matrix-text-white">
                       {getStatusText(item.status)}
                     </span>
                   </div>
                 </div>
 
-                <p className="matrix-text-white opacity-80">
+                <p className="text-sm sm:text-base matrix-text-white opacity-80 text-center sm:text-left">
                   {item.description}
                 </p>
 
                 {/* Features */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {item.features.slice(0, 4).map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-center space-x-2">
-                      <Zap className="w-4 h-4 text-green-400" />
-                      <span className="text-sm matrix-text-white">
+                      <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm matrix-text-white">
                         {feature}
                       </span>
                     </div>
@@ -210,11 +210,11 @@ export function CypherpunkRoadmap() {
                 </div>
 
                 {/* Cypherpunk Values */}
-                <div className="flex items-center space-x-4">
-                  <span className="text-sm matrix-text-green font-semibold">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <span className="text-xs sm:text-sm matrix-text-green font-semibold text-center sm:text-left">
                     Valores:
                   </span>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                     {item.cypherpunkValues.map((value, valueIndex) => (
                       <span
                         key={valueIndex}
@@ -233,64 +233,64 @@ export function CypherpunkRoadmap() {
 
       {/* Detailed Phase View */}
       {selectedPhase && (
-        <div className="matrix-card-enhanced p-8 space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
+            <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4">
               <div className={`${selectedPhase.color} matrix-glow`}>
                 {selectedPhase.icon}
               </div>
-              <div>
-                <h3 className="text-2xl font-bold matrix-text-white">
+              <div className="text-center sm:text-left">
+                <h3 className="text-xl sm:text-2xl font-bold matrix-text-white">
                   {selectedPhase.title}
                 </h3>
-                <p className="matrix-text-white opacity-80">
+                <p className="text-sm sm:text-base matrix-text-white opacity-80">
                   {selectedPhase.description}
                 </p>
               </div>
             </div>
             <button
               onClick={() => setSelectedPhase(null)}
-              className="matrix-button-enhanced px-4 py-2"
+              className="matrix-button-enhanced px-3 py-2 sm:px-4 sm:py-2 mx-auto sm:mx-0"
             >
-              <XCircle className="w-5 h-5" />
+              <XCircle className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div>
-              <h4 className="text-lg font-semibold matrix-text-green mb-3">
+              <h4 className="text-base sm:text-lg font-semibold matrix-text-green mb-3">
                 🚀 Características Principales
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 {selectedPhase.features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
-                    <span className="matrix-text-white">{feature}</span>
+                  <div key={index} className="flex items-center space-x-2 sm:space-x-3">
+                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" />
+                    <span className="text-sm sm:text-base matrix-text-white">{feature}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <h4 className="text-lg font-semibold matrix-text-green mb-3">
+                <h4 className="text-base sm:text-lg font-semibold matrix-text-green mb-3">
                   📅 Cronograma
                 </h4>
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-blue-400" />
-                  <span className="matrix-text-white">{selectedPhase.date}</span>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 flex-shrink-0" />
+                  <span className="text-sm sm:text-base matrix-text-white">{selectedPhase.date}</span>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-lg font-semibold matrix-text-green mb-3">
+                <h4 className="text-base sm:text-lg font-semibold matrix-text-green mb-3">
                   🔐 Valores Cypherpunk
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedPhase.cypherpunkValues.map((value, index) => (
                     <span
                       key={index}
-                      className="text-xs px-3 py-1 bg-green-900/30 text-green-400 border border-green-400/30 rounded-full"
+                      className="text-xs px-2 sm:px-3 py-1 bg-green-900/30 text-green-400 border border-green-400/30 rounded-full"
                     >
                       {value}
                     </span>
@@ -303,17 +303,17 @@ export function CypherpunkRoadmap() {
       )}
 
       {/* Vision Statement */}
-      <div className="matrix-card-enhanced p-6 space-y-4">
-        <h3 className="text-2xl font-bold matrix-text-green text-center">
+      <div className="matrix-card-enhanced p-4 sm:p-6 space-y-3 sm:space-y-4">
+        <h3 className="text-xl sm:text-2xl font-bold matrix-text-green text-center">
           🎯 Visión Cypherpunk
         </h3>
-        <p className="text-center matrix-text-white text-lg leading-relaxed">
+        <p className="text-center matrix-text-white text-sm sm:text-base lg:text-lg leading-relaxed">
           "Crear un ecosistema de mercados de predicción completamente descentralizado, 
           privado y transparente que empodere a la comunidad mexicana y global, 
           manteniendo los valores cypherpunk fundamentales de privacidad, 
           descentralización y libertad financiera."
         </p>
-        <div className="flex items-center justify-center space-x-6 text-sm matrix-text-green">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm matrix-text-green">
           <span>🔐 Privacy First</span>
           <span>🌍 Global Access</span>
           <span>⚡ Lightning Fast</span>
@@ -322,8 +322,8 @@ export function CypherpunkRoadmap() {
       </div>
 
       {/* Footer */}
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center space-x-6 text-sm matrix-text-green">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm matrix-text-green">
           <span>🚀 Shipyard MX Award</span>
           <span>🔐 Cypherpunk Values</span>
           <span>🇲🇽 Mexican Innovation</span>

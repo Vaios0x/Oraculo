@@ -135,31 +135,31 @@ export function CypherpunkStats() {
   };
 
   return (
-    <div className="matrix-card-enhanced p-8 space-y-8">
+    <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center space-x-3">
-          <Database className="w-10 h-10 text-green-400 matrix-glow" />
-          <h2 className="text-3xl font-bold matrix-text-green">
+      <div className="text-center space-y-3 sm:space-y-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
+          <Database className="w-8 h-8 sm:w-10 sm:h-10 text-green-400 matrix-glow flex-shrink-0" />
+          <h2 className="text-2xl sm:text-3xl font-bold matrix-text-green">
             📊 Métricas Cypherpunk
           </h2>
         </div>
-        <p className="text-lg matrix-text-white">
+        <p className="text-sm sm:text-base lg:text-lg matrix-text-white">
           Estadísticas que demuestran los valores cypherpunk del proyecto
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {stats.map((stat, index) => (
           <div
             key={stat.id}
-            className={`matrix-card-enhanced p-6 transition-all duration-500 ${
+            className={`matrix-card-enhanced p-4 sm:p-6 transition-all duration-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: `${index * 150}ms` }}
           >
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div className="flex items-center justify-between">
                 <div className={`${stat.color} matrix-glow`}>
                   {stat.icon}
@@ -169,19 +169,19 @@ export function CypherpunkStats() {
               
               <div className="space-y-2">
                 <div className="flex items-baseline space-x-2">
-                  <span className="text-3xl font-bold matrix-text-white">
+                  <span className="text-2xl sm:text-3xl font-bold matrix-text-white">
                     {stat.value}
                   </span>
                   {stat.id === 'cost' && (
-                    <span className="text-sm matrix-text-white opacity-60">SOL</span>
+                    <span className="text-xs sm:text-sm matrix-text-white opacity-60">SOL</span>
                   )}
                 </div>
                 
-                <h3 className="text-lg font-semibold matrix-text-green">
+                <h3 className="text-base sm:text-lg font-semibold matrix-text-green">
                   {stat.label}
                 </h3>
                 
-                <p className="text-sm matrix-text-white opacity-80">
+                <p className="text-xs sm:text-sm matrix-text-white opacity-80">
                   {stat.description}
                 </p>
               </div>
@@ -191,56 +191,56 @@ export function CypherpunkStats() {
       </div>
 
       {/* Technical Stack */}
-      <div className="matrix-card-enhanced p-6 space-y-6">
-        <h3 className="text-2xl font-bold matrix-text-green text-center">
+      <div className="matrix-card-enhanced p-4 sm:p-6 space-y-4 sm:space-y-6">
+        <h3 className="text-xl sm:text-2xl font-bold matrix-text-green text-center">
           🛠️ Stack Tecnológico Cypherpunk
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold matrix-text-white">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="space-y-3 sm:space-y-4">
+            <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
               🔐 Blockchain & Privacidad
             </h4>
             <div className="space-y-2">
-              <div className="flex items-center space-x-3">
-                <Cpu className="w-5 h-5 text-green-400" />
-                <span className="matrix-text-white">Solana Blockchain</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Solana Blockchain</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Code className="w-5 h-5 text-blue-400" />
-                <span className="matrix-text-white">Anchor Framework</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Code className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Anchor Framework</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Lock className="w-5 h-5 text-purple-400" />
-                <span className="matrix-text-white">Rust Smart Contracts</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Rust Smart Contracts</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Key className="w-5 h-5 text-yellow-400" />
-                <span className="matrix-text-white">Wallet Integration</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Key className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Wallet Integration</span>
               </div>
             </div>
           </div>
           
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold matrix-text-white">
+          <div className="space-y-3 sm:space-y-4">
+            <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
               🌐 Frontend & UX
             </h4>
             <div className="space-y-2">
-              <div className="flex items-center space-x-3">
-                <Zap className="w-5 h-5 text-green-400" />
-                <span className="matrix-text-white">Next.js 14</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Next.js 14</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Network className="w-5 h-5 text-blue-400" />
-                <span className="matrix-text-white">TypeScript</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Network className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">TypeScript</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Database className="w-5 h-5 text-purple-400" />
-                <span className="matrix-text-white">Tailwind CSS</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Database className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Tailwind CSS</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Fingerprint className="w-5 h-5 text-yellow-400" />
-                <span className="matrix-text-white">Matrix Effects</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <Fingerprint className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base matrix-text-white">Matrix Effects</span>
               </div>
             </div>
           </div>
@@ -248,38 +248,38 @@ export function CypherpunkStats() {
       </div>
 
       {/* Impact Metrics */}
-      <div className="matrix-card-enhanced p-6 space-y-6">
-        <h3 className="text-2xl font-bold matrix-text-green text-center">
+      <div className="matrix-card-enhanced p-4 sm:p-6 space-y-4 sm:space-y-6">
+        <h3 className="text-xl sm:text-2xl font-bold matrix-text-green text-center">
           🎯 Impacto Cypherpunk
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           <div className="text-center space-y-2">
-            <div className="text-4xl font-bold matrix-text-green">🇲🇽</div>
-            <h4 className="text-lg font-semibold matrix-text-white">
+            <div className="text-3xl sm:text-4xl font-bold matrix-text-green">🇲🇽</div>
+            <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
               México First
             </h4>
-            <p className="text-sm matrix-text-white opacity-80">
+            <p className="text-xs sm:text-sm matrix-text-white opacity-80">
               Temas específicos para la comunidad mexicana
             </p>
           </div>
           
           <div className="text-center space-y-2">
-            <div className="text-4xl font-bold matrix-text-green">🌍</div>
-            <h4 className="text-lg font-semibold matrix-text-white">
+            <div className="text-3xl sm:text-4xl font-bold matrix-text-green">🌍</div>
+            <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
               Acceso Global
             </h4>
-            <p className="text-sm matrix-text-white opacity-80">
+            <p className="text-xs sm:text-sm matrix-text-white opacity-80">
               Sin restricciones geográficas
             </p>
           </div>
           
           <div className="text-center space-y-2">
-            <div className="text-4xl font-bold matrix-text-green">⚡</div>
-            <h4 className="text-lg font-semibold matrix-text-white">
+            <div className="text-3xl sm:text-4xl font-bold matrix-text-green">⚡</div>
+            <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
               Ultra Rápido
             </h4>
-            <p className="text-sm matrix-text-white opacity-80">
+            <p className="text-xs sm:text-sm matrix-text-white opacity-80">
               Transacciones en segundos
             </p>
           </div>
