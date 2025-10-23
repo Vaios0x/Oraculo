@@ -4,8 +4,6 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import { SolanaProvider } from "../../components/solana-provider";
 import { CookbookProvider } from "../../components/solana-cookbook-provider-simple";
 import { CleanProvider } from "../../components/providers/CleanProvider";
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Oráculo - Prediction Markets on Solana',
@@ -77,15 +75,13 @@ export const viewport: Viewport = {
   themeColor: '#8B5CF6',
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params: { locale }
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  const messages = await getMessages();
-
   return (
     <html lang={locale} className="h-full">
       <head>
@@ -94,15 +90,13 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className="h-full neural-mesh-bg">
-        <NextIntlClientProvider messages={messages}>
-          <CleanProvider>
-            <SolanaProvider>
-              <CookbookProvider>
-                {children}
-              </CookbookProvider>
-            </SolanaProvider>
-          </CleanProvider>
-        </NextIntlClientProvider>
+        <CleanProvider>
+          <SolanaProvider>
+            <CookbookProvider>
+              {children}
+            </CookbookProvider>
+          </SolanaProvider>
+        </CleanProvider>
       </body>
     </html>
   );
