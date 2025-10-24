@@ -4,7 +4,7 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import { SolanaProvider } from "../components/solana-provider";
 import { CookbookProvider } from "../components/solana-cookbook-provider-simple";
 import { CleanProvider } from "../components/providers/CleanProvider";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: 'Oráculo - Prediction Markets on Solana',
