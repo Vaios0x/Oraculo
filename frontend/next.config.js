@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@solana/web3.js'],
   },
   eslint: {
