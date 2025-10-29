@@ -362,18 +362,6 @@ export default function OraculoApp() {
               <span className="font-black text-lg">{item.label}</span>
             </button>
           ))}
-          
-          <button
-            onClick={() => setActiveTab('shipyard')}
-            className={`w-full flex items-center space-x-3 px-6 py-4 rounded-lg transition-all duration-200 border ${
-              activeTab === 'shipyard'
-                ? 'bg-green-900/20 text-green-400 border-green-400 shadow-lg shadow-green-400/20' 
-                : 'text-green-400 hover:bg-green-500/30 hover:text-green-400 border-green-400/30 hover:border-green-400/60 bg-black/70 hover:shadow-lg hover:shadow-green-400/10'
-            }`}
-          >
-            <Zap className="w-5 h-5" />
-            <span className="font-black text-lg">🚀 Shipyard MX</span>
-          </button>
         </div>
       </nav>
     </div>
