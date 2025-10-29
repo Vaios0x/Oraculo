@@ -43,11 +43,11 @@ export function useRealMarkets(): UseRealMarketsReturn {
   const [markets, setMarkets] = useState<RealMarket[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showActiveOnly, setShowActiveOnly] = useState(true);
+  const [showActiveOnly, setShowActiveOnly] = useState(false); // Mostrar TODOS los mercados por defecto
   const [lastUpdate, setLastUpdate] = useState<number>(0);
 
-  // Caché de mercados (5 minutos)
-  const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+  // Caché de mercados (2 minutos para actualizaciones más frecuentes)
+  const CACHE_DURATION = 2 * 60 * 1000; // 2 minutos
   const [cachedMarkets, setCachedMarkets] = useState<RealMarket[]>([]);
   const [cacheTimestamp, setCacheTimestamp] = useState<number>(0);
 

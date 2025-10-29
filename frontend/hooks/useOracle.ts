@@ -110,8 +110,13 @@ export function useOracle() {
       console.log('💰 Transferencia de 1000 lamports completada');
 
       // Generar un ID único para el mercado DEVNET
-      const marketId = `demo-${Date.now()}`;
+      const marketId = `market-${publicKey.toString()}-${Date.now()}`;
       const mockMarketAddress = new PublicKey(publicKey.toBuffer().slice(0, 32));
+
+      console.log('🎉 Mercado creado exitosamente!');
+      console.log('📝 Market ID:', marketId);
+      console.log('📍 Market Address:', mockMarketAddress.toString());
+      console.log('👤 Creator:', publicKey.toString());
 
       return {
         signature,

@@ -15,6 +15,7 @@ import { RealMarketCreator } from '../components/RealMarketCreator';
 import { RealMarketList } from '../components/RealMarketList';
 import { DemoMarketCreator } from '../components/DemoMarketCreator';
 import { WalletButton } from '../components/WalletButton';
+import { PublicVisibilityNotice } from '../components/PublicVisibilityNotice';
 import { MatrixBackground, MatrixGrid, MatrixScan } from '../components/MatrixBackground';
 import { CypherpunkManifesto } from '../components/CypherpunkManifesto';
 import { CypherpunkStats } from '../components/CypherpunkStats';
@@ -972,8 +973,20 @@ export default function OraculoApp() {
 
         {activeTab === 'create' && (
           <div className="space-y-6">
+            {/* Aviso de visibilidad pública */}
+            <PublicVisibilityNotice />
+            
+            {/* Creador de mercados */}
             <DemoMarketCreator />
-                        </div>
+            
+            {/* Lista de mercados reales */}
+            <div className="mt-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+                🌐 Mercados Públicos Disponibles
+              </h2>
+              <RealMarketList />
+            </div>
+          </div>
         )}
 
         {activeTab === 'shipyard' && (

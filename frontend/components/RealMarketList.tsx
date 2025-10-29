@@ -153,10 +153,10 @@ export function RealMarketList() {
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               showActiveOnly 
                 ? 'bg-green-100 text-green-800 border border-green-200' 
-                : 'bg-gray-100 text-gray-800 border border-gray-200'
+                : 'bg-blue-100 text-blue-800 border border-blue-200'
             }`}
           >
-            {showActiveOnly ? 'Solo Activos' : 'Todos los Mercados'}
+            {showActiveOnly ? 'Solo Activos' : '🌍 Todos los Mercados Públicos'}
           </button>
           
           <button
@@ -170,7 +170,7 @@ export function RealMarketList() {
         </div>
 
         <div className="text-sm text-gray-500">
-          {loading ? 'Cargando...' : `${totalMarkets} mercados encontrados`}
+          {loading ? 'Cargando...' : `🌐 ${totalMarkets} mercados públicos encontrados`}
         </div>
       </div>
 
@@ -208,9 +208,14 @@ export function RealMarketList() {
               {/* Header */}
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 neural-text-glow line-clamp-2">
-                    {market.title}
-                  </h3>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 neural-text-glow line-clamp-2">
+                      {market.title}
+                    </h3>
+                    <span className="px-2 py-1 text-xs font-semibold text-white bg-green-500/80 rounded-full">
+                      🌐 PÚBLICO
+                    </span>
+                  </div>
                   <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                     {market.description}
                   </p>
@@ -269,12 +274,20 @@ export function RealMarketList() {
                 </div>
               </div>
 
-              {/* Privacy Level */}
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">Privacidad:</span>
-                <span className={`px-2 py-1 text-xs rounded-full ${getPrivacyLevelColor(market.privacyLevel)}`}>
-                  {getPrivacyLevelText(market.privacyLevel)}
-                </span>
+              {/* Creator and Privacy Level */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500">Creador:</span>
+                  <span className="text-sm font-mono text-gray-600 truncate max-w-32">
+                    {market.creator.slice(0, 8)}...{market.creator.slice(-8)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500">Privacidad:</span>
+                  <span className={`px-2 py-1 text-xs rounded-full ${getPrivacyLevelColor(market.privacyLevel)}`}>
+                    {getPrivacyLevelText(market.privacyLevel)}
+                  </span>
+                </div>
               </div>
 
               {/* Actions */}

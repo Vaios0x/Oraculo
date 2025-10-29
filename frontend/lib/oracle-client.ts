@@ -333,34 +333,45 @@ export class OracleClient {
   /**
    * Obtener todos los mercados creados
    * Busca todas las cuentas de mercado usando Program Derived Addresses
+   * OPTIMIZADO: Sin filtros de tamaño para capturar TODOS los mercados
    */
   async getAllMarkets(): Promise<MarketAccount[]> {
     try {
-      // Obtener todas las cuentas del programa
+      console.log('🔍 Buscando TODOS los mercados en el programa:', this.programId.toString());
+      
+      // Obtener todas las cuentas del programa sin filtros de tamaño
+      // Esto asegura que capturemos todos los mercados independientemente de su tamaño
       const accounts = await this.connection.getProgramAccounts(this.programId, {
-        filters: [
-          {
-            dataSize: 8 + 32 + 4 + 100 + 4 + 200 + 8 + 4 + 100 + 1 + 1 + 8 + 1 + 32 + 8, // Tamaño de Market account
-          }
-        ]
+        commitment: 'confirmed'
       });
+
+      console.log(`📊 Total de cuentas encontradas: ${accounts.length}`);
 
       const markets: MarketAccount[] = [];
 
       for (const account of accounts) {
         try {
-          const marketInfo = await this.getMarketInfo(account.pubkey);
-          markets.push(marketInfo);
+          // Verificar que la cuenta tenga datos y sea un mercado válido
+          if (account.account.data.length > 8) { // Mínimo: discriminator + creator
+            const marketInfo = await this.getMarketInfo(account.pubkey);
+            markets.push(marketInfo);
+            console.log(`✅ Mercado encontrado: ${marketInfo.title} (Creator: ${marketInfo.creator})`);
+          }
         } catch (error) {
-          console.warn(`Error parsing market ${account.pubkey.toString()}:`, error);
+          console.warn(`⚠️ Error parsing account ${account.pubkey.toString()}:`, error);
           // Continuar con el siguiente mercado
         }
       }
 
+      console.log(`🎯 Total de mercados válidos encontrados: ${markets.length}`);
+
       // Ordenar por fecha de creación (más recientes primero)
-      return markets.sort((a, b) => b.endTime - a.endTime);
+      const sortedMarkets = markets.sort((a, b) => b.endTime - a.endTime);
+      
+      console.log('📋 Mercados ordenados por fecha de creación');
+      return sortedMarkets;
     } catch (error) {
-      console.error('Error fetching all markets:', error);
+      console.error('❌ Error fetching all markets:', error);
       throw error;
     }
   }
