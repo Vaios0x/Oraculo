@@ -24,17 +24,14 @@ import {
   Mail,
   Calendar,
   ArrowRight,
-  ArrowLeft,
-  Play,
-  Pause,
-  RotateCcw
+  ArrowLeft
 } from 'lucide-react';
 
 /**
  * 🔐 Eric Hughes Manifesto Component - Interactive Cypherpunk Manifesto
  * 
  * Component that displays the complete Eric Hughes Cypherpunk Manifesto
- * adapted for the Oráculo project and Shipyard MX Award
+ * adapted for the Oráculo project
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -173,7 +170,6 @@ const manifestoSections: ManifestoSection[] = [
 
 export function EricHughesManifesto() {
   const [currentSection, setCurrentSection] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showFullText, setShowFullText] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -182,30 +178,12 @@ export function EricHughesManifesto() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentSection((prev) => (prev + 1) % manifestoSections.length);
-      }, 8000);
-      return () => clearInterval(interval);
-    }
-  }, [isPlaying]);
-
   const nextSection = () => {
     setCurrentSection((prev) => (prev + 1) % manifestoSections.length);
   };
 
   const prevSection = () => {
     setCurrentSection((prev) => (prev - 1 + manifestoSections.length) % manifestoSections.length);
-  };
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  const resetToBeginning = () => {
-    setCurrentSection(0);
-    setIsPlaying(false);
   };
 
   const currentManifestoSection = manifestoSections[currentSection];
@@ -221,7 +199,7 @@ export function EricHughesManifesto() {
           </h2>
         </div>
         <p className="text-sm sm:text-base lg:text-xl matrix-text-white">
-          by Eric Hughes - Adapted for Oráculo & Shipyard MX Award
+          by Eric Hughes - Adapted for Oráculo
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm matrix-text-green">
           <Calendar className="w-4 h-4" />
@@ -242,26 +220,11 @@ export function EricHughesManifesto() {
         </button>
         
         <button
-          onClick={togglePlay}
-          className="matrix-button-enhanced px-4 py-2 text-sm"
-        >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-          <span className="ml-2">{isPlaying ? 'Pause' : 'Play'}</span>
-        </button>
-        
-        <button
           onClick={nextSection}
           className="matrix-button-enhanced px-3 py-2 text-sm"
           disabled={currentSection === manifestoSections.length - 1}
         >
           <ArrowRight className="w-4 h-4" />
-        </button>
-        
-        <button
-          onClick={resetToBeginning}
-          className="matrix-button-enhanced px-3 py-2 text-sm"
-        >
-          <RotateCcw className="w-4 h-4" />
         </button>
       </div>
 
@@ -369,13 +332,13 @@ export function EricHughesManifesto() {
           <span>🌍 Decentralized</span>
           <span>👁️ Transparent</span>
           <span>⚡ Code is Law</span>
-          <span>🇲🇽 Shipyard MX</span>
+          <span>🇲🇽 Mexico</span>
         </div>
         <p className="text-xs matrix-text-white opacity-60">
           "Cypherpunks write code. We know that someone has to write software to defend privacy, and since we can't get privacy unless we all do, we're going to write it."
         </p>
         <p className="text-xs matrix-text-white opacity-40">
-          Oráculo - Prediction Markets on Solana | Built for Shipyard MX Award
+          Oráculo - Prediction Markets on Solana
         </p>
       </div>
     </div>
