@@ -12,12 +12,12 @@ import { useStaking } from '../lib/useStaking';
 import { MarketTemplates, MarketTemplate } from '../components/MarketTemplates';
 import { CreateMarketForm } from '../components/CreateMarketForm';
 import { RealMarketCreator } from '../components/RealMarketCreator';
-import { RealMarketList } from '../components/RealMarketList';
 import { DemoMarketCreator } from '../components/DemoMarketCreator';
 import { WalletButton } from '../components/WalletButton';
 import { PublicVisibilityNotice } from '../components/PublicVisibilityNotice';
 import { MatrixBackground, MatrixGrid, MatrixScan } from '../components/MatrixBackground';
 import { CypherpunkManifesto } from '../components/CypherpunkManifesto';
+import { EricHughesManifesto } from '../components/EricHughesManifesto';
 import { CypherpunkStats } from '../components/CypherpunkStats';
 import { CypherpunkRoadmap } from '../components/CypherpunkRoadmap';
 import { useDemoMarkets } from '../hooks/useDemoMarkets';
@@ -39,7 +39,8 @@ import {
   BarChart,
   ExternalLink,
   Target,
-  Zap
+  Zap,
+  Quote
 } from 'lucide-react';
 
 // Mock data
@@ -50,7 +51,7 @@ const mockMarkets = [
     description: 'Will Bitcoin reach $200,000 by the end of 2026?',
     outcomes: ['Yes', 'No'],
     totalStaked: 1250,
-    endTime: Math.floor(new Date('2026-12-31').getTime() / 1000), // Convertir a segundos
+    endTime: Math.floor(new Date('2026-12-31').getTime() / 1000), // Convert to seconds
     isResolved: false,
     winningOutcome: null
   },
@@ -60,7 +61,7 @@ const mockMarkets = [
     description: 'Will the Ethereum merge be completed successfully?',
     outcomes: ['Success', 'Failure'],
     totalStaked: 890,
-    endTime: Math.floor(new Date('2026-06-15').getTime() / 1000), // Convertir a segundos
+    endTime: Math.floor(new Date('2026-06-15').getTime() / 1000), // Convert to seconds
     isResolved: true,
     winningOutcome: 'Success'
   },
@@ -70,7 +71,7 @@ const mockMarkets = [
     description: 'Will Solana TVL exceed $50B by Q1 2026?',
     outcomes: ['Yes', 'No'],
     totalStaked: 2100,
-    endTime: Math.floor(new Date('2026-03-31').getTime() / 1000), // Convertir a segundos
+    endTime: Math.floor(new Date('2026-03-31').getTime() / 1000), // Convert to seconds
     isResolved: false,
     winningOutcome: null
   }
@@ -106,11 +107,11 @@ export default function OraculoApp() {
     signature: string;
   } | null>(null);
 
-  // Combinar mercados mock y demo
+  // Combine mock and demo markets
   const allMarkets = React.useMemo(() => {
     const combinedMarkets = [...mockMarkets];
     
-    // Agregar mercados demo
+    // Add demo markets
     demoMarkets.forEach(demoMarket => {
       combinedMarkets.push({
         id: demoMarket.id,
@@ -135,7 +136,7 @@ export default function OraculoApp() {
   const handleStake = async (marketId: string, outcome: string, amount: number) => {
     console.log(`Staking ${amount} SOL on market ${marketId} for outcome: ${outcome}`);
     
-    // Verificar que el usuario tenga wallet conectado
+    // Verify that the user has a connected wallet
     if (!publicKey) {
       alert('Please connect your wallet to stake');
       return;
@@ -186,7 +187,7 @@ export default function OraculoApp() {
   const handleResolve = async (marketId: string, winningOutcome: string) => {
     console.log(`Resolving market ${marketId} with outcome: ${winningOutcome}`);
     
-    // Verificar que el usuario tenga wallet conectado
+    // Verify that the user has a connected wallet
     if (!publicKey) {
       alert('Please connect your wallet to resolve');
       return;
@@ -215,28 +216,28 @@ export default function OraculoApp() {
   const handleClaimRewards = async (marketId: string) => {
     console.log(`Claiming rewards for market ${marketId}`);
     
-    // Verificar que el usuario tenga wallet conectado
+    // Verify that the user has a connected wallet
     if (!publicKey) {
       alert('Please connect your wallet to claim rewards');
       return;
     }
 
     try {
-      // Conectar a Solana devnet
+      // Connect to Solana devnet
       const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
       
-      // Crear transacción de transferencia de recompensas
+      // Create reward transfer transaction
       const transaction = new Transaction();
       
-      // Calcular recompensas (1.5 SOL como recompensa)
+      // Calculate rewards (1.5 SOL as reward)
       const rewardAmount = 1.5 * LAMPORTS_PER_SOL;
       
-      // Crear la key pair de recompensas desde el array proporcionado
+      // Create rewards key pair from provided array
       const rewardsKeyPair = Keypair.fromSecretKey(
         new Uint8Array([199,70,106,129,252,48,22,63,83,106,139,192,137,151,67,176,135,123,198,162,113,193,246,161,172,84,140,96,143,248,175,129,4,125,130,220,196,223,143,169,6,159,120,136,121,29,251,188,177,8,16,156,17,211,171,200,190,113,233,181,108,146,5,31])
       );
 
-      // Verificar que la cuenta de recompensas tenga fondos
+      // Verify that the rewards account has funds
       const rewardsBalance = await connection.getBalance(rewardsKeyPair.publicKey);
       console.log('Rewards account balance:', rewardsBalance / LAMPORTS_PER_SOL, 'SOL');
       
@@ -245,7 +246,7 @@ export default function OraculoApp() {
         return;
       }
 
-      // Agregar instrucción de transferencia desde la cuenta de recompensas al usuario
+      // Add transfer instruction from rewards account to user
       transaction.add(
         SystemProgram.transfer({
           fromPubkey: rewardsKeyPair.publicKey,
@@ -254,20 +255,20 @@ export default function OraculoApp() {
         })
       );
 
-      // Configurar la transacción
-      transaction.feePayer = publicKey; // El usuario paga las fees
+      // Configure the transaction
+      transaction.feePayer = publicKey; // User pays the fees
       transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
-      // Firmar la transacción con la cuenta de recompensas
+      // Sign transaction with rewards account
       transaction.sign(rewardsKeyPair);
 
-      // Enviar la transacción para que el usuario la firme con Phantom
+      // Send transaction for user to sign with Phantom
       const signature = await sendTransaction(transaction, connection);
 
-      // Confirmar la transacción
+      // Confirm the transaction
       await connection.confirmTransaction(signature, 'confirmed');
 
-      // Mostrar modal de éxito
+      // Show success modal
       setSuccessData({
         amount: 1.5,
         outcome: 'rewards',
@@ -292,8 +293,8 @@ export default function OraculoApp() {
 
   const handleMarketCreate = async (marketData: any) => {
     console.log('Creating market with data:', marketData);
-    // Aquí implementarías la lógica de creación del mercado
-    // Usando el hook useOracle o el cliente Oracle
+    // Here you would implement the market creation logic
+    // Using the useOracle hook or Oracle client
   };
 
   const navItems = [
@@ -304,7 +305,7 @@ export default function OraculoApp() {
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 className="w-4 h-4" /> },
     { id: 'tokens', label: 'Tokens', icon: <Coins className="w-4 h-4" /> },
     { id: 'analytics', label: 'Analytics', icon: <BarChart3 className="w-4 h-4" /> },
-    { id: 'shipyard', label: '🚀 Shipyard MX', icon: <Zap className="w-4 h-4" /> },
+    { id: 'shipyard', label: 'CYPHERPUNK MANIFIESTO', icon: <Shield className="w-4 h-4" /> },
   ];
 
   const sidebar = (
@@ -469,15 +470,15 @@ export default function OraculoApp() {
                   <h2 className={`font-bold matrix-text-white ${
                     isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
                   }`}>
-                    Mercados de Predicción Descentralizados
+                    Decentralized Prediction Markets
                   </h2>
                   <p className={`matrix-text-white text-opacity-90 mx-auto ${
                     isMobile ? 'text-base max-w-sm' : 
                     isTablet ? 'text-lg max-w-2xl' : 
                     'text-xl max-w-3xl'
                   }`}>
-                    La plataforma más avanzada para crear, participar y resolver mercados de predicción 
-                    en Solana. Predice el futuro, gana recompensas, construye el mañana.
+                    The most advanced platform to create, participate, and resolve prediction markets 
+                    on Solana. Predict the future, earn rewards, build tomorrow.
                   </p>
                   <div className="flex flex-wrap justify-center gap-4 mt-8">
                     <span className="glass-status px-4 py-2">
@@ -517,15 +518,15 @@ export default function OraculoApp() {
                   </div>
                   <h3 className={`font-bold matrix-text-green ${
                     isMobile ? 'text-xl' : 'text-2xl'
-                  }`}>Predicciones Precisas</h3>
+                  }`}>Accurate Predictions</h3>
                   <p className={`matrix-text-white text-opacity-90 ${
                     isMobile ? 'text-sm' : 'text-base'
                   }`}>
-                    Crea mercados sobre cualquier tema: criptomonedas, política, deportes, tecnología. 
-                    La sabiduría de la multitud en acción.
+                    Create markets on any topic: cryptocurrencies, politics, sports, technology. 
+                    The wisdom of the crowd in action.
                   </p>
                   <div className="glass-status p-3">
-                    <span className="text-sm matrix-text-green font-bold">🎯 +1000 Mercados Activos</span>
+                    <span className="text-sm matrix-text-green font-bold">🎯 +1000 Active Markets</span>
                   </div>
                 </div>
               </div>
@@ -536,13 +537,13 @@ export default function OraculoApp() {
                   <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
                     <Zap className="w-8 h-8 text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-bold matrix-text-green">Velocidad Extrema</h3>
+                  <h3 className="text-2xl font-bold matrix-text-green">Extreme Speed</h3>
                   <p className="matrix-text-white text-opacity-90">
-                    Transacciones instantáneas en Solana. Stake, trade y resuelve mercados 
-                    en segundos, no minutos.
+                    Instant transactions on Solana. Stake, trade and resolve markets 
+                    in seconds, not minutes.
                   </p>
                   <div className="glass-status p-3">
-                    <span className="text-sm matrix-text-green font-bold">⚡ &lt;1s Tiempo de Transacción</span>
+                    <span className="text-sm matrix-text-green font-bold">⚡ &lt;1s Transaction Time</span>
                   </div>
                 </div>
               </div>
@@ -553,10 +554,10 @@ export default function OraculoApp() {
                   <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
                     <Shield className="w-8 h-8 text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-bold matrix-text-green">Totalmente Descentralizado</h3>
+                  <h3 className="text-2xl font-bold matrix-text-green">Fully Decentralized</h3>
                   <p className="matrix-text-white text-opacity-90">
-                    Sin intermediarios, sin censura. Tus predicciones, tus recompensas. 
-                    Control total sobre tus activos.
+                    No intermediaries, no censorship. Your predictions, your rewards. 
+                    Full control over your assets.
                   </p>
                   <div className="glass-status p-3">
                     <span className="text-sm matrix-text-green font-bold">🔒 100% On-Chain</span>
@@ -570,13 +571,13 @@ export default function OraculoApp() {
                   <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
                     <DollarSign className="w-8 h-8 text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-bold matrix-text-green">Tarifas Mínimas</h3>
+                  <h3 className="text-2xl font-bold matrix-text-green">Minimal Fees</h3>
                   <p className="matrix-text-white text-opacity-90">
-                    Comisiones ultra-bajas en Solana. Más ganancias para ti, 
-                    menos costos de transacción.
+                    Ultra-low fees on Solana. More profits for you, 
+                    less transaction costs.
                   </p>
                   <div className="glass-status p-3">
-                    <span className="text-sm matrix-text-green font-bold">💰 Menos de $0.01 por Transacción</span>
+                    <span className="text-sm matrix-text-green font-bold">💰 Less than $0.01 per Transaction</span>
                   </div>
                 </div>
               </div>
@@ -587,13 +588,13 @@ export default function OraculoApp() {
                   <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
                     <Users className="w-8 h-8 text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-bold matrix-text-green">Comunidad Global</h3>
+                  <h3 className="text-2xl font-bold matrix-text-green">Global Community</h3>
                   <p className="matrix-text-white text-opacity-90">
-                    Únete a miles de predictores de todo el mundo. 
-                    Comparte conocimiento, gana recompensas.
+                    Join thousands of predictors from around the world. 
+                    Share knowledge, earn rewards.
                   </p>
                   <div className="glass-status p-3">
-                    <span className="text-sm matrix-text-green font-bold">🌍 +50,000 Usuarios</span>
+                    <span className="text-sm matrix-text-green font-bold">🌍 +50,000 Users</span>
                   </div>
                 </div>
               </div>
@@ -604,13 +605,13 @@ export default function OraculoApp() {
                   <div className="w-16 h-16 bg-green-400/20 rounded-2xl flex items-center justify-center matrix-glow">
                     <Activity className="w-8 h-8 text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-bold matrix-text-green">Analytics Avanzados</h3>
+                  <h3 className="text-2xl font-bold matrix-text-green">Advanced Analytics</h3>
                   <p className="matrix-text-white text-opacity-90">
-                    Dashboard completo con métricas en tiempo real. 
-                    Trackea tu performance y optimiza tus predicciones.
+                    Complete dashboard with real-time metrics. 
+                    Track your performance and optimize your predictions.
                   </p>
                   <div className="glass-status p-3">
-                    <span className="text-sm matrix-text-green font-bold">📊 Analytics en Tiempo Real</span>
+                    <span className="text-sm matrix-text-green font-bold">📊 Real-Time Analytics</span>
                   </div>
                 </div>
               </div>
@@ -624,7 +625,7 @@ export default function OraculoApp() {
                 <h2 className={`font-bold matrix-text-green neural-text-glow ${
                   isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
                 }`}>
-                  ¿Cómo Funciona?
+                  How It Works?
                 </h2>
                 <div className={`grid gap-6 ${
                   isMobile ? 'grid-cols-1' : 
@@ -635,30 +636,30 @@ export default function OraculoApp() {
                     <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center matrix-glow mx-auto">
                       <span className="text-2xl font-bold matrix-text-green">1</span>
                     </div>
-                    <h3 className="text-xl font-bold matrix-text-white">Crea o Participa</h3>
+                    <h3 className="text-xl font-bold matrix-text-white">Create or Participate</h3>
                     <p className="matrix-text-white text-opacity-90">
-                      Crea mercados sobre cualquier tema o participa en mercados existentes. 
-                      Es simple y rápido.
+                      Create markets on any topic or participate in existing markets. 
+                      It's simple and fast.
                     </p>
                   </div>
                   <div className="space-y-4">
                     <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center matrix-glow mx-auto">
                       <span className="text-2xl font-bold matrix-text-green">2</span>
                     </div>
-                    <h3 className="text-xl font-bold matrix-text-white">Stake & Predice</h3>
+                    <h3 className="text-xl font-bold matrix-text-white">Stake & Predict</h3>
                     <p className="matrix-text-white text-opacity-90">
-                      Haz stake en tus predicciones favoritas. 
-                      Más stake = más confianza en tu predicción.
+                      Stake on your favorite predictions. 
+                      More stake = more confidence in your prediction.
                     </p>
                   </div>
                   <div className="space-y-4">
                     <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center matrix-glow mx-auto">
                       <span className="text-2xl font-bold matrix-text-green">3</span>
                     </div>
-                    <h3 className="text-xl font-bold matrix-text-white">Gana Recompensas</h3>
+                    <h3 className="text-xl font-bold matrix-text-white">Earn Rewards</h3>
                     <p className="matrix-text-white text-opacity-90">
-                      Si tu predicción es correcta, gana recompensas proporcionales 
-                      a tu stake y la precisión de tu predicción.
+                      If your prediction is correct, earn rewards proportional 
+                      to your stake and the accuracy of your prediction.
                     </p>
                   </div>
                 </div>
@@ -677,15 +678,15 @@ export default function OraculoApp() {
               </div>
               <div className="matrix-card-enhanced neural-floating p-6 text-center">
                 <div className="text-3xl font-bold matrix-text-green mb-2">1,247</div>
-                <div className="text-sm matrix-text-white text-opacity-80">Mercados Activos</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Active Markets</div>
               </div>
               <div className="matrix-card-enhanced neural-floating p-6 text-center">
                 <div className="text-3xl font-bold matrix-text-green mb-2">52,891</div>
-                <div className="text-sm matrix-text-white text-opacity-80">Usuarios Activos</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Active Users</div>
               </div>
               <div className="matrix-card-enhanced neural-floating p-6 text-center">
                 <div className="text-3xl font-bold matrix-text-green mb-2">94.2%</div>
-                <div className="text-sm matrix-text-white text-opacity-80">Precisión Promedio</div>
+                <div className="text-sm matrix-text-white text-opacity-80">Average Accuracy</div>
               </div>
             </div>
 
@@ -697,15 +698,15 @@ export default function OraculoApp() {
                 <h2 className={`font-bold matrix-text-green neural-text-glow ${
                   isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
                 }`}>
-                  ¿Listo para Predecir el Futuro?
+                  Ready to Predict the Future?
                 </h2>
                 <p className={`matrix-text-white text-opacity-90 mx-auto ${
                   isMobile ? 'text-base max-w-sm' : 
                   isTablet ? 'text-lg max-w-xl' : 
                   'text-xl max-w-2xl'
                 }`}>
-                  Únete a la revolución de los mercados de predicción descentralizados. 
-                  Tu conocimiento vale oro.
+                  Join the decentralized prediction markets revolution. 
+                  Your knowledge is worth gold.
                 </p>
                 <div className={`flex justify-center gap-4 ${
                   isMobile ? 'flex-col' : 'flex-wrap'
@@ -718,7 +719,7 @@ export default function OraculoApp() {
                       'px-8 py-4 text-lg'
                     }`}
                   >
-                    🚀 Crear Primer Mercado
+                    🚀 Create First Market
                   </button>
                   <button 
                     onClick={() => setActiveTab('markets')}
@@ -728,7 +729,7 @@ export default function OraculoApp() {
                       'px-8 py-4 text-lg'
                     }`}
                   >
-                    📊 Explorar Mercados
+                    📊 Explore Markets
                   </button>
                 </div>
               </div>
@@ -739,24 +740,24 @@ export default function OraculoApp() {
               <div className="space-y-8">
                 <div className="text-center space-y-4">
                   <h2 className="text-3xl font-bold matrix-text-green neural-text-glow">
-                    🔮 Cómo Cumplimos con &quot;I must always reveal myself&quot;
+                    🔮 How We Fulfill &quot;I must always reveal myself&quot;
                   </h2>
                   <p className="text-lg matrix-text-white text-opacity-90">
-                    Oraculo se alinea con los principios cypherpunk y los mercados de predicción modernos
+                    Oraculo aligns with cypherpunk principles and modern prediction markets
                   </p>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
                   {/* Cypherpunk Principles */}
                   <div className="space-y-4">
-                    <h3 className="text-xl font-bold matrix-text-green">🛡️ Principios Cypherpunk</h3>
+                    <h3 className="text-xl font-bold matrix-text-green">🛡️ Cypherpunk Principles</h3>
                     <div className="space-y-3">
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
                           <strong className="matrix-text-green">&quot;Privacy in an open society requires anonymous transaction systems&quot;</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
-                          Oraculo permite transacciones anónimas en Solana, donde los usuarios pueden participar sin revelar su identidad.
+                          Oraculo enables anonymous transactions on Solana, where users can participate without revealing their identity.
                         </p>
                       </div>
                       <div className="glass-status p-4">
@@ -764,7 +765,7 @@ export default function OraculoApp() {
                           <strong className="matrix-text-green">&quot;We must defend our own privacy if we expect to have any&quot;</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
-                          Implementamos criptografía fuerte y sistemas descentralizados que protegen la privacidad del usuario.
+                          We implement strong cryptography and decentralized systems that protect user privacy.
                         </p>
                       </div>
                       <div className="glass-status p-4">
@@ -772,7 +773,7 @@ export default function OraculoApp() {
                           <strong className="matrix-text-green">&quot;Cypherpunks write code&quot;</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
-                          Código abierto, auditable y descentralizado. Construimos la infraestructura para la privacidad.
+                          Open source, auditable and decentralized code. We build the infrastructure for privacy.
                         </p>
                       </div>
                     </div>
@@ -780,30 +781,30 @@ export default function OraculoApp() {
 
                   {/* Prediction Markets Alignment */}
                   <div className="space-y-4">
-                    <h3 className="text-xl font-bold matrix-text-green">📊 Alineación con Mercados de Predicción</h3>
+                    <h3 className="text-xl font-bold matrix-text-green">📊 Prediction Markets Alignment</h3>
                     <div className="space-y-3">
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
-                          <strong className="matrix-text-green">Resolución Descentralizada</strong>
+                          <strong className="matrix-text-green">Decentralized Resolution</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
-                          Usamos oráculos optimistas y cortes on-chain para resolver mercados de forma justa y transparente.
+                          We use optimistic oracles and on-chain courts to resolve markets fairly and transparently.
                         </p>
                       </div>
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
-                          <strong className="matrix-text-green">Diseño de Mercado AMM</strong>
+                          <strong className="matrix-text-green">AMM Market Design</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
-                          Implementamos Automated Market Makers para liquidez continua y precios justos.
+                          We implement Automated Market Makers for continuous liquidity and fair prices.
                         </p>
                       </div>
                       <div className="glass-status p-4">
                         <p className="text-sm matrix-text-white">
-                          <strong className="matrix-text-green">Infraestructura On-Chain</strong>
+                          <strong className="matrix-text-green">On-Chain Infrastructure</strong>
                         </p>
                         <p className="text-xs matrix-text-white text-opacity-80 mt-2">
-                          Construido en Solana para máxima velocidad, bajas comisiones y composabilidad DeFi.
+                          Built on Solana for maximum speed, low fees and DeFi composability.
                         </p>
                       </div>
                     </div>
@@ -812,22 +813,22 @@ export default function OraculoApp() {
 
                 {/* Technical Implementation */}
                 <div className="glass-status p-6">
-                  <h3 className="text-lg font-bold matrix-text-green mb-4">🔧 Implementación Técnica</h3>
+                  <h3 className="text-lg font-bold matrix-text-green mb-4">🔧 Technical Implementation</h3>
                   <div className="grid gap-4 md:grid-cols-3">
                     <div className="text-center">
                       <div className="text-2xl mb-2">⚡</div>
-                      <h4 className="font-bold matrix-text-white">Velocidad</h4>
-                      <p className="text-xs matrix-text-white text-opacity-80">Transacciones &lt;1s en Solana</p>
+                      <h4 className="font-bold matrix-text-white">Speed</h4>
+                      <p className="text-xs matrix-text-white text-opacity-80">Transactions &lt;1s on Solana</p>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl mb-2">🔒</div>
-                      <h4 className="font-bold matrix-text-white">Privacidad</h4>
-                      <p className="text-xs matrix-text-white text-opacity-80">Transacciones anónimas y seguras</p>
+                      <h4 className="font-bold matrix-text-white">Privacy</h4>
+                      <p className="text-xs matrix-text-white text-opacity-80">Anonymous and secure transactions</p>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl mb-2">🌐</div>
-                      <h4 className="font-bold matrix-text-white">Descentralización</h4>
-                      <p className="text-xs matrix-text-white text-opacity-80">Sin puntos de falla centralizados</p>
+                      <h4 className="font-bold matrix-text-white">Decentralization</h4>
+                      <p className="text-xs matrix-text-white text-opacity-80">No centralized failure points</p>
                     </div>
                   </div>
                 </div>
@@ -836,20 +837,20 @@ export default function OraculoApp() {
                 <div className="text-center space-y-4">
                   <p className="text-lg matrix-text-white">
                     <strong className="matrix-text-green">&quot;Information wants to be free&quot;</strong> - 
-                    Los mercados de predicción liberan información y crean conocimiento colectivo.
+                    Prediction markets free information and create collective knowledge.
                   </p>
                   <div className="flex justify-center gap-4">
                     <button 
                       onClick={() => setActiveTab('create')}
                       className="glass-button font-bold px-6 py-3 rounded-lg"
                     >
-                      🚀 Crear Mercado
+                      🚀 Create Market
                     </button>
                     <button 
                       onClick={() => setActiveTab('markets')}
                       className="glass-button font-bold px-6 py-3 rounded-lg"
                     >
-                      📊 Explorar
+                      📊 Explore
                     </button>
                   </div>
                 </div>
@@ -973,39 +974,34 @@ export default function OraculoApp() {
 
         {activeTab === 'create' && (
           <div className="space-y-6">
-            {/* Aviso de visibilidad pública */}
+            {/* Public visibility notice */}
             <PublicVisibilityNotice />
             
-            {/* Creador de mercados */}
+            {/* Market creator */}
             <DemoMarketCreator />
-            
-            {/* Lista de mercados reales */}
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                🌐 Mercados Públicos Disponibles
-              </h2>
-              <RealMarketList />
-            </div>
           </div>
         )}
 
         {activeTab === 'shipyard' && (
           <div className="space-y-4 sm:space-y-6 lg:space-y-8 p-4 sm:p-6 lg:p-8">
-            {/* Shipyard MX Award Header */}
+            {/* Cypherpunk Manifesto Header */}
             <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 text-center space-y-4 sm:space-y-6">
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Zap className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-green-400 matrix-glow flex-shrink-0" />
+                <Shield className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-green-400 matrix-glow flex-shrink-0" />
                 <div className="text-center sm:text-left">
                   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold matrix-text-green">
-                    🚀 Shipyard MX Award
+                    CYPHERPUNK MANIFIESTO
                   </h1>
                   <p className="text-sm sm:text-base lg:text-xl matrix-text-white mt-2">
-                    Top Mexican Projects with Cypherpunk Values
+                    Eric Hughes - A Cypherpunk's Manifesto
+                  </p>
+                  <p className="text-xs sm:text-sm matrix-text-green mt-1 italic">
+                    "Privacy is necessary for an open society in the electronic age" - Eric Hughes
                   </p>
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 <div className="matrix-card-enhanced p-3 sm:p-4">
                   <div className="text-2xl sm:text-3xl font-bold matrix-text-green">1,500</div>
                   <div className="text-xs sm:text-sm matrix-text-white">USDC Total Prizes</div>
@@ -1016,13 +1012,28 @@ export default function OraculoApp() {
                 </div>
                 <div className="matrix-card-enhanced p-3 sm:p-4">
                   <div className="text-2xl sm:text-3xl font-bold matrix-text-green">🔐</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">Cypherpunk Values</div>
+                  <div className="text-xs sm:text-sm matrix-text-white">Privacy First</div>
                 </div>
+                <div className="matrix-card-enhanced p-3 sm:p-4">
+                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">📜</div>
+                  <div className="text-xs sm:text-sm matrix-text-white">Eric Hughes</div>
+                </div>
+              </div>
+              
+              {/* Cypherpunk Quote */}
+              <div className="matrix-card-enhanced p-4 sm:p-6 space-y-3">
+                <Quote className="w-6 h-6 text-green-400 mx-auto" />
+                <blockquote className="text-sm sm:text-base lg:text-lg matrix-text-white italic leading-relaxed">
+                  "We the Cypherpunks are dedicated to building anonymous systems. We are defending our privacy with cryptography, with anonymous mail forwarding systems, with digital signatures, and with electronic money."
+                </blockquote>
+                <cite className="text-xs sm:text-sm matrix-text-green">
+                  - Eric Hughes, A Cypherpunk's Manifesto (1993)
+                </cite>
               </div>
             </div>
 
-            {/* Cypherpunk Manifesto */}
-            <CypherpunkManifesto />
+            {/* Eric Hughes Cypherpunk Manifesto */}
+            <EricHughesManifesto />
 
             {/* Cypherpunk Stats */}
             <CypherpunkStats />
@@ -2048,7 +2059,7 @@ export default function OraculoApp() {
             <div className="neural-card neural-floating max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 neural-text-glow">
-                  🔮 Plantillas de Mercados
+                  🔮 Market Templates
                 </h2>
                 <button
                   onClick={() => setShowTemplates(false)}
@@ -2166,9 +2177,9 @@ export default function OraculoApp() {
 
           {/* Success Content */}
           <div className="text-center space-y-4 relative z-10">
-            <h3 className="text-2xl font-bold text-green-400 mb-2">¡Staking Exitoso!</h3>
+            <h3 className="text-2xl font-bold text-green-400 mb-2">Successful Staking!</h3>
             <p className="text-white/90 text-lg">
-              Has staked <span className="text-green-400 font-bold">{successData.amount} SOL</span> en 
+              You have staked <span className="text-green-400 font-bold">{successData.amount} SOL</span> on 
               <span className="text-green-400 font-bold"> {successData.outcome}</span>
             </p>
             
@@ -2206,7 +2217,7 @@ export default function OraculoApp() {
                 }}
                 className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg shadow-green-400/25"
               >
-                🔗 Ver en Explorer
+                🔗 View on Explorer
               </button>
               <button
                 onClick={() => {
@@ -2215,7 +2226,7 @@ export default function OraculoApp() {
                 }}
                 className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200"
               >
-                Cerrar
+                Close
               </button>
             </div>
           </div>
@@ -2247,9 +2258,9 @@ export default function OraculoApp() {
 
           {/* Success Content */}
           <div className="text-center space-y-4 relative z-10">
-            <h3 className="text-2xl font-bold text-blue-400 mb-2">¡Mercado Resuelto!</h3>
+            <h3 className="text-2xl font-bold text-blue-400 mb-2">Market Resolved!</h3>
             <p className="text-white/90 text-lg">
-              Has resuelto el mercado con el resultado:
+              You have resolved the market with the result:
               <span className="text-blue-400 font-bold"> {resolveSuccessData.outcome}</span>
             </p>
             
@@ -2283,7 +2294,7 @@ export default function OraculoApp() {
                 }}
                 className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg shadow-blue-400/25"
               >
-                🔗 Ver en Explorer
+                🔗 View on Explorer
               </button>
               <button
                 onClick={() => {
@@ -2292,7 +2303,7 @@ export default function OraculoApp() {
                 }}
                 className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200"
               >
-                Cerrar
+                Close
               </button>
             </div>
           </div>

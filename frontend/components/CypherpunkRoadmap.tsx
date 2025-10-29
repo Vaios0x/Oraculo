@@ -24,10 +24,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 🗺️ CypherpunkRoadmap Component - Roadmap del Proyecto Cypherpunk
+ * 🗺️ CypherpunkRoadmap Component - Cypherpunk Project Roadmap
  * 
- * Componente que muestra la hoja de ruta del proyecto
- * para el Shipyard MX Award
+ * Component that displays the project roadmap
+ * for the Shipyard MX Award
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -49,9 +49,9 @@ interface RoadmapItem {
 const roadmapItems: RoadmapItem[] = [
   {
     id: 'phase1',
-    phase: 'Fase 1',
-    title: 'Fundación Cypherpunk',
-    description: 'Implementación de valores cypherpunk fundamentales',
+    phase: 'Phase 1',
+    title: 'Cypherpunk Foundation',
+    description: 'Implementation of fundamental cypherpunk values',
     features: [
       'Arquitectura descentralizada en Solana',
       'Transacciones anónimas sin KYC',
@@ -63,13 +63,13 @@ const roadmapItems: RoadmapItem[] = [
     color: 'text-green-400',
     status: 'completed',
     date: 'Q4 2025',
-    cypherpunkValues: ['Privacidad', 'Descentralización', 'Transparencia']
+    cypherpunkValues: ['Privacy', 'Decentralization', 'Transparency']
   },
   {
     id: 'phase2',
-    phase: 'Fase 2',
-    title: 'Expansión de Privacidad',
-    description: 'Mejoras avanzadas de privacidad y descentralización',
+    phase: 'Phase 2',
+    title: 'Privacy Expansion',
+    description: 'Advanced privacy and decentralization improvements',
     features: [
       'Zero-knowledge proofs para resolución',
       'Governance descentralizado',
@@ -81,13 +81,13 @@ const roadmapItems: RoadmapItem[] = [
     color: 'text-blue-400',
     status: 'current',
     date: 'Q1 2026',
-    cypherpunkValues: ['Privacidad', 'Innovación', 'Libertad']
+    cypherpunkValues: ['Privacy', 'Innovation', 'Freedom']
   },
   {
     id: 'phase3',
-    phase: 'Fase 3',
-    title: 'Revolución Global',
-    description: 'Escalamiento global manteniendo valores cypherpunk',
+    phase: 'Phase 3',
+    title: 'Global Revolution',
+    description: 'Global scaling while maintaining cypherpunk values',
     features: [
       'Mainnet deployment',
       'API pública para desarrolladores',
@@ -99,7 +99,7 @@ const roadmapItems: RoadmapItem[] = [
     color: 'text-purple-400',
     status: 'upcoming',
     date: 'Q2 2026',
-    cypherpunkValues: ['Descentralización', 'Innovación', 'Comunidad']
+    cypherpunkValues: ['Decentralization', 'Innovation', 'Community']
   }
 ];
 
@@ -122,13 +122,13 @@ export function CypherpunkRoadmap() {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'Completado';
+        return 'Completed';
       case 'current':
-        return 'En Progreso';
+        return 'In Progress';
       case 'upcoming':
-        return 'Próximo';
+        return 'Upcoming';
       default:
-        return 'Desconocido';
+        return 'Unknown';
     }
   };
 
@@ -139,16 +139,19 @@ export function CypherpunkRoadmap() {
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
           <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-green-400 matrix-glow flex-shrink-0" />
           <h2 className="text-2xl sm:text-3xl font-bold matrix-text-green">
-            🗺️ Roadmap Cypherpunk
+            🗺️ Cypherpunk Roadmap
           </h2>
         </div>
         <p className="text-sm sm:text-base lg:text-lg matrix-text-white">
-          Hoja de ruta hacia la revolución cypherpunk de los mercados de predicción
+          Roadmap towards the cypherpunk revolution of prediction markets
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm matrix-text-green">
           <Rocket className="w-4 h-4" />
-          <span>Shipyard MX Award Vision</span>
+          <span>Eric Hughes Manifesto Implementation</span>
         </div>
+        <p className="text-xs matrix-text-green italic">
+          "We must defend our own privacy if we expect to have any" - Eric Hughes
+        </p>
       </div>
 
       {/* Roadmap Timeline */}
@@ -212,7 +215,7 @@ export function CypherpunkRoadmap() {
                 {/* Cypherpunk Values */}
                 <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                   <span className="text-xs sm:text-sm matrix-text-green font-semibold text-center sm:text-left">
-                    Valores:
+                    Values:
                   </span>
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                     {item.cypherpunkValues.map((value, valueIndex) => (
@@ -284,7 +287,7 @@ export function CypherpunkRoadmap() {
 
               <div>
                 <h4 className="text-base sm:text-lg font-semibold matrix-text-green mb-3">
-                  🔐 Valores Cypherpunk
+                  🔐 Cypherpunk Values
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedPhase.cypherpunkValues.map((value, index) => (
@@ -305,13 +308,13 @@ export function CypherpunkRoadmap() {
       {/* Vision Statement */}
       <div className="matrix-card-enhanced p-4 sm:p-6 space-y-3 sm:space-y-4">
         <h3 className="text-xl sm:text-2xl font-bold matrix-text-green text-center">
-          🎯 Visión Cypherpunk
+          🎯 Cypherpunk Vision
         </h3>
         <p className="text-center matrix-text-white text-sm sm:text-base lg:text-lg leading-relaxed">
-          "Crear un ecosistema de mercados de predicción completamente descentralizado, 
-          privado y transparente que empodere a la comunidad mexicana y global, 
-          manteniendo los valores cypherpunk fundamentales de privacidad, 
-          descentralización y libertad financiera."
+          "Create a completely decentralized, private and transparent prediction markets ecosystem 
+          that empowers the Mexican and global community, 
+          implementing Eric Hughes' cypherpunk manifesto through 
+          anonymous transaction systems, cryptography, and community-driven code."
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm matrix-text-green">
           <span>🔐 Privacy First</span>
@@ -325,11 +328,12 @@ export function CypherpunkRoadmap() {
       <div className="text-center space-y-3 sm:space-y-4">
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm matrix-text-green">
           <span>🚀 Shipyard MX Award</span>
+          <span>📜 Eric Hughes Manifesto</span>
           <span>🔐 Cypherpunk Values</span>
           <span>🇲🇽 Mexican Innovation</span>
         </div>
         <p className="text-xs matrix-text-white opacity-60">
-          Oráculo - The Future of Decentralized Prediction Markets
+          Oráculo - Implementing A Cypherpunk's Manifesto on Solana
         </p>
       </div>
     </div>

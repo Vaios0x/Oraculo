@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOracle } from '../hooks/useOracle';
 import { useDemoMarkets } from '../hooks/useDemoMarkets';
 import { WalletButton } from './WalletButton';
-import { MarketTemplates, MarketTemplate } from './MarketTemplates';
-import { MarketTemplatesMexico } from './MarketTemplatesMexico';
+import { MarketTemplates, MarketTemplate, templates as globalTemplates } from './MarketTemplates';
+import { MarketTemplatesMexico, templates as mexicoTemplates } from './MarketTemplatesMexico';
+import { countTemplatesByCategory, getTotalTemplateCount } from '../lib/templateCounter';
 import { 
   Play, 
   CheckCircle, 
@@ -21,10 +22,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 🔮 DemoMarketCreator Component - Creador de mercados demo con plantillas
+ * 🔮 DemoMarketCreator Component - Demo market creator with templates
  * 
- * Componente que permite crear mercados de demostración usando
- * plantillas predefinidas con datos que sabemos que funcionan
+ * Component that allows creating demo markets using
+ * predefined templates with data we know work
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 2.0.0
@@ -40,6 +41,7 @@ export function DemoMarketCreator() {
   const [showTemplates, setShowTemplates] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
   const [useMexicanTemplates, setUseMexicanTemplates] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleSelectTemplate = (template: MarketTemplate) => {
     setSelectedTemplate(template);
@@ -53,6 +55,19 @@ export function DemoMarketCreator() {
     setShowSuccess(false);
   };
 
+  const handleCategoryFilter = (category: string) => {
+    setSelectedCategory(selectedCategory === category ? null : category);
+  };
+
+  const clearCategoryFilter = () => {
+    setSelectedCategory(null);
+  };
+
+  // Clear category filter when switching between Mexican and Global templates
+  useEffect(() => {
+    setSelectedCategory(null);
+  }, [useMexicanTemplates]);
+
   const handleCreateDemoMarket = async () => {
     if (!selectedTemplate) return;
 
@@ -62,46 +77,46 @@ export function DemoMarketCreator() {
     setRetryCount(prev => prev + 1);
 
     try {
-      // Delay adicional basado en el número de reintentos para evitar duplicados
+      // Additional delay based on retry count to avoid duplicates
       const delay = Math.min(1000 + (retryCount * 500), 5000);
-      console.log(`⏳ Delay de ${delay}ms para evitar duplicados...`);
+      console.log(`⏳ Delay of ${delay}ms to avoid duplicates...`);
       await new Promise(resolve => setTimeout(resolve, delay));
       
-      console.log('🚀 Creando mercado DEVNET con plantilla...');
-      console.log('📊 Plantilla seleccionada:', selectedTemplate);
+      console.log('🚀 Creating DEVNET market with template...');
+      console.log('📊 Selected template:', selectedTemplate);
 
-      // Calcular fecha de finalización basada en endTime (días desde hoy)
+      // Calculate end date based on endTime (days from today)
       const endDate = new Date();
       endDate.setDate(endDate.getDate() + selectedTemplate.endTime);
       let endTimestamp = Math.floor(endDate.getTime() / 1000);
       
-      // Asegurar que la fecha sea de noviembre 2025 en adelante
+      // Ensure date is from November 2025 onwards
       const november2025 = Math.floor(new Date('2025-11-01').getTime() / 1000);
       if (endTimestamp < november2025) {
-        // Si la fecha es anterior a noviembre 2025, establecer a diciembre 2025
+        // If date is before November 2025, set to December 2025
         endDate.setFullYear(2025);
-        endDate.setMonth(11); // Diciembre (0-indexado)
+        endDate.setMonth(11); // December (0-indexed)
         endDate.setDate(31);
         endTimestamp = Math.floor(endDate.getTime() / 1000);
-        console.log('⚠️ Fecha corregida a diciembre 2025:', new Date(endTimestamp * 1000).toLocaleString());
+        console.log('⚠️ Date corrected to December 2025:', new Date(endTimestamp * 1000).toLocaleString());
       }
 
-      console.log('⏰ Timestamp de finalización:', endTimestamp);
-      console.log('📅 Fecha de finalización:', endDate.toLocaleString());
+      console.log('⏰ End timestamp:', endTimestamp);
+      console.log('📅 End date:', endDate.toLocaleString());
 
       const result = await createMarket(
         selectedTemplate.title,
         selectedTemplate.description,
         endTimestamp,
         selectedTemplate.outcomes,
-        1 // Privacy level público
+        1 // Public privacy level
       );
 
-      console.log('✅ Mercado DEVNET creado exitosamente:', result);
+      console.log('✅ DEVNET market created successfully:', result);
       setCreatedMarket(result);
       setShowSuccess(true);
 
-      // Guardar el mercado demo en localStorage
+      // Save demo market to localStorage
       addDemoMarket({
         title: selectedTemplate.title,
         description: selectedTemplate.description,
@@ -114,7 +129,7 @@ export function DemoMarketCreator() {
       });
 
     } catch (error) {
-      console.error('❌ Error creando mercado DEVNET:', error);
+      console.error('❌ Error creating DEVNET market:', error);
     } finally {
       setIsCreating(false);
     }
@@ -135,35 +150,35 @@ export function DemoMarketCreator() {
           <div className="text-center mb-8">
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
             <h2 className="text-4xl font-bold text-gray-900 neural-text-glow mb-4">
-              ¡Mercado DEVNET Creado Exitosamente!
+              DEVNET Market Created Successfully!
             </h2>
             <p className="text-xl text-gray-600">
-              Tu mercado DEVNET ha sido creado en Solana Devnet
+              Your DEVNET market has been created on Solana Devnet
             </p>
           </div>
 
           <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">🎯 Datos del Mercado DEVNET</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">🎯 DEVNET Market Data</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Título</label>
+                  <label className="text-sm font-medium text-gray-500">Title</label>
                   <p className="text-lg font-semibold text-gray-900">{selectedTemplate.title}</p>
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Descripción</label>
+                  <label className="text-sm font-medium text-gray-500">Description</label>
                   <p className="text-gray-700">{selectedTemplate.description}</p>
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Pregunta</label>
+                  <label className="text-sm font-medium text-gray-500">Question</label>
                   <p className="text-gray-700 font-medium">{selectedTemplate.question}</p>
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Opciones</label>
+                  <label className="text-sm font-medium text-gray-500">Options</label>
                   <div className="flex space-x-2">
                     {selectedTemplate.outcomes.map((outcome, index) => (
                       <span key={index} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
@@ -176,7 +191,7 @@ export function DemoMarketCreator() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Dirección del Mercado</label>
+                  <label className="text-sm font-medium text-gray-500">Market Address</label>
                   <div className="flex items-center space-x-2">
                     <code className="text-sm bg-gray-200 px-3 py-2 rounded font-mono flex-1">
                       {createdMarket.marketAddress.toString().substring(0, 16)}...
@@ -184,7 +199,7 @@ export function DemoMarketCreator() {
                     <button
                       onClick={() => copyToClipboard(createdMarket.marketAddress.toString())}
                       className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
-                      title="Copiar dirección"
+                      title="Copy address"
                     >
                       <Copy className="w-4 h-4" />
                     </button>
@@ -192,7 +207,7 @@ export function DemoMarketCreator() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Transacción</label>
+                  <label className="text-sm font-medium text-gray-500">Transaction</label>
                   <div className="flex items-center space-x-2">
                     <code className="text-sm bg-gray-200 px-3 py-2 rounded font-mono flex-1">
                       {createdMarket.signature.substring(0, 16)}...
@@ -202,7 +217,7 @@ export function DemoMarketCreator() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
-                      title="Ver en Explorer"
+                      title="View on Explorer"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -212,7 +227,7 @@ export function DemoMarketCreator() {
                 <div className="grid grid-cols-3 gap-4 pt-4">
                   <div className="text-center">
                     <Clock className="w-6 h-6 text-blue-500 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Finaliza</p>
+                    <p className="text-sm text-gray-500">Ends</p>
                     <p className="font-semibold text-sm">
                       {new Date(Date.now() + selectedTemplate.endTime * 24 * 60 * 60 * 1000).toLocaleDateString()}
                     </p>
@@ -220,13 +235,13 @@ export function DemoMarketCreator() {
                   
                   <div className="text-center">
                     <Users className="w-6 h-6 text-green-500 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Opciones</p>
+                    <p className="text-sm text-gray-500">Options</p>
                     <p className="font-semibold text-sm">{selectedTemplate.outcomes.length}</p>
                   </div>
                   
                   <div className="text-center">
                     <DollarSign className="w-6 h-6 text-purple-500 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Categoría</p>
+                    <p className="text-sm text-gray-500">Category</p>
                     <p className="font-semibold text-sm">{selectedTemplate.category}</p>
                   </div>
                 </div>
@@ -242,14 +257,14 @@ export function DemoMarketCreator() {
               className="matrix-button-enhanced flex items-center justify-center space-x-2 px-6 py-3"
             >
               <ExternalLink className="w-5 h-5" />
-              <span className="matrix-text-green font-semibold">Ver en Solana Explorer</span>
+              <span className="matrix-text-green font-semibold">View on Solana Explorer</span>
             </a>
             
             <button
               onClick={handleBackToTemplates}
               className="matrix-button-enhanced px-6 py-3"
             >
-              <span className="matrix-text-green font-semibold">Crear Otro Mercado Demo</span>
+              <span className="matrix-text-green font-semibold">Create Another Demo Market</span>
             </button>
           </div>
         </div>
@@ -267,7 +282,7 @@ export function DemoMarketCreator() {
               className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
-              <span>Volver a plantillas</span>
+              <span>Back to templates</span>
             </button>
             <div className="flex items-center space-x-2">
               <div className={`p-2 rounded-lg ${selectedTemplate.color} text-white`}>
@@ -297,7 +312,7 @@ export function DemoMarketCreator() {
               <div className="flex items-center justify-center space-x-3">
                 <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
                 <p className="text-blue-800 text-lg font-medium">
-                  🔄 Creando mercado DEVNET en Solana Devnet...
+                  🔄 Creating DEVNET market on Solana Devnet...
                 </p>
               </div>
             </div>
@@ -310,11 +325,11 @@ export function DemoMarketCreator() {
                 <div className="flex items-center space-x-3">
                   <AlertCircle className="w-6 h-6 text-red-600" />
                   <div>
-                    <p className="text-red-800 font-medium">❌ Error creando mercado DEVNET</p>
+                    <p className="text-red-800 font-medium">❌ Error creating DEVNET market</p>
                     <p className="text-red-700 text-sm">{error}</p>
                     {retryCount > 0 && (
                       <p className="text-red-600 text-xs mt-1">
-                        Reintento #{retryCount}
+                        Retry #{retryCount}
                       </p>
                     )}
                   </div>
@@ -324,7 +339,7 @@ export function DemoMarketCreator() {
                   disabled={isCreating || loading}
                   className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
                 >
-                  🔄 Reintentar
+                  🔄 Retry
                 </button>
               </div>
             </div>
@@ -332,17 +347,17 @@ export function DemoMarketCreator() {
 
           {/* Market Preview */}
           <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 mb-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">📊 Vista Previa del Mercado</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-4">📊 Market Preview</h3>
             
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-500">Pregunta del Mercado</label>
+                <label className="text-sm font-medium text-gray-500">Market Question</label>
                 <p className="text-lg font-semibold text-gray-900">{selectedTemplate.question}</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Opciones</label>
+                  <label className="text-sm font-medium text-gray-500">Options</label>
                   <div className="flex space-x-2 mt-1">
                     {selectedTemplate.outcomes.map((outcome, index) => (
                       <span key={index} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
@@ -353,12 +368,12 @@ export function DemoMarketCreator() {
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Duración</label>
-                  <p className="font-semibold">{selectedTemplate.endTime} días</p>
+                  <label className="text-sm font-medium text-gray-500">Duration</label>
+                  <p className="font-semibold">{selectedTemplate.endTime} days</p>
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Categoría</label>
+                  <label className="text-sm font-medium text-gray-500">Category</label>
                   <p className="font-semibold">{selectedTemplate.category}</p>
                 </div>
               </div>
@@ -379,18 +394,18 @@ export function DemoMarketCreator() {
               {loading || isCreating ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Creando Mercado DEVNET...</span>
+                  <span>Creating DEVNET Market...</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-6 h-6" />
-                  <span>🚀 Crear Mercado DEVNET</span>
+                  <span>🚀 Create DEVNET Market</span>
                 </>
               )}
             </button>
             
             <p className="text-sm text-gray-500 mt-4">
-              Este mercado DEVNET será creado en Solana Devnet usando la plantilla seleccionada
+              This DEVNET market will be created on Solana Devnet using the selected template
             </p>
           </div>
         </div>
@@ -405,11 +420,11 @@ export function DemoMarketCreator() {
           <div className="flex items-center justify-center space-x-3 mb-4">
             <Sparkles className="w-8 h-8 text-yellow-500" />
             <h2 className="text-3xl font-bold text-gray-900 neural-text-glow">
-              🎯 Mercados DEVNET con Plantillas
+              🎯 DEVNET Markets with Templates
             </h2>
           </div>
           <p className="text-lg text-gray-600">
-            Selecciona una plantilla para crear tu mercado en Solana Devnet
+            Select a template to create your market on Solana Devnet
           </p>
         </div>
 
@@ -429,7 +444,7 @@ export function DemoMarketCreator() {
                   : 'text-gray-600 hover:text-gray-800'
               }`}
             >
-              🇲🇽 México ({MarketTemplatesMexico.length})
+              🇲🇽 México ({getTotalTemplateCount(mexicoTemplates)})
             </button>
             <button
               onClick={() => setUseMexicanTemplates(false)}
@@ -439,16 +454,94 @@ export function DemoMarketCreator() {
                   : 'text-gray-600 hover:text-gray-800'
               }`}
             >
-              🌍 Global ({MarketTemplates.length})
+              🌍 Global ({getTotalTemplateCount(globalTemplates)})
             </button>
+          </div>
+        </div>
+
+        {/* Category Breakdown */}
+        <div className="mb-8">
+          <div className="neural-card neural-floating p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 neural-text-glow">
+                📊 Templates by Category
+              </h3>
+              {selectedCategory && (
+                <button
+                  onClick={clearCategoryFilter}
+                  className="px-3 py-1 text-xs bg-red-100 text-red-800 rounded-full hover:bg-red-200 transition-colors"
+                >
+                  ✕ Clear filter
+                </button>
+              )}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {Object.entries(countTemplatesByCategory(useMexicanTemplates ? mexicoTemplates : globalTemplates))
+                .sort(([,a], [,b]) => b - a)
+                .map(([category, count]) => (
+                  <div 
+                    key={category} 
+                    onClick={() => handleCategoryFilter(category)}
+                    className={`rounded-lg p-3 text-center cursor-pointer transition-all duration-200 hover:scale-105 ${
+                      selectedCategory === category 
+                        ? 'bg-green-100 border-2 border-green-400 shadow-lg' 
+                        : 'bg-gray-50 hover:bg-gray-100'
+                    }`}
+                  >
+                    <div className={`text-2xl font-bold neural-text-glow ${
+                      selectedCategory === category ? 'text-green-600' : 'text-gray-900'
+                    }`}>
+                      {count}
+                    </div>
+                    <div className={`text-sm ${
+                      selectedCategory === category ? 'text-green-800 font-semibold' : 'text-gray-600'
+                    }`}>
+                      {category}
+                    </div>
+                    {selectedCategory === category && (
+                      <div className="text-xs text-green-600 mt-1 font-medium">
+                        ✓ Filtered
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </div>
+            <div className="mt-4 text-center">
+              <span className="text-sm text-gray-500">
+                {selectedCategory ? (
+                  <>
+                    Showing: <span className="font-semibold text-gray-900">{selectedCategory}</span> 
+                    <span className="text-gray-400"> | </span>
+                    <button 
+                      onClick={clearCategoryFilter}
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      View all categories
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    Total: <span className="font-semibold text-gray-900">
+                      {getTotalTemplateCount(useMexicanTemplates ? mexicoTemplates : globalTemplates)}
+                    </span> templates available
+                  </>
+                )}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Templates */}
         {useMexicanTemplates ? (
-          <MarketTemplatesMexico onSelectTemplate={handleSelectTemplate} />
+          <MarketTemplatesMexico 
+            onSelectTemplate={handleSelectTemplate} 
+            selectedCategory={selectedCategory}
+          />
         ) : (
-          <MarketTemplates onSelectTemplate={handleSelectTemplate} />
+          <MarketTemplates 
+            onSelectTemplate={handleSelectTemplate} 
+            selectedCategory={selectedCategory}
+          />
         )}
       </div>
     </div>

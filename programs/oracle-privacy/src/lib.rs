@@ -76,6 +76,7 @@ pub mod oracle_privacy {
 
     /// Resolve market with privacy-preserving mechanism
     /// Only reveal outcome, not individual bets
+    /// ONLY THE CREATOR CAN RESOLVE THE MARKET
     pub fn resolve_private_market(
         ctx: Context<ResolvePrivateMarket>,
         winning_outcome: u8,
@@ -85,13 +86,16 @@ pub mod oracle_privacy {
         require!(!market.is_resolved, ErrorCode::MarketAlreadyResolved);
         require!(Clock::get()?.unix_timestamp > market.end_time, ErrorCode::MarketNotExpired);
         require!(winning_outcome < market.outcomes.len() as u8, ErrorCode::InvalidOutcome);
+        
+        // CRITICAL: Only the market creator can resolve the market
+        require!(market.creator == ctx.accounts.resolver.key(), ErrorCode::UnauthorizedResolver);
 
         market.winning_outcome = Some(winning_outcome);
         market.is_resolved = true;
         market.resolution_proof = Some(resolution_proof);
         market.resolved_at = Clock::get()?.unix_timestamp;
 
-        msg!("Market resolved with outcome: {}", winning_outcome);
+        msg!("Market resolved by creator {} with outcome: {}", market.creator, winning_outcome);
         Ok(())
     }
 
@@ -271,4 +275,6 @@ pub enum ErrorCode {
     InvalidOutcome,
     #[msg("Invalid bet amount")]
     InvalidBetAmount,
+    #[msg("Only the market creator can resolve the market")]
+    UnauthorizedResolver,
 }

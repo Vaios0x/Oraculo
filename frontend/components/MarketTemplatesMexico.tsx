@@ -33,11 +33,11 @@ import {
 } from 'lucide-react';
 
 /**
- * 🇲🇽 MarketTemplatesMexico Component - Plantillas para México
+ * 🇲🇽 MarketTemplatesMexico Component - Templates for Mexico
  * 
- * Componente que proporciona plantillas predefinidas para crear mercados
- * de predicciones específicos para México con temas culturales, económicos,
- * políticos, deportivos, sociales y filosóficos
+ * Component that provides predefined templates to create prediction
+ * markets specific to Mexico with cultural, economic, political,
+ * sports, social and philosophical themes
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 3.0.0 - México Edition
@@ -52,88 +52,88 @@ export interface MarketTemplate {
   category: string;
   icon: React.ReactNode;
   color: string;
-  endTime: number; // días desde hoy
+  endTime: number; // days from today
 }
 
 const templates: MarketTemplate[] = [
-  // 🏛️ POLÍTICA MEXICANA
+  // 🏛️ MEXICAN POLITICS
   {
     id: 'mx-politics-1',
-    title: 'Elecciones Presidenciales 2026',
-    description: 'Predicción sobre el resultado de las elecciones presidenciales mexicanas de 2026, considerando el panorama político actual y las tendencias electorales.',
-    question: '¿Ganará Morena las elecciones presidenciales de 2026?',
-    outcomes: ['Sí, Morena gana', 'No, gana oposición'],
-    category: 'Política',
+    title: '2026 Presidential Elections',
+    description: 'Prediction on the results of the 2026 Mexican presidential elections, considering the current political landscape and electoral trends.',
+    question: 'Will Morena win the 2026 presidential elections?',
+    outcomes: ['Yes, Morena wins', 'No, opposition wins'],
+    category: 'Politics',
     icon: <Vote className="w-5 h-5" />,
     color: 'bg-red-500',
     endTime: 365
   },
   {
     id: 'mx-politics-2',
-    title: 'Reforma Electoral 2025',
-    description: 'Predicción sobre la aprobación de la reforma electoral que busca modernizar el sistema electoral mexicano.',
-    question: '¿Se aprobará la reforma electoral propuesta por el INE en 2025?',
-    outcomes: ['Sí se aprueba', 'No se aprueba'],
-    category: 'Política',
+    title: 'Electoral Reform 2025',
+    description: 'Prediction on the approval of the electoral reform that seeks to modernize the Mexican electoral system.',
+    question: 'Will the electoral reform proposed by INE be approved in 2025?',
+    outcomes: ['Yes, approved', 'No, not approved'],
+    category: 'Politics',
     icon: <Scale className="w-5 h-5" />,
     color: 'bg-blue-500',
     endTime: 180
   },
   {
     id: 'mx-politics-3',
-    title: 'AMLO y el 4T',
-    description: 'Predicción sobre los niveles de aprobación del presidente López Obrador al final de su mandato en 2024.',
-    question: '¿Terminará AMLO su sexenio con aprobación mayor al 60%?',
-    outcomes: ['Sí, mayor 60%', 'No, menor 60%'],
-    category: 'Política',
+    title: 'AMLO and the 4T',
+    description: 'Prediction on the approval ratings of President López Obrador at the end of his term in 2024.',
+    question: 'Will AMLO finish his six-year term with approval above 60%?',
+    outcomes: ['Yes, above 60%', 'No, below 60%'],
+    category: 'Politics',
     icon: <Building className="w-5 h-5" />,
     color: 'bg-orange-500',
     endTime: 90
   },
 
-  // 💰 ECONOMÍA MEXICANA
+  // 💰 MEXICAN ECONOMY
   {
     id: 'mx-economy-1',
-    title: 'Peso Mexicano vs Dólar 2026',
-    description: 'Predicción sobre la fortaleza del peso mexicano frente al dólar estadounidense, considerando políticas monetarias y económicas.',
-    question: '¿El peso mexicano se fortalecerá a menos de 18 pesos por dólar en 2026?',
-    outcomes: ['Sí, menos de $18', 'No, más de $18'],
-    category: 'Economía',
+    title: 'Mexican Peso vs Dollar 2026',
+    description: 'Prediction on the strength of the Mexican peso against the US dollar, considering monetary and economic policies.',
+    question: 'Will the Mexican peso strengthen to less than 18 pesos per dollar in 2026?',
+    outcomes: ['Yes, less than $18', 'No, more than $18'],
+    category: 'Economy',
     icon: <DollarSign className="w-5 h-5" />,
     color: 'bg-green-500',
     endTime: 365
   },
   {
     id: 'mx-economy-2',
-    title: 'Inflación México 2025',
-    description: 'Predicción sobre el control inflacionario en México, considerando las políticas del Banco de México y factores externos.',
-    question: '¿La inflación en México será menor al 4% en 2025?',
-    outcomes: ['Sí, menor 4%', 'No, mayor 4%'],
-    category: 'Economía',
+    title: 'Mexico Inflation 2025',
+    description: 'Prediction on inflationary control in Mexico, considering Bank of Mexico policies and external factors.',
+    question: 'Will inflation in Mexico be below 4% in 2025?',
+    outcomes: ['Yes, below 4%', 'No, above 4%'],
+    category: 'Economy',
     icon: <TrendingUp className="w-5 h-5" />,
     color: 'bg-yellow-500',
     endTime: 365
   },
   {
     id: 'mx-economy-3',
-    title: 'T-MEC y Comercio',
-    description: 'Predicción sobre el crecimiento de las exportaciones mexicanas bajo el T-MEC y la integración comercial.',
-    question: '¿México aumentará sus exportaciones al 15% del PIB en 2026?',
-    outcomes: ['Sí, 15% o más', 'No, menos 15%'],
-    category: 'Economía',
+    title: 'USMCA and Trade',
+    description: 'Prediction on the growth of Mexican exports under USMCA and commercial integration.',
+    question: 'Will Mexico increase its exports to 15% of GDP in 2026?',
+    outcomes: ['Yes, 15% or more', 'No, less than 15%'],
+    category: 'Economy',
     icon: <Globe className="w-5 h-5" />,
     color: 'bg-blue-600',
     endTime: 730
   },
 
-  // ⚽ DEPORTES MEXICANOS
+  // ⚽ MEXICAN SPORTS
   {
     id: 'mx-sports-1',
-    title: 'Selección Mexicana Mundial 2026',
-    description: 'Predicción sobre el desempeño de la Selección Mexicana en el Mundial de Fútbol 2026 en Estados Unidos.',
-    question: '¿México llegará a cuartos de final en el Mundial 2026?',
-    outcomes: ['Sí, cuartos o más', 'No, octavos o menos'],
-    category: 'Deportes',
+    title: 'Mexican National Team World Cup 2026',
+    description: 'Prediction on the performance of the Mexican National Team in the 2026 Soccer World Cup in the United States.',
+    question: 'Will Mexico reach the quarterfinals in the 2026 World Cup?',
+    outcomes: ['Yes, quarterfinals or better', 'No, round of 16 or less'],
+    category: 'Sports',
     icon: <Trophy className="w-5 h-5" />,
     color: 'bg-green-600',
     endTime: 730
@@ -141,368 +141,368 @@ const templates: MarketTemplate[] = [
   {
     id: 'mx-sports-2',
     title: 'Liga MX Clausura 2025',
-    description: 'Predicción sobre el campeón del torneo Clausura 2025 de la Liga MX.',
-    question: '¿América ganará el torneo Clausura 2025?',
-    outcomes: ['Sí, América gana', 'No, otro equipo'],
-    category: 'Deportes',
+    description: 'Prediction on the champion of the 2025 Clausura tournament of Liga MX.',
+    question: 'Will América win the 2025 Clausura tournament?',
+    outcomes: ['Yes, América wins', 'No, another team'],
+    category: 'Sports',
     icon: <Circle className="w-5 h-5" />,
     color: 'bg-yellow-600',
     endTime: 180
   },
   {
     id: 'mx-sports-3',
-    title: 'Boxeo Mexicano 2025',
-    description: 'Predicción sobre la conquista de títulos mundiales por boxeadores mexicanos en 2025.',
-    question: '¿Un boxeador mexicano ganará un título mundial en 2025?',
-    outcomes: ['Sí, título mundial', 'No, sin título'],
-    category: 'Deportes',
+    title: 'Mexican Boxing 2025',
+    description: 'Prediction on the conquest of world titles by Mexican boxers in 2025.',
+    question: 'Will a Mexican boxer win a world title in 2025?',
+    outcomes: ['Yes, world title', 'No, without title'],
+    category: 'Sports',
     icon: <Target className="w-5 h-5" />,
     color: 'bg-red-600',
     endTime: 365
   },
 
-  // 🎭 CULTURA MEXICANA
+  // 🎭 MEXICAN CULTURE
   {
     id: 'mx-culture-1',
-    title: 'Día de Muertos 2025',
-    description: 'Predicción sobre el reconocimiento internacional del Día de Muertos como patrimonio cultural mundial.',
-    question: '¿El Día de Muertos será declarado Patrimonio Cultural de la Humanidad en 2025?',
-    outcomes: ['Sí, patrimonio mundial', 'No, no se declara'],
-    category: 'Cultura',
+    title: 'Day of the Dead 2025',
+    description: 'Prediction on the international recognition of Day of the Dead as world cultural heritage.',
+    question: 'Will Day of the Dead be declared Cultural Heritage of Humanity in 2025?',
+    outcomes: ['Yes, world heritage', 'No, not declared'],
+    category: 'Culture',
     icon: <Calendar className="w-5 h-5" />,
     color: 'bg-purple-500',
     endTime: 365
   },
   {
     id: 'mx-culture-2',
-    title: 'Cine Mexicano 2026',
-    description: 'Predicción sobre el éxito del cine mexicano en los premios Oscar de 2026.',
-    question: '¿Una película mexicana ganará el Oscar a Mejor Película en 2026?',
-    outcomes: ['Sí, Oscar ganado', 'No, sin Oscar'],
-    category: 'Cultura',
+    title: 'Mexican Cinema 2026',
+    description: 'Prediction on the success of Mexican cinema at the 2026 Academy Awards.',
+    question: 'Will a Mexican film win the Oscar for Best Picture in 2026?',
+    outcomes: ['Yes, Oscar won', 'No, without Oscar'],
+    category: 'Culture',
     icon: <Palette className="w-5 h-5" />,
     color: 'bg-indigo-500',
     endTime: 730
   },
   {
     id: 'mx-culture-3',
-    title: 'Música Regional 2025',
-    description: 'Predicción sobre el dominio del género regional mexicano en las plataformas de streaming musical.',
-    question: '¿El género regional mexicano superará al pop en streams en 2025?',
-    outcomes: ['Sí, más streams', 'No, pop domina'],
-    category: 'Cultura',
+    title: 'Regional Music 2025',
+    description: 'Prediction on the dominance of Mexican regional genre on music streaming platforms.',
+    question: 'Will Mexican regional genre surpass pop in streams in 2025?',
+    outcomes: ['Yes, more streams', 'No, pop dominates'],
+    category: 'Culture',
     icon: <Music className="w-5 h-5" />,
     color: 'bg-pink-500',
     endTime: 365
   },
 
-  // 🌮 GASTRONOMÍA MEXICANA
+  // 🌮 MEXICAN GASTRONOMY
   {
     id: 'mx-food-1',
-    title: 'Tacos al Pastor Mundial',
-    description: 'Predicción sobre el reconocimiento internacional de los tacos al pastor como el mejor platillo mundial.',
-    question: '¿Los tacos al pastor serán reconocidos como el mejor platillo del mundo en 2025?',
-    outcomes: ['Sí, mejor platillo', 'No, otro platillo'],
-    category: 'Gastronomía',
+    title: 'Tacos al Pastor Worldwide',
+    description: 'Prediction on the international recognition of tacos al pastor as the best dish in the world.',
+    question: 'Will tacos al pastor be recognized as the best dish in the world in 2025?',
+    outcomes: ['Yes, best dish', 'No, another dish'],
+    category: 'Gastronomy',
     icon: <Utensils className="w-5 h-5" />,
     color: 'bg-orange-600',
     endTime: 365
   },
   {
     id: 'mx-food-2',
-    title: 'Restaurantes Mexicanos Michelin',
-    description: 'Predicción sobre el crecimiento de restaurantes mexicanos con reconocimiento Michelin.',
-    question: '¿México tendrá 10 restaurantes con estrella Michelin en 2026?',
-    outcomes: ['Sí, 10 o más', 'No, menos de 10'],
-    category: 'Gastronomía',
+    title: 'Mexican Michelin Restaurants',
+    description: 'Prediction on the growth of Mexican restaurants with Michelin recognition.',
+    question: 'Will Mexico have 10 restaurants with Michelin stars in 2026?',
+    outcomes: ['Yes, 10 or more', 'No, less than 10'],
+    category: 'Gastronomy',
     icon: <Target className="w-5 h-5" />,
     color: 'bg-yellow-500',
     endTime: 730
   },
 
-  // 🏥 SALUD Y SOCIEDAD
+  // 🏥 HEALTH AND SOCIETY
   {
     id: 'mx-health-1',
-    title: 'Sistema de Salud 2025',
-    description: 'Predicción sobre la cobertura universal del sistema de salud mexicano a través del IMSS.',
-    question: '¿El IMSS tendrá cobertura universal en 2025?',
-    outcomes: ['Sí, cobertura universal', 'No, cobertura parcial'],
-    category: 'Salud',
+    title: 'Health System 2025',
+    description: 'Prediction on universal coverage of the Mexican health system through IMSS.',
+    question: 'Will IMSS have universal coverage in 2025?',
+    outcomes: ['Yes, universal coverage', 'No, partial coverage'],
+    category: 'Health',
     icon: <Heart className="w-5 h-5" />,
     color: 'bg-green-500',
     endTime: 365
   },
   {
     id: 'mx-health-2',
-    title: 'Vacunación COVID-19',
-    description: 'Predicción sobre la cobertura de vacunación contra COVID-19 en la población mexicana.',
-    question: '¿México alcanzará 90% de vacunación COVID-19 en 2025?',
-    outcomes: ['Sí, 90% o más', 'No, menos 90%'],
-    category: 'Salud',
+    title: 'COVID-19 Vaccination',
+    description: 'Prediction on COVID-19 vaccination coverage in the Mexican population.',
+    question: 'Will Mexico reach 90% COVID-19 vaccination in 2025?',
+    outcomes: ['Yes, 90% or more', 'No, less than 90%'],
+    category: 'Health',
     icon: <Shield className="w-5 h-5" />,
     color: 'bg-blue-500',
     endTime: 180
   },
 
-  // 🎓 EDUCACIÓN MEXICANA
+  // 🎓 MEXICAN EDUCATION
   {
     id: 'mx-education-1',
-    title: 'Educación Digital 2026',
-    description: 'Predicción sobre la digitalización del sistema educativo mexicano y acceso a tecnología educativa.',
-    question: '¿El 80% de estudiantes mexicanos tendrá acceso a educación digital en 2026?',
-    outcomes: ['Sí, 80% o más', 'No, menos 80%'],
-    category: 'Educación',
+    title: 'Digital Education 2026',
+    description: 'Prediction on the digitization of the Mexican education system and access to educational technology.',
+    question: 'Will 80% of Mexican students have access to digital education in 2026?',
+    outcomes: ['Yes, 80% or more', 'No, less than 80%'],
+    category: 'Education',
     icon: <GraduationCap className="w-5 h-5" />,
     color: 'bg-indigo-600',
     endTime: 730
   },
   {
     id: 'mx-education-2',
-    title: 'Universidades Públicas',
-    description: 'Predicción sobre la suficiencia presupuestal de las universidades públicas mexicanas.',
-    question: '¿Las universidades públicas tendrán presupuesto suficiente en 2025?',
-    outcomes: ['Sí, presupuesto suficiente', 'No, presupuesto insuficiente'],
-    category: 'Educación',
+    title: 'Public Universities',
+    description: 'Prediction on the budget sufficiency of Mexican public universities.',
+    question: 'Will public universities have sufficient budget in 2025?',
+    outcomes: ['Yes, sufficient budget', 'No, insufficient budget'],
+    category: 'Education',
     icon: <Building className="w-5 h-5" />,
     color: 'bg-purple-600',
     endTime: 365
   },
 
-  // 🌍 MEDIO AMBIENTE
+  // 🌍 ENVIRONMENT
   {
     id: 'mx-environment-1',
-    title: 'Energías Renovables 2026',
-    description: 'Predicción sobre la transición energética mexicana hacia fuentes renovables.',
-    question: '¿México generará 50% de energía renovable en 2026?',
-    outcomes: ['Sí, 50% o más', 'No, menos 50%'],
-    category: 'Medio Ambiente',
+    title: 'Renewable Energy 2026',
+    description: 'Prediction on Mexico\'s energy transition to renewable sources.',
+    question: 'Will Mexico generate 50% renewable energy in 2026?',
+    outcomes: ['Yes, 50% or more', 'No, less than 50%'],
+    category: 'Environment',
     icon: <Leaf className="w-5 h-5" />,
     color: 'bg-green-600',
     endTime: 730
   },
   {
     id: 'mx-environment-2',
-    title: 'Contaminación CDMX',
-    description: 'Predicción sobre la mejora de la calidad del aire en la Ciudad de México.',
-    question: '¿La Ciudad de México tendrá menos de 50 días de contingencia ambiental en 2025?',
-    outcomes: ['Sí, menos 50 días', 'No, 50 días o más'],
-    category: 'Medio Ambiente',
+    title: 'Mexico City Pollution',
+    description: 'Prediction on the improvement of air quality in Mexico City.',
+    question: 'Will Mexico City have less than 50 environmental contingency days in 2025?',
+    outcomes: ['Yes, less than 50 days', 'No, 50 days or more'],
+    category: 'Environment',
     icon: <Activity className="w-5 h-5" />,
     color: 'bg-gray-500',
     endTime: 365
   },
 
-  // 🚀 TECNOLOGÍA MEXICANA
+  // 🚀 MEXICAN TECHNOLOGY
   {
     id: 'mx-tech-1',
-    title: 'Startups Mexicanas 2025',
-    description: 'Predicción sobre el crecimiento del ecosistema de startups mexicanas y la aparición de unicornios.',
-    question: '¿México tendrá 5 unicornios tecnológicos en 2025?',
-    outcomes: ['Sí, 5 o más unicornios', 'No, menos de 5'],
-    category: 'Tecnología',
+    title: 'Mexican Startups 2025',
+    description: 'Prediction on the growth of the Mexican startup ecosystem and the emergence of unicorns.',
+    question: 'Will Mexico have 5 tech unicorns in 2025?',
+    outcomes: ['Yes, 5 or more unicorns', 'No, less than 5'],
+    category: 'Technology',
     icon: <Zap className="w-5 h-5" />,
     color: 'bg-purple-500',
     endTime: 365
   },
   {
     id: 'mx-tech-2',
-    title: '5G en México 2026',
-    description: 'Predicción sobre la implementación de la red 5G en territorio mexicano.',
-    question: '¿El 70% de México tendrá cobertura 5G en 2026?',
-    outcomes: ['Sí, 70% o más', 'No, menos 70%'],
-    category: 'Tecnología',
+    title: '5G in Mexico 2026',
+    description: 'Prediction on the implementation of the 5G network in Mexican territory.',
+    question: 'Will 70% of Mexico have 5G coverage in 2026?',
+    outcomes: ['Yes, 70% or more', 'No, less than 70%'],
+    category: 'Technology',
     icon: <Smartphone className="w-5 h-5" />,
     color: 'bg-blue-500',
     endTime: 730
   },
 
-  // 🏛️ INSTITUCIONES
+  // 🏛️ INSTITUTIONS
   {
     id: 'mx-institutions-1',
-    title: 'Reforma Judicial 2025',
-    description: 'Predicción sobre la aprobación de la reforma al sistema judicial mexicano.',
-    question: '¿Se aprobará la reforma judicial propuesta por la SCJN en 2025?',
-    outcomes: ['Sí se aprueba', 'No se aprueba'],
-    category: 'Instituciones',
+    title: 'Judicial Reform 2025',
+    description: 'Prediction on the approval of the reform to the Mexican judicial system.',
+    question: 'Will the judicial reform proposed by SCJN be approved in 2025?',
+    outcomes: ['Yes, approved', 'No, not approved'],
+    category: 'Institutions',
     icon: <Scale className="w-5 h-5" />,
     color: 'bg-gray-600',
     endTime: 365
   },
   {
     id: 'mx-institutions-2',
-    title: 'Transparencia Gubernamental',
-    description: 'Predicción sobre la mejora en los índices de transparencia gubernamental mexicana.',
-    question: '¿México mejorará su ranking de transparencia a top 50 mundial en 2026?',
-    outcomes: ['Sí, top 50', 'No, fuera top 50'],
-    category: 'Instituciones',
+    title: 'Government Transparency',
+    description: 'Prediction on the improvement of Mexican government transparency indexes.',
+    question: 'Will Mexico improve its transparency ranking to top 50 worldwide in 2026?',
+    outcomes: ['Yes, top 50', 'No, outside top 50'],
+    category: 'Institutions',
     icon: <Target className="w-5 h-5" />,
     color: 'bg-yellow-600',
     endTime: 730
   },
 
-  // 🎭 ARTE Y ENTRETENIMIENTO
+  // 🎭 ART AND ENTERTAINMENT
   {
     id: 'mx-art-1',
-    title: 'Arte Mexicano Internacional',
-    description: 'Predicción sobre el reconocimiento internacional del arte contemporáneo mexicano.',
-    question: '¿Un artista mexicano ganará el Premio Turner en 2025?',
-    outcomes: ['Sí, Premio Turner', 'No, sin premio'],
-    category: 'Arte',
+    title: 'International Mexican Art',
+    description: 'Prediction on the international recognition of contemporary Mexican art.',
+    question: 'Will a Mexican artist win the Turner Prize in 2025?',
+    outcomes: ['Yes, Turner Prize', 'No, without prize'],
+    category: 'Art',
     icon: <Palette className="w-5 h-5" />,
     color: 'bg-pink-600',
     endTime: 365
   },
   {
     id: 'mx-art-2',
-    title: 'Teatro Nacional 2026',
-    description: 'Predicción sobre la asistencia al Teatro Nacional y la popularidad del teatro en México.',
-    question: '¿El Teatro Nacional tendrá 1 millón de espectadores en 2026?',
-    outcomes: ['Sí, 1M o más', 'No, menos 1M'],
-    category: 'Arte',
+    title: 'National Theater 2026',
+    description: 'Prediction on attendance at the National Theater and the popularity of theater in Mexico.',
+    question: 'Will the National Theater have 1 million spectators in 2026?',
+    outcomes: ['Yes, 1M or more', 'No, less than 1M'],
+    category: 'Art',
     icon: <Circle className="w-5 h-5" />,
     color: 'bg-red-500',
     endTime: 730
   },
 
-  // 🏘️ DESARROLLO URBANO
+  // 🏘️ URBAN DEVELOPMENT
   {
     id: 'mx-urban-1',
-    title: 'Tren Maya 2025',
-    description: 'Predicción sobre la finalización y operación completa del proyecto Tren Maya.',
-    question: '¿El Tren Maya estará 100% operativo en 2025?',
-    outcomes: ['Sí, 100% operativo', 'No, parcialmente'],
-    category: 'Desarrollo',
+    title: 'Maya Train 2025',
+    description: 'Prediction on the completion and full operation of the Maya Train project.',
+    question: 'Will the Maya Train be 100% operational in 2025?',
+    outcomes: ['Yes, 100% operational', 'No, partially'],
+    category: 'Development',
     icon: <Train className="w-5 h-5" />,
     color: 'bg-green-500',
     endTime: 365
   },
   {
     id: 'mx-urban-2',
-    title: 'Vivienda Social 2026',
-    description: 'Predicción sobre la construcción de vivienda social y el acceso a la vivienda en México.',
-    question: '¿México construirá 500,000 viviendas sociales en 2026?',
-    outcomes: ['Sí, 500K o más', 'No, menos 500K'],
-    category: 'Desarrollo',
+    title: 'Social Housing 2026',
+    description: 'Prediction on the construction of social housing and access to housing in Mexico.',
+    question: 'Will Mexico build 500,000 social housing units in 2026?',
+    outcomes: ['Yes, 500K or more', 'No, less than 500K'],
+    category: 'Development',
     icon: <Home className="w-5 h-5" />,
     color: 'bg-blue-600',
     endTime: 730
   },
 
-  // 🌮 TURISMO MEXICANO
+  // 🌮 MEXICAN TOURISM
   {
     id: 'mx-tourism-1',
-    title: 'Turismo Internacional 2025',
-    description: 'Predicción sobre la recuperación del turismo internacional en México post-pandemia.',
-    question: '¿México recibirá 50 millones de turistas internacionales en 2025?',
-    outcomes: ['Sí, 50M o más', 'No, menos 50M'],
-    category: 'Turismo',
+    title: 'International Tourism 2025',
+    description: 'Prediction on the recovery of international tourism in Mexico post-pandemic.',
+    question: 'Will Mexico receive 50 million international tourists in 2025?',
+    outcomes: ['Yes, 50M or more', 'No, less than 50M'],
+    category: 'Tourism',
     icon: <Plane className="w-5 h-5" />,
     color: 'bg-cyan-500',
     endTime: 365
   },
   {
     id: 'mx-tourism-2',
-    title: 'Pueblos Mágicos 2026',
-    description: 'Predicción sobre la expansión del programa Pueblos Mágicos en México.',
-    question: '¿México tendrá 200 Pueblos Mágicos en 2026?',
-    outcomes: ['Sí, 200 o más', 'No, menos 200'],
-    category: 'Turismo',
+    title: 'Magic Towns 2026',
+    description: 'Prediction on the expansion of the Magic Towns program in Mexico.',
+    question: 'Will Mexico have 200 Magic Towns in 2026?',
+    outcomes: ['Yes, 200 or more', 'No, less than 200'],
+    category: 'Tourism',
     icon: <MapPin className="w-5 h-5" />,
     color: 'bg-orange-500',
     endTime: 730
   },
 
-  // 💰 CRIPTOMONEDAS MEXICANAS
+  // 💰 MEXICAN CRYPTOCURRENCIES
   {
     id: 'mx-crypto-1',
-    title: 'Bitcoin Legal México 2025',
-    description: 'Predicción sobre la adopción legal de Bitcoin como moneda de curso legal en México.',
-    question: '¿Bitcoin será reconocido como moneda de curso legal en México en 2025?',
-    outcomes: ['Sí, curso legal', 'No, sin reconocimiento'],
-    category: 'Criptomonedas',
+    title: 'Bitcoin Legal Mexico 2025',
+    description: 'Prediction on the legal adoption of Bitcoin as legal tender in Mexico.',
+    question: 'Will Bitcoin be recognized as legal tender in Mexico in 2025?',
+    outcomes: ['Yes, legal tender', 'No, without recognition'],
+    category: 'Cryptocurrencies',
     icon: <Bitcoin className="w-5 h-5" />,
     color: 'bg-orange-600',
     endTime: 365
   },
   {
     id: 'mx-crypto-2',
-    title: 'CBDC México 2026',
-    description: 'Predicción sobre el lanzamiento del peso digital mexicano por parte del Banco de México.',
-    question: '¿México lanzará su moneda digital del banco central (CBDC) en 2026?',
-    outcomes: ['Sí, CBDC lanzada', 'No, sin CBDC'],
-    category: 'Criptomonedas',
+    title: 'CBDC Mexico 2026',
+    description: 'Prediction on the launch of the Mexican digital peso by the Bank of Mexico.',
+    question: 'Will Mexico launch its central bank digital currency (CBDC) in 2026?',
+    outcomes: ['Yes, CBDC launched', 'No, without CBDC'],
+    category: 'Cryptocurrencies',
     icon: <Coins className="w-5 h-5" />,
     color: 'bg-blue-500',
     endTime: 730
   },
 
-  // 🎓 FILOSOFÍA MEXICANA
+  // 🎓 MEXICAN PHILOSOPHY
   {
     id: 'mx-philosophy-1',
-    title: 'Filosofía Latinoamericana 2025',
-    description: 'Predicción sobre el reconocimiento internacional de la filosofía mexicana y latinoamericana.',
-    question: '¿Un filósofo mexicano ganará el Premio Nobel de Literatura en 2025?',
-    outcomes: ['Sí, Nobel ganado', 'No, sin Nobel'],
-    category: 'Filosofía',
+    title: 'Latin American Philosophy 2025',
+    description: 'Prediction on the international recognition of Mexican and Latin American philosophy.',
+    question: 'Will a Mexican philosopher win the Nobel Prize in Literature in 2025?',
+    outcomes: ['Yes, Nobel won', 'No, without Nobel'],
+    category: 'Philosophy',
     icon: <BookOpen className="w-5 h-5" />,
     color: 'bg-purple-600',
     endTime: 365
   },
   {
     id: 'mx-philosophy-2',
-    title: 'Pensamiento Decolonial 2026',
-    description: 'Predicción sobre la inclusión del pensamiento decolonial en la educación superior mexicana.',
-    question: '¿El pensamiento decolonial será incluido en el currículo universitario mexicano en 2026?',
-    outcomes: ['Sí, incluido', 'No, sin inclusión'],
-    category: 'Filosofía',
+    title: 'Decolonial Thought 2026',
+    description: 'Prediction on the inclusion of decolonial thought in Mexican higher education.',
+    question: 'Will decolonial thought be included in the Mexican university curriculum in 2026?',
+    outcomes: ['Yes, included', 'No, without inclusion'],
+    category: 'Philosophy',
     icon: <Globe className="w-5 h-5" />,
     color: 'bg-green-600',
     endTime: 730
   },
 
-  // 🏛️ SEGURIDAD PÚBLICA
+  // 🏛️ PUBLIC SECURITY
   {
     id: 'mx-security-1',
-    title: 'Seguridad Ciudadana 2025',
-    description: 'Predicción sobre la mejora en los índices de seguridad ciudadana y reducción de homicidios.',
-    question: '¿México reducirá los homicidios en 20% durante 2025?',
-    outcomes: ['Sí, 20% menos', 'No, sin reducción'],
-    category: 'Seguridad',
+    title: 'Citizen Security 2025',
+    description: 'Prediction on the improvement of citizen security indexes and reduction of homicides.',
+    question: 'Will Mexico reduce homicides by 20% during 2025?',
+    outcomes: ['Yes, 20% less', 'No, without reduction'],
+    category: 'Security',
     icon: <Security className="w-5 h-5" />,
     color: 'bg-red-600',
     endTime: 365
   },
   {
     id: 'mx-security-2',
-    title: 'Guardia Nacional 2026',
-    description: 'Predicción sobre el crecimiento y consolidación de la Guardia Nacional mexicana.',
-    question: '¿La Guardia Nacional tendrá 200,000 elementos en 2026?',
-    outcomes: ['Sí, 200K elementos', 'No, menos elementos'],
-    category: 'Seguridad',
+    title: 'National Guard 2026',
+    description: 'Prediction on the growth and consolidation of the Mexican National Guard.',
+    question: 'Will the National Guard have 200,000 members in 2026?',
+    outcomes: ['Yes, 200K members', 'No, fewer members'],
+    category: 'Security',
     icon: <Shield className="w-5 h-5" />,
     color: 'bg-blue-600',
     endTime: 730
   },
 
-  // 🌮 MIGRACIÓN MEXICANA
+  // 🌮 MEXICAN MIGRATION
   {
     id: 'mx-migration-1',
-    title: 'Remesas México 2025',
-    description: 'Predicción sobre el crecimiento de las remesas enviadas por mexicanos en el exterior.',
-    question: '¿Las remesas a México superarán los 60 mil millones de dólares en 2025?',
-    outcomes: ['Sí, 60B o más', 'No, menos 60B'],
-    category: 'Migración',
+    title: 'Mexico Remittances 2025',
+    description: 'Prediction on the growth of remittances sent by Mexicans abroad.',
+    question: 'Will remittances to Mexico exceed 60 billion dollars in 2025?',
+    outcomes: ['Yes, 60B or more', 'No, less than 60B'],
+    category: 'Migration',
     icon: <DollarSign className="w-5 h-5" />,
     color: 'bg-green-500',
     endTime: 365
   },
   {
     id: 'mx-migration-2',
-    title: 'Retorno Migrantes 2026',
-    description: 'Predicción sobre el retorno de migrantes mexicanos desde Estados Unidos y otros países.',
-    question: '¿Más de 100,000 mexicanos regresarán del extranjero en 2026?',
-    outcomes: ['Sí, 100K o más', 'No, menos 100K'],
-    category: 'Migración',
+    title: 'Return of Migrants 2026',
+    description: 'Prediction on the return of Mexican migrants from the United States and other countries.',
+    question: 'Will more than 100,000 Mexicans return from abroad in 2026?',
+    outcomes: ['Yes, 100K or more', 'No, less than 100K'],
+    category: 'Migration',
     icon: <Home className="w-5 h-5" />,
     color: 'bg-orange-500',
     endTime: 730
@@ -513,48 +513,54 @@ interface MarketTemplatesMexicoProps {
   onSelectTemplate: (template: MarketTemplate) => void;
 }
 
-export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexicoProps) {
+export function MarketTemplatesMexico({ 
+  onSelectTemplate, 
+  selectedCategory 
+}: MarketTemplatesMexicoProps & { selectedCategory?: string | null }) {
   const categories = Array.from(new Set(templates.map(t => t.category)));
+  const filteredCategories = selectedCategory ? [selectedCategory] : categories;
 
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 neural-text-glow mb-4">
-          🇲🇽 Mercados de Predicción para México
+          🇲🇽 Prediction Markets for Mexico
         </h2>
         <p className="text-gray-600 text-lg">
-          Plantillas específicas para el contexto mexicano con temas culturales, económicos, políticos y sociales
+          {selectedCategory ? `Templates for ${selectedCategory} - Mexican context` : 'Specific templates for the Mexican context with cultural, economic, political and social themes'}
         </p>
-        <div className="mt-4 text-sm text-gray-500">
-          <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full mr-2">Política</span>
-          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full mr-2">Economía</span>
-          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full mr-2">Deportes</span>
-          <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Cultura</span>
-        </div>
+        {!selectedCategory && (
+          <div className="mt-4 text-sm text-gray-500">
+            <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full mr-2">Politics</span>
+            <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full mr-2">Economy</span>
+            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full mr-2">Sports</span>
+            <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Culture</span>
+          </div>
+        )}
       </div>
 
       {/* Categories */}
-      {categories.map(category => (
+      {filteredCategories.map(category => (
         <div key={category} className="space-y-4">
           <h3 className="text-xl font-semibold text-gray-900 neural-text-glow flex items-center">
-            {category === 'Política' && <Vote className="w-5 h-5 mr-2 text-red-500" />}
-            {category === 'Economía' && <DollarSign className="w-5 h-5 mr-2 text-green-500" />}
-            {category === 'Deportes' && <Trophy className="w-5 h-5 mr-2 text-blue-500" />}
-            {category === 'Cultura' && <Music className="w-5 h-5 mr-2 text-purple-500" />}
-            {category === 'Gastronomía' && <Utensils className="w-5 h-5 mr-2 text-orange-500" />}
-            {category === 'Salud' && <Heart className="w-5 h-5 mr-2 text-pink-500" />}
-            {category === 'Educación' && <GraduationCap className="w-5 h-5 mr-2 text-indigo-500" />}
-            {category === 'Medio Ambiente' && <Leaf className="w-5 h-5 mr-2 text-green-600" />}
-            {category === 'Tecnología' && <Zap className="w-5 h-5 mr-2 text-purple-500" />}
-            {category === 'Instituciones' && <Scale className="w-5 h-5 mr-2 text-gray-500" />}
-            {category === 'Arte' && <Palette className="w-5 h-5 mr-2 text-pink-500" />}
-            {category === 'Desarrollo' && <Building className="w-5 h-5 mr-2 text-blue-500" />}
-            {category === 'Turismo' && <Plane className="w-5 h-5 mr-2 text-cyan-500" />}
-            {category === 'Criptomonedas' && <Bitcoin className="w-5 h-5 mr-2 text-orange-500" />}
-            {category === 'Filosofía' && <BookOpen className="w-5 h-5 mr-2 text-purple-500" />}
-            {category === 'Seguridad' && <Shield className="w-5 h-5 mr-2 text-red-500" />}
-            {category === 'Migración' && <Home className="w-5 h-5 mr-2 text-orange-500" />}
+            {category === 'Politics' && <Vote className="w-5 h-5 mr-2 text-red-500" />}
+            {category === 'Economy' && <DollarSign className="w-5 h-5 mr-2 text-green-500" />}
+            {category === 'Sports' && <Trophy className="w-5 h-5 mr-2 text-blue-500" />}
+            {category === 'Culture' && <Music className="w-5 h-5 mr-2 text-purple-500" />}
+            {category === 'Gastronomy' && <Utensils className="w-5 h-5 mr-2 text-orange-500" />}
+            {category === 'Health' && <Heart className="w-5 h-5 mr-2 text-pink-500" />}
+            {category === 'Education' && <GraduationCap className="w-5 h-5 mr-2 text-indigo-500" />}
+            {category === 'Environment' && <Leaf className="w-5 h-5 mr-2 text-green-600" />}
+            {category === 'Technology' && <Zap className="w-5 h-5 mr-2 text-purple-500" />}
+            {category === 'Institutions' && <Scale className="w-5 h-5 mr-2 text-gray-500" />}
+            {category === 'Art' && <Palette className="w-5 h-5 mr-2 text-pink-500" />}
+            {category === 'Development' && <Building className="w-5 h-5 mr-2 text-blue-500" />}
+            {category === 'Tourism' && <Plane className="w-5 h-5 mr-2 text-cyan-500" />}
+            {category === 'Cryptocurrencies' && <Bitcoin className="w-5 h-5 mr-2 text-orange-500" />}
+            {category === 'Philosophy' && <BookOpen className="w-5 h-5 mr-2 text-purple-500" />}
+            {category === 'Security' && <Shield className="w-5 h-5 mr-2 text-red-500" />}
+            {category === 'Migration' && <Home className="w-5 h-5 mr-2 text-orange-500" />}
             {category}
           </h3>
           
@@ -573,7 +579,7 @@ export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexic
                         {template.icon}
                       </div>
                       <span className="text-xs font-medium matrix-text-white bg-black/50 px-2 py-1 rounded matrix-glow">
-                        {template.endTime} días
+                        {template.endTime} days
                       </span>
                     </div>
                     
@@ -607,7 +613,7 @@ export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexic
                         {template.category}
                       </span>
                       <div className="flex items-center matrix-text-green group-hover:text-green-400 matrix-glow">
-                        <span className="text-sm font-medium">Crear Mercado</span>
+                        <span className="text-sm font-medium">Create Market</span>
                         <Zap className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
@@ -622,3 +628,4 @@ export function MarketTemplatesMexico({ onSelectTemplate }: MarketTemplatesMexic
 }
 
 export { MarketTemplatesMexico as default };
+export { templates };

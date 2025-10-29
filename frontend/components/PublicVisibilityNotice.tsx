@@ -4,10 +4,10 @@ import React from 'react';
 import { Globe, Users, Eye, CheckCircle } from 'lucide-react';
 
 /**
- * 🌐 PublicVisibilityNotice Component - Aviso de visibilidad pública
+ * 🌐 PublicVisibilityNotice Component - Public visibility notice
  * 
- * Componente que informa a los usuarios que todos los mercados
- * son visibles públicamente en la plataforma
+ * Component that informs users that all markets
+ * are publicly visible on the platform
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -22,25 +22,25 @@ export function PublicVisibilityNotice() {
         </div>
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            🌐 Todos los Mercados son Públicos
+            🌐 All Markets are Public
           </h3>
           <p className="text-gray-700 mb-3">
-            Cualquier mercado creado en devnet por cualquier wallet es visible públicamente 
-            para todos los usuarios. Esto permite que la comunidad vea y participe en 
-            todos los mercados de predicción disponibles.
+            Any market created on devnet by any wallet is publicly visible 
+            to all users. This allows the community to see and participate in 
+            all available prediction markets.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center space-x-2">
               <Eye className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-gray-600">Visibilidad Total</span>
+              <span className="text-sm text-gray-600">Full Visibility</span>
             </div>
             <div className="flex items-center space-x-2">
               <Users className="w-4 h-4 text-blue-600" />
-              <span className="text-sm text-gray-600">Acceso Comunitario</span>
+              <span className="text-sm text-gray-600">Community Access</span>
             </div>
             <div className="flex items-center space-x-2">
               <CheckCircle className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-gray-600">Transparencia Completa</span>
+              <span className="text-sm text-gray-600">Full Transparency</span>
             </div>
           </div>
         </div>

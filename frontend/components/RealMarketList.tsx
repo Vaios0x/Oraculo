@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useRealMarkets } from '../hooks/useRealMarkets';
 import { useOracle } from '../hooks/useOracle';
 import { MarketNotification, useMarketNotifications } from './MarketNotification';
+import { MarketResolutionInfo } from './MarketResolutionInfo';
 import { 
   ExternalLink,
   Copy,
@@ -19,10 +20,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 🔮 RealMarketList Component - Lista de mercados reales
+ * 🔮 RealMarketList Component - Real markets list
  * 
- * Componente que muestra los mercados reales creados en Solana
- * con información en tiempo real
+ * Component that displays real markets created on Solana
+ * with real-time information
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -56,10 +57,10 @@ export function RealMarketList() {
     totalStaked
   } = useRealMarkets();
 
-  // Obtener programId del hook useOracle
+  // Get programId from useOracle hook
   const { programId } = useOracle();
 
-  // Notificaciones
+  // Notifications
   const {
     notifications,
     removeNotification,
@@ -68,21 +69,21 @@ export function RealMarketList() {
     addInfoNotification
   } = useMarketNotifications();
 
-  // Detectar cambios en los mercados y mostrar notificaciones
+  // Detect market changes and show notifications
   useEffect(() => {
     if (totalMarkets > 0 && !loading) {
       addInfoNotification(
-        'Mercados Actualizados',
-        `Se encontraron ${totalMarkets} mercados. ${activeMarkets} activos, ${resolvedMarkets} resueltos.`
+        'Markets Updated',
+        `Found ${totalMarkets} markets. ${activeMarkets} active, ${resolvedMarkets} resolved.`
       );
     }
   }, [totalMarkets, activeMarkets, resolvedMarkets, loading]);
 
-  // Mostrar notificación de error
+  // Show error notification
   useEffect(() => {
     if (error) {
       addErrorNotification(
-        'Error Cargando Mercados',
+        'Error Loading Markets',
         error
       );
     }
@@ -100,7 +101,7 @@ export function RealMarketList() {
     const now = Math.floor(Date.now() / 1000);
     const remaining = endTime - now;
     
-    if (remaining <= 0) return "Finalizado";
+    if (remaining <= 0) return "Ended";
     
     const days = Math.floor(remaining / 86400);
     const hours = Math.floor((remaining % 86400) / 3600);
@@ -113,10 +114,10 @@ export function RealMarketList() {
 
   const getPrivacyLevelText = (level: number) => {
     switch (level) {
-      case 1: return "Público";
-      case 2: return "Semi-privado";
-      case 3: return "Privado";
-      default: return "Desconocido";
+      case 1: return "Public";
+      case 2: return "Semi-private";
+      case 3: return "Private";
+      default: return "Unknown";
     }
   };
 
@@ -133,19 +134,19 @@ export function RealMarketList() {
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 neural-text-glow mb-2">
-          🔮 Mercados Reales de Predicciones
+          🔮 Real Prediction Markets
         </h1>
         <p className="text-gray-600">
-          Mercados de predicciones creados en Solana con transacciones reales
+          Prediction markets created on Solana with real transactions
         </p>
         <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-800">
-            <strong>Program ID:</strong> {programId} | <strong>Red:</strong> Solana Devnet
+            <strong>Program ID:</strong> {programId} | <strong>Network:</strong> Solana Devnet
           </p>
         </div>
       </div>
 
-      {/* Controles de filtro y carga */}
+      {/* Filter and load controls */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center space-x-4">
           <button
@@ -156,7 +157,7 @@ export function RealMarketList() {
                 : 'bg-blue-100 text-blue-800 border border-blue-200'
             }`}
           >
-            {showActiveOnly ? 'Solo Activos' : '🌍 Todos los Mercados Públicos'}
+            {showActiveOnly ? 'Active Only' : '🌍 All Public Markets'}
           </button>
           
           <button
@@ -165,22 +166,22 @@ export function RealMarketList() {
             className="neural-button-secondary flex items-center space-x-2 disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-            <span>Actualizar</span>
+            <span>Refresh</span>
           </button>
         </div>
 
         <div className="text-sm text-gray-500">
-          {loading ? 'Cargando...' : `🌐 ${totalMarkets} mercados públicos encontrados`}
+          {loading ? 'Loading...' : `🌐 ${totalMarkets} public markets found`}
         </div>
       </div>
 
-      {/* Estados de carga y error */}
+      {/* Loading and error states */}
       {loading && (
         <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
             <p className="text-blue-800">
-              🔄 Cargando mercados desde Solana...
+              🔄 Loading markets from Solana...
             </p>
           </div>
         </div>
@@ -191,7 +192,7 @@ export function RealMarketList() {
           <div className="flex items-center space-x-2">
             <AlertCircle className="w-5 h-5 text-red-600" />
             <p className="text-red-800">
-              ❌ Error cargando mercados: {error}
+              ❌ Error loading markets: {error}
             </p>
           </div>
         </div>
@@ -213,7 +214,7 @@ export function RealMarketList() {
                       {market.title}
                     </h3>
                     <span className="px-2 py-1 text-xs font-semibold text-white bg-green-500/80 rounded-full">
-                      🌐 PÚBLICO
+                      🌐 PUBLIC
                     </span>
                   </div>
                   <p className="text-sm text-gray-600 mt-1 line-clamp-2">
@@ -223,12 +224,12 @@ export function RealMarketList() {
                 {market.isResolved ? (
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm text-green-600 font-medium">Resuelto</span>
+                    <span className="text-sm text-green-600 font-medium">Resolved</span>
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-orange-500 rounded-full animate-neural-pulse"></div>
-                    <span className="text-sm text-orange-600 font-medium">Activo</span>
+                    <span className="text-sm text-orange-600 font-medium">Active</span>
                   </div>
                 )}
               </div>
@@ -257,7 +258,7 @@ export function RealMarketList() {
                 <div className="neural-glass p-3 rounded-lg">
                   <div className="flex items-center space-x-2 mb-1">
                     <DollarSign className="w-4 h-4 text-green-500" />
-                    <span className="text-gray-500">Total Apostado</span>
+                    <span className="text-gray-500">Total Staked</span>
                   </div>
                   <span className="text-neural-primary font-semibold">
                     {market.totalStaked.toLocaleString()} SOL
@@ -266,7 +267,7 @@ export function RealMarketList() {
                 <div className="neural-glass p-3 rounded-lg">
                   <div className="flex items-center space-x-2 mb-1">
                     <Clock className="w-4 h-4 text-blue-500" />
-                    <span className="text-gray-500">Tiempo Restante</span>
+                    <span className="text-gray-500">Time Remaining</span>
                   </div>
                   <span className="text-gray-900 font-semibold">
                     {getTimeRemaining(market.endTime)}
@@ -274,16 +275,23 @@ export function RealMarketList() {
                 </div>
               </div>
 
+              {/* Market Resolution Info */}
+              <MarketResolutionInfo 
+                marketCreator={market.creator}
+                isResolved={market.isResolved}
+                endTime={market.endTime}
+              />
+
               {/* Creator and Privacy Level */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">Creador:</span>
+                  <span className="text-sm text-gray-500">Creator:</span>
                   <span className="text-sm font-mono text-gray-600 truncate max-w-32">
                     {market.creator.slice(0, 8)}...{market.creator.slice(-8)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">Privacidad:</span>
+                  <span className="text-sm text-gray-500">Privacy:</span>
                   <span className={`px-2 py-1 text-xs rounded-full ${getPrivacyLevelColor(market.privacyLevel)}`}>
                     {getPrivacyLevelText(market.privacyLevel)}
                   </span>
@@ -293,12 +301,12 @@ export function RealMarketList() {
               {/* Actions */}
               <div className="flex space-x-2">
                 <button className="neural-button flex-1 text-sm">
-                  {market.isResolved ? 'Ver Resultado' : 'Apostar'}
+                  {market.isResolved ? 'View Result' : 'Place Bet'}
                 </button>
                 <button
                   onClick={() => copyToClipboard(market.address)}
                   className="neural-glass px-3 py-2 text-sm font-medium hover:bg-white/20 transition-colors"
-                  title="Copiar dirección"
+                  title="Copy address"
                 >
                   <Copy className="w-4 h-4" />
                 </button>
@@ -307,7 +315,7 @@ export function RealMarketList() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="neural-glass px-3 py-2 text-sm font-medium hover:bg-white/20 transition-colors"
-                  title="Ver en Explorer"
+                  title="View on Explorer"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -316,7 +324,7 @@ export function RealMarketList() {
               {/* Market Address */}
               <div className="pt-2 border-t border-gray-200">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs text-gray-500">Dirección:</span>
+                  <span className="text-xs text-gray-500">Address:</span>
                   <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">
                     {market.address.substring(0, 8)}...{market.address.slice(-8)}
                   </code>
@@ -327,19 +335,19 @@ export function RealMarketList() {
         ))}
       </div>
 
-      {/* Mensaje cuando no hay mercados */}
+      {/* Message when there are no markets */}
       {totalMarkets === 0 && !loading && (
         <div className="text-center py-12">
           <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <BarChart3 className="w-12 h-12 text-gray-400" />
           </div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            No hay mercados disponibles
+            No markets available
           </h3>
           <p className="text-gray-600 mb-6">
             {showActiveOnly 
-              ? 'No se encontraron mercados activos. Intenta cambiar el filtro o crear un nuevo mercado.'
-              : 'No se encontraron mercados. Crea el primer mercado de predicciones.'
+              ? 'No active markets found. Try changing the filter or creating a new market.'
+              : 'No markets found. Create the first prediction market.'
             }
           </p>
           <button
@@ -347,7 +355,7 @@ export function RealMarketList() {
             disabled={loading}
             className="neural-button-primary"
           >
-            Recargar Mercados
+            Reload Markets
           </button>
         </div>
       )}
@@ -356,27 +364,27 @@ export function RealMarketList() {
       {totalMarkets > 0 && (
         <div className="mt-8 neural-card neural-floating p-6">
           <h3 className="text-lg font-semibold text-gray-900 neural-text-glow mb-4">
-            Información del Sistema
+            System Information
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
             <div>
-              <span className="text-gray-500">Total de Mercados:</span>
+              <span className="text-gray-500">Total Markets:</span>
               <span className="ml-2 font-semibold">{totalMarkets}</span>
             </div>
             <div>
-              <span className="text-gray-500">Mercados Activos:</span>
+              <span className="text-gray-500">Active Markets:</span>
               <span className="ml-2 font-semibold text-orange-600">
                 {activeMarkets}
               </span>
             </div>
             <div>
-              <span className="text-gray-500">Mercados Resueltos:</span>
+              <span className="text-gray-500">Resolved Markets:</span>
               <span className="ml-2 font-semibold text-green-600">
                 {resolvedMarkets}
               </span>
             </div>
             <div>
-              <span className="text-gray-500">Total Apostado:</span>
+              <span className="text-gray-500">Total Staked:</span>
               <span className="ml-2 font-semibold text-purple-600">
                 {totalStaked.toLocaleString()} SOL
               </span>
@@ -385,14 +393,14 @@ export function RealMarketList() {
           
           <div className="mt-4 pt-4 border-t border-gray-200">
             <div className="flex items-center justify-between text-xs text-gray-500">
-              <span>Última actualización: {new Date().toLocaleTimeString()}</span>
-              <span>Red: Solana Devnet</span>
+              <span>Last update: {new Date().toLocaleTimeString()}</span>
+              <span>Network: Solana Devnet</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* Notificaciones */}
+      {/* Notifications */}
       <MarketNotification 
         notifications={notifications}
         onRemove={removeNotification}

@@ -20,10 +20,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 📊 CypherpunkStats Component - Estadísticas del Proyecto Cypherpunk
+ * 📊 CypherpunkStats Component - Cypherpunk Project Statistics
  * 
- * Componente que muestra métricas y estadísticas del proyecto
- * para demostrar el impacto cypherpunk
+ * Component that displays project metrics and statistics
+ * to demonstrate cypherpunk impact
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -42,56 +42,56 @@ interface StatItem {
 const stats: StatItem[] = [
   {
     id: 'privacy',
-    label: 'Privacidad',
+    label: 'Privacy',
     value: '100%',
     icon: <Shield className="w-6 h-6" />,
     color: 'text-green-400',
-    description: 'Transacciones anónimas',
+    description: 'Anonymous transactions',
     trend: 'up'
   },
   {
     id: 'decentralization',
-    label: 'Descentralización',
+    label: 'Decentralization',
     value: '100%',
     icon: <Globe className="w-6 h-6" />,
     color: 'text-blue-400',
-    description: 'Sin servidores centrales',
+    description: 'No central servers',
     trend: 'up'
   },
   {
     id: 'transparency',
-    label: 'Transparencia',
+    label: 'Transparency',
     value: '100%',
     icon: <Eye className="w-6 h-6" />,
     color: 'text-yellow-400',
-    description: 'Código abierto',
+    description: 'Open source code',
     trend: 'up'
   },
   {
     id: 'markets',
-    label: 'Mercados',
+    label: 'Markets',
     value: '30+',
     icon: <BarChart3 className="w-6 h-6" />,
     color: 'text-purple-400',
-    description: 'Plantillas mexicanas',
+    description: 'Mexican templates',
     trend: 'up'
   },
   {
     id: 'transactions',
-    label: 'Transacciones',
+    label: 'Transactions',
     value: '100%',
     icon: <Activity className="w-6 h-6" />,
     color: 'text-cyan-400',
-    description: 'Tasa de éxito',
+    description: 'Success rate',
     trend: 'stable'
   },
   {
     id: 'cost',
-    label: 'Costo',
+    label: 'Cost',
     value: '0.00008',
     icon: <Zap className="w-6 h-6" />,
     color: 'text-red-400',
-    description: 'SOL por transacción',
+    description: 'SOL per transaction',
     trend: 'down'
   }
 ];
@@ -141,11 +141,14 @@ export function CypherpunkStats() {
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
           <Database className="w-8 h-8 sm:w-10 sm:h-10 text-green-400 matrix-glow flex-shrink-0" />
           <h2 className="text-2xl sm:text-3xl font-bold matrix-text-green">
-            📊 Métricas Cypherpunk
+            📊 Cypherpunk Metrics
           </h2>
         </div>
         <p className="text-sm sm:text-base lg:text-lg matrix-text-white">
-          Estadísticas que demuestran los valores cypherpunk del proyecto
+          Manifesto Implementation Metrics
+        </p>
+        <p className="text-xs sm:text-sm matrix-text-green italic">
+          "Cypherpunks write code" - Eric Hughes
         </p>
       </div>
 
@@ -193,13 +196,13 @@ export function CypherpunkStats() {
       {/* Technical Stack */}
       <div className="matrix-card-enhanced p-4 sm:p-6 space-y-4 sm:space-y-6">
         <h3 className="text-xl sm:text-2xl font-bold matrix-text-green text-center">
-          🛠️ Stack Tecnológico Cypherpunk
+          🛠️ Cypherpunk Tech Stack
         </h3>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div className="space-y-3 sm:space-y-4">
             <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
-              🔐 Blockchain & Privacidad
+              🔐 Blockchain & Privacy
             </h4>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 sm:space-x-3">
@@ -250,7 +253,7 @@ export function CypherpunkStats() {
       {/* Impact Metrics */}
       <div className="matrix-card-enhanced p-4 sm:p-6 space-y-4 sm:space-y-6">
         <h3 className="text-xl sm:text-2xl font-bold matrix-text-green text-center">
-          🎯 Impacto Cypherpunk
+          🎯 Cypherpunk Impact
         </h3>
         
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
@@ -260,27 +263,27 @@ export function CypherpunkStats() {
               México First
             </h4>
             <p className="text-xs sm:text-sm matrix-text-white opacity-80">
-              Temas específicos para la comunidad mexicana
+              Specific topics for the Mexican community
             </p>
           </div>
           
           <div className="text-center space-y-2">
             <div className="text-3xl sm:text-4xl font-bold matrix-text-green">🌍</div>
             <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
-              Acceso Global
+              Global Access
             </h4>
             <p className="text-xs sm:text-sm matrix-text-white opacity-80">
-              Sin restricciones geográficas
+              No geographical restrictions
             </p>
           </div>
           
           <div className="text-center space-y-2">
             <div className="text-3xl sm:text-4xl font-bold matrix-text-green">⚡</div>
             <h4 className="text-base sm:text-lg font-semibold matrix-text-white">
-              Ultra Rápido
+              Ultra Fast
             </h4>
             <p className="text-xs sm:text-sm matrix-text-white opacity-80">
-              Transacciones en segundos
+              Transactions in seconds
             </p>
           </div>
         </div>

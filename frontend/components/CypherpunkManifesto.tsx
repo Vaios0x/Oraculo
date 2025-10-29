@@ -22,10 +22,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 🔐 CypherpunkManifesto Component - Manifesto Cypherpunk Interactivo
+ * 🔐 CypherpunkManifesto Component - Interactive Cypherpunk Manifesto
  * 
- * Componente que muestra los valores cypherpunk del proyecto
- * para el Shipyard MX Award
+ * Component that displays the cypherpunk values of the project
+ * for the Shipyard MX Award
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -44,35 +44,35 @@ interface CypherpunkValue {
 const cypherpunkValues: CypherpunkValue[] = [
   {
     id: 'privacy',
-    title: 'Privacidad Total',
-    description: 'Transacciones completamente anónimas y privadas. Sin recolección de datos personales.',
+    title: 'Total Privacy',
+    description: 'Completely anonymous and private transactions. No personal data collection.',
     icon: <Shield className="w-8 h-8" />,
     color: 'text-green-400',
-    implementation: 'Wallets descentralizadas, transacciones anónimas en blockchain, sin KYC',
+    implementation: 'Decentralized wallets, anonymous blockchain transactions, no KYC',
     status: 'implemented'
   },
   {
     id: 'decentralization',
-    title: 'Descentralización Pura',
-    description: 'Sin servidores centrales, control comunitario total, código abierto.',
+    title: 'Pure Decentralization',
+    description: 'No central servers, total community control, open source code.',
     icon: <Globe className="w-8 h-8" />,
     color: 'text-blue-400',
-    implementation: 'Arquitectura P2P, contratos inteligentes en Solana, governance descentralizado',
+    implementation: 'P2P architecture, Solana smart contracts, decentralized governance',
     status: 'implemented'
   },
   {
     id: 'transparency',
-    title: 'Transparencia Radical',
-    description: 'Código fuente público, transacciones auditables, procesos abiertos.',
+    title: 'Radical Transparency',
+    description: 'Public source code, auditable transactions, open processes.',
     icon: <Eye className="w-8 h-8" />,
     color: 'text-yellow-400',
-    implementation: 'Código 100% open source, transacciones públicas en blockchain, documentación completa',
+    implementation: '100% open source code, public blockchain transactions, complete documentation',
     status: 'implemented'
   },
   {
     id: 'innovation',
-    title: 'Innovación Tecnológica',
-    description: 'Tecnología blockchain de vanguardia, integración Solana nativa.',
+    title: 'Technological Innovation',
+    description: 'Cutting-edge blockchain technology, native Solana integration.',
     icon: <Zap className="w-8 h-8" />,
     color: 'text-purple-400',
     implementation: 'Solana blockchain, Anchor framework, Rust smart contracts, Next.js 14',
@@ -80,20 +80,20 @@ const cypherpunkValues: CypherpunkValue[] = [
   },
   {
     id: 'freedom',
-    title: 'Libertad Financiera',
-    description: 'Acceso global a mercados de predicción sin restricciones geográficas.',
+    title: 'Financial Freedom',
+    description: 'Global access to prediction markets without geographical restrictions.',
     icon: <Key className="w-8 h-8" />,
     color: 'text-red-400',
-    implementation: 'Sin censura, acceso global, mercados 24/7, sin intermediarios',
+    implementation: 'No censorship, global access, 24/7 markets, no intermediaries',
     status: 'implemented'
   },
   {
     id: 'community',
-    title: 'Control Comunitario',
-    description: 'Decisión colectiva sobre resolución de mercados y governance.',
+    title: 'Community Control',
+    description: 'Collective decision on market resolution and governance.',
     icon: <Users className="w-8 h-8" />,
     color: 'text-cyan-400',
-    implementation: 'Governance descentralizado, votación comunitaria, resolución automática',
+    implementation: 'Decentralized governance, community voting, automatic resolution',
     status: 'partial'
   }
 ];
@@ -123,13 +123,13 @@ export function CypherpunkManifesto() {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'implemented':
-        return 'Implementado';
+        return 'Implemented';
       case 'partial':
-        return 'Parcial';
+        return 'Partial';
       case 'planned':
-        return 'Planificado';
+        return 'Planned';
       default:
-        return 'Desconocido';
+        return 'Unknown';
     }
   };
 
@@ -140,11 +140,11 @@ export function CypherpunkManifesto() {
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
           <Shield className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-green-400 matrix-glow flex-shrink-0" />
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold matrix-text-green">
-            🔐 Manifesto Cypherpunk
+            🔐 Cypherpunk Manifesto
           </h2>
         </div>
         <p className="text-sm sm:text-base lg:text-xl matrix-text-white">
-          Valores fundamentales para el Shipyard MX Award
+          Core values for the Shipyard MX Award
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm matrix-text-green">
           <Cpu className="w-4 h-4" />

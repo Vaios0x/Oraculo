@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useResponsive } from '../lib/responsive';
 import { 
-  Github, 
-  Twitter, 
-  MessageCircle, 
   ExternalLink,
   Heart,
   Zap,
@@ -21,7 +18,6 @@ import {
   Star,
   GitBranch,
   FileText,
-  MessageSquare,
   Calendar,
   Target,
   Award,
@@ -29,10 +25,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 🔮 Footer Component - Footer glassmorphism para Oráculo
+ * 🔮 Footer Component - Glassmorphism Footer for Oráculo
  * 
- * Footer moderno con diseño glassmorphism que incluye
- * enlaces, estadísticas y información del proyecto
+ * Modern footer with glassmorphism design that includes
+ * links, statistics and project information
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -45,35 +41,23 @@ export function Footer() {
 
   const socialLinks = [
     {
-      name: 'GitHub',
-      icon: <Github className="w-5 h-5" />,
-      href: 'https://github.com/oraculo-solana',
-      color: 'hover:text-gray-300'
-    },
-    {
-      name: 'Twitter',
-      icon: <Twitter className="w-5 h-5" />,
-      href: 'https://twitter.com/oraculo_solana',
+      name: 'X',
+      icon: <X className="w-5 h-5" />,
+      href: 'https://x.com/Oraculosolana',
       color: 'hover:text-blue-400'
-    },
-    {
-      name: 'Discord',
-      icon: <MessageCircle className="w-5 h-5" />,
-      href: 'https://discord.gg/oraculo',
-      color: 'hover:text-purple-400'
     }
   ];
 
   const quickLinks = [
-    { name: 'Documentación', id: 'documentation', icon: <BookOpen className="w-4 h-4" /> },
+    { name: 'Documentation', id: 'documentation', icon: <BookOpen className="w-4 h-4" /> },
     { name: 'API Reference', id: 'api', icon: <Code className="w-4 h-4" /> },
-    { name: 'Comunidad', id: 'community', icon: <Users className="w-4 h-4" /> },
+    { name: 'Community', id: 'community', icon: <Users className="w-4 h-4" /> },
     { name: 'Roadmap', id: 'roadmap', icon: <TrendingUp className="w-4 h-4" /> }
   ];
 
   const features = [
-    { name: 'Descentralizado', icon: <Shield className="w-4 h-4" /> },
-    { name: 'Rápido', icon: <Zap className="w-4 h-4" /> },
+    { name: 'Decentralized', icon: <Shield className="w-4 h-4" /> },
+    { name: 'Fast', icon: <Zap className="w-4 h-4" /> },
     { name: 'Global', icon: <Globe className="w-4 h-4" /> }
   ];
 
@@ -108,14 +92,14 @@ export function Footer() {
                     ORÁCULO
                   </h3>
                   <p className="text-sm matrix-text-white text-opacity-80">
-                    Mercados de Predicción Descentralizados
+                    Decentralized Prediction Markets
                   </p>
                 </div>
               </div>
               
               <p className="matrix-text-white text-opacity-90 max-w-md">
-                La plataforma más avanzada para crear, participar y resolver mercados de predicción 
-                en Solana. Predice el futuro, gana recompensas, construye el mañana.
+                The most advanced platform to create, participate and resolve prediction markets 
+                on Solana. Predict the future, earn rewards, build tomorrow.
               </p>
 
               {/* Features */}
@@ -131,7 +115,7 @@ export function Footer() {
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-bold matrix-text-green">Enlaces Rápidos</h4>
+              <h4 className="text-lg font-bold matrix-text-green">Quick Links</h4>
               <div className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <button
@@ -151,7 +135,7 @@ export function Footer() {
 
             {/* Social Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-bold matrix-text-green">Conecta</h4>
+              <h4 className="text-lg font-bold matrix-text-green">Connect</h4>
               <div className="space-y-3">
                 {socialLinks.map((social, index) => (
                   <a
@@ -181,19 +165,19 @@ export function Footer() {
         }`}>
           <div className="matrix-card-enhanced neural-floating p-4 text-center">
             <div className="text-2xl font-bold matrix-text-green mb-1">$2.5M+</div>
-            <div className="text-xs matrix-text-white text-opacity-70">Volume Total</div>
+            <div className="text-xs matrix-text-white text-opacity-70">Total Volume</div>
           </div>
           <div className="matrix-card-enhanced neural-floating p-4 text-center">
             <div className="text-2xl font-bold matrix-text-green mb-1">1,247</div>
-            <div className="text-xs matrix-text-white text-opacity-70">Mercados</div>
+            <div className="text-xs matrix-text-white text-opacity-70">Markets</div>
           </div>
           <div className="matrix-card-enhanced neural-floating p-4 text-center">
             <div className="text-2xl font-bold matrix-text-green mb-1">52K+</div>
-            <div className="text-xs matrix-text-white text-opacity-70">Usuarios</div>
+            <div className="text-xs matrix-text-white text-opacity-70">Users</div>
           </div>
           <div className="matrix-card-enhanced neural-floating p-4 text-center">
             <div className="text-2xl font-bold matrix-text-green mb-1">94.2%</div>
-            <div className="text-xs matrix-text-white text-opacity-70">Precisión</div>
+            <div className="text-xs matrix-text-white text-opacity-70">Accuracy</div>
           </div>
         </div>
 
@@ -207,13 +191,13 @@ export function Footer() {
             'flex-col md:flex-row space-y-4 md:space-y-0'
           }`}>
             <div className="flex items-center space-x-2 matrix-text-white text-opacity-80">
-              <span>© {currentYear} Oráculo. Hecho por</span>
+              <span>© {currentYear} Oráculo. Made by</span>
               <span className="matrix-text-green font-bold">Vaiosx</span>
-              <span>y</span>
+              <span>and</span>
               <span className="matrix-text-green font-bold">M0nsxx</span>
-              <span>con</span>
+              <span>with</span>
               <Heart className="w-4 h-4 text-red-400 fill-current" />
-              <span>en Solana</span>
+              <span>on Solana</span>
             </div>
             
             {/* Let's Fruta Build Section */}
@@ -249,7 +233,7 @@ export function Footer() {
                   <div className="w-4 h-3 bg-red-600"></div>
                 </div>
                 <span className="text-sm matrix-text-white font-medium">
-                  🇲🇽 Hecho en México
+                  🇲🇽 Made in Mexico
                 </span>
               </div>
             </div>
@@ -270,9 +254,9 @@ export function Footer() {
                   {activeModal === 'community' && <Users className="w-6 h-6 text-green-400" />}
                   {activeModal === 'roadmap' && <TrendingUp className="w-6 h-6 text-green-400" />}
                   <h2 className="text-2xl font-bold matrix-text-green">
-                    {activeModal === 'documentation' && 'Documentación'}
+                    {activeModal === 'documentation' && 'Documentation'}
                     {activeModal === 'api' && 'API Reference'}
-                    {activeModal === 'community' && 'Comunidad'}
+                    {activeModal === 'community' && 'Community'}
                     {activeModal === 'roadmap' && 'Roadmap'}
                   </h2>
                 </div>
@@ -292,52 +276,52 @@ export function Footer() {
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <FileText className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Guía de Inicio</h3>
+                          <h3 className="text-lg font-bold matrix-text-green">Getting Started Guide</h3>
                         </div>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Aprende los conceptos básicos de los mercados de predicción y cómo usar Oráculo.
+                          Learn the basics of prediction markets and how to use Oráculo.
                         </p>
                         <button className="matrix-button-enhanced text-sm">
-                          Leer Guía
+                          Read Guide
                         </button>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Target className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Tutoriales</h3>
+                          <h3 className="text-lg font-bold matrix-text-green">Tutorials</h3>
                         </div>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Tutoriales paso a paso para crear y participar en mercados.
+                          Step-by-step tutorials to create and participate in markets.
                         </p>
                         <button className="matrix-button-enhanced text-sm">
-                          Ver Tutoriales
+                          View Tutorials
                         </button>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Shield className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Seguridad</h3>
+                          <h3 className="text-lg font-bold matrix-text-green">Security</h3>
                         </div>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Mejores prácticas de seguridad y protección de fondos.
+                          Security best practices and fund protection.
                         </p>
                         <button className="matrix-button-enhanced text-sm">
-                          Guía de Seguridad
+                          Security Guide
                         </button>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Award className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Estrategias</h3>
+                          <h3 className="text-lg font-bold matrix-text-green">Strategies</h3>
                         </div>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Estrategias avanzadas para maximizar ganancias en mercados.
+                          Advanced strategies to maximize profits in markets.
                         </p>
                         <button className="matrix-button-enhanced text-sm">
-                          Ver Estrategias
+                          View Strategies
                         </button>
                       </div>
                     </div>
@@ -352,23 +336,23 @@ export function Footer() {
                         <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
                           <div>
                             <code className="text-green-400 font-mono">GET /api/markets</code>
-                            <p className="text-sm matrix-text-white text-opacity-70">Obtener lista de mercados</p>
+                            <p className="text-sm matrix-text-white text-opacity-70">Get list of markets</p>
                           </div>
-                          <button className="matrix-button-enhanced text-xs">Probar</button>
+                          <button className="matrix-button-enhanced text-xs">Test</button>
                         </div>
                         <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
                           <div>
                             <code className="text-green-400 font-mono">POST /api/markets</code>
-                            <p className="text-sm matrix-text-white text-opacity-70">Crear nuevo mercado</p>
+                            <p className="text-sm matrix-text-white text-opacity-70">Create new market</p>
                           </div>
-                          <button className="matrix-button-enhanced text-xs">Probar</button>
+                          <button className="matrix-button-enhanced text-xs">Test</button>
                         </div>
                         <div className="flex items-center justify-between p-3 bg-black/30 rounded-lg">
                           <div>
                             <code className="text-green-400 font-mono">GET /api/markets/:id</code>
-                            <p className="text-sm matrix-text-white text-opacity-70">Obtener mercado específico</p>
+                            <p className="text-sm matrix-text-white text-opacity-70">Get specific market</p>
                           </div>
-                          <button className="matrix-button-enhanced text-xs">Probar</button>
+                          <button className="matrix-button-enhanced text-xs">Test</button>
                         </div>
                       </div>
                     </div>
@@ -377,20 +361,20 @@ export function Footer() {
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <h4 className="text-lg font-bold matrix-text-green mb-3">SDK JavaScript</h4>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          SDK oficial para integrar Oráculo en aplicaciones JavaScript/TypeScript.
+                          Official SDK to integrate Oráculo in JavaScript/TypeScript applications.
                         </p>
                         <button className="matrix-button-enhanced text-sm">
-                          Ver Documentación
+                          View Documentation
                         </button>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <h4 className="text-lg font-bold matrix-text-green mb-3">Webhooks</h4>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Recibe notificaciones en tiempo real de eventos importantes.
+                          Receive real-time notifications of important events.
                         </p>
                         <button className="matrix-button-enhanced text-sm">
-                          Configurar Webhooks
+                          Configure Webhooks
                         </button>
                       </div>
                     </div>
@@ -399,73 +383,27 @@ export function Footer() {
 
                 {activeModal === 'community' && (
                   <div className="space-y-6">
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-4 md:grid-cols-1">
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
-                          <MessageSquare className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Discord</h3>
+                          <X className="w-5 h-5 text-green-400" />
+                          <h3 className="text-lg font-bold matrix-text-green">X (Twitter)</h3>
                         </div>
                         <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Únete a nuestra comunidad Discord para soporte, discusiones y networking.
-                        </p>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                          <span className="text-sm matrix-text-green">2,847 miembros en línea</span>
-                        </div>
-                        <button className="matrix-button-enhanced text-sm mt-3">
-                          Unirse a Discord
-                        </button>
-                      </div>
-                      
-                      <div className="matrix-card-enhanced neural-floating p-4">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <Github className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">GitHub</h3>
-                        </div>
-                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Contribuye al desarrollo, reporta bugs y sugiere nuevas características.
-                        </p>
-                        <div className="flex items-center space-x-2">
-                          <Star className="w-4 h-4 text-yellow-400" />
-                          <span className="text-sm matrix-text-green">1,247 stars</span>
-                        </div>
-                        <button className="matrix-button-enhanced text-sm mt-3">
-                          Ver en GitHub
-                        </button>
-                      </div>
-                      
-                      <div className="matrix-card-enhanced neural-floating p-4">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <Twitter className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Twitter</h3>
-                        </div>
-                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Mantente al día con las últimas noticias y actualizaciones del proyecto.
+                          Stay updated with the latest news and project updates on X.
                         </p>
                         <div className="flex items-center space-x-2">
                           <Users className="w-4 h-4 text-blue-400" />
-                          <span className="text-sm matrix-text-green">15.2K seguidores</span>
+                          <span className="text-sm matrix-text-green">15.2K followers</span>
                         </div>
-                        <button className="matrix-button-enhanced text-sm mt-3">
-                          Seguir en Twitter
-                        </button>
-                      </div>
-                      
-                      <div className="matrix-card-enhanced neural-floating p-4">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <MessageCircle className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Telegram</h3>
-                        </div>
-                        <p className="matrix-text-white text-opacity-90 text-sm mb-3">
-                          Canal de noticias oficial y grupo de discusión en español.
-                        </p>
-                        <div className="flex items-center space-x-2">
-                          <Users className="w-4 h-4 text-blue-400" />
-                          <span className="text-sm matrix-text-green">3,421 miembros</span>
-                        </div>
-                        <button className="matrix-button-enhanced text-sm mt-3">
-                          Unirse a Telegram
-                        </button>
+                        <a 
+                          href="https://x.com/Oraculosolana" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="matrix-button-enhanced text-sm mt-3 inline-block"
+                        >
+                          Follow on X
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -477,85 +415,141 @@ export function Footer() {
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Calendar className="w-5 h-5 text-green-400" />
-                          <h3 className="text-lg font-bold matrix-text-green">Q4 2025 - Completado ✅</h3>
+                          <h3 className="text-lg font-bold matrix-text-green">Phase 1 - Cypherpunk Foundation ✅</h3>
                         </div>
+                        <p className="text-sm matrix-text-white text-opacity-70 mb-3">Q4 2025 - Implementation of fundamental cypherpunk values</p>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
                             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                            <span>Lanzamiento de la plataforma beta</span>
+                            <span>Decentralized architecture on Solana</span>
                           </li>
                           <li className="flex items-center space-x-2">
                             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                            <span>Integración con Solana Devnet</span>
+                            <span>Anonymous transactions without KYC</span>
                           </li>
                           <li className="flex items-center space-x-2">
                             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                            <span>Creación de mercados básicos</span>
+                            <span>100% open source code</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span>Matrix cyberpunk interface</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span>30+ Mexican templates</span>
                           </li>
                         </ul>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <span className="px-2 py-1 text-xs bg-green-400/20 text-green-400 rounded-full">Privacy</span>
+                          <span className="px-2 py-1 text-xs bg-blue-400/20 text-blue-400 rounded-full">Decentralization</span>
+                          <span className="px-2 py-1 text-xs bg-yellow-400/20 text-yellow-400 rounded-full">Transparency</span>
+                        </div>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
                           <Calendar className="w-5 h-5 text-blue-400" />
-                          <h3 className="text-lg font-bold matrix-text-blue">Q1 2026 - En Progreso 🚧</h3>
+                          <h3 className="text-lg font-bold matrix-text-blue">Phase 2 - Privacy Expansion 🚧</h3>
                         </div>
+                        <p className="text-sm matrix-text-white text-opacity-70 mb-3">Q1 2026 - Advanced privacy and decentralization improvements</p>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
                             <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span>Integración con Solana Mainnet</span>
+                            <span>Zero-knowledge proofs for resolution</span>
                           </li>
                           <li className="flex items-center space-x-2">
                             <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span>Sistema de reputación de usuarios</span>
+                            <span>Decentralized governance</span>
                           </li>
                           <li className="flex items-center space-x-2">
                             <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span>API pública para desarrolladores</span>
+                            <span>Private oracles</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Confidential markets</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span>Integration with more wallets</span>
                           </li>
                         </ul>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <span className="px-2 py-1 text-xs bg-green-400/20 text-green-400 rounded-full">Privacy</span>
+                          <span className="px-2 py-1 text-xs bg-purple-400/20 text-purple-400 rounded-full">Innovation</span>
+                          <span className="px-2 py-1 text-xs bg-red-400/20 text-red-400 rounded-full">Freedom</span>
+                        </div>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
-                          <Calendar className="w-5 h-5 text-yellow-400" />
-                          <h3 className="text-lg font-bold matrix-text-yellow">Q2 2026 - Planificado 📋</h3>
+                          <Calendar className="w-5 h-5 text-purple-400" />
+                          <h3 className="text-lg font-bold matrix-text-purple">Phase 3 - Global Revolution 📋</h3>
                         </div>
+                        <p className="text-sm matrix-text-white text-opacity-70 mb-3">Q2 2026 - Global scaling while maintaining cypherpunk values</p>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                            <span>Mercados de predicción avanzados</span>
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Mainnet deployment</span>
                           </li>
                           <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                            <span>Integración con oráculos externos</span>
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Public API for developers</span>
                           </li>
                           <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                            <span>Mobile app nativa</span>
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>SDK for integrations</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Cross-chain markets</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span>Complete ecosystem</span>
                           </li>
                         </ul>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <span className="px-2 py-1 text-xs bg-blue-400/20 text-blue-400 rounded-full">Decentralization</span>
+                          <span className="px-2 py-1 text-xs bg-purple-400/20 text-purple-400 rounded-full">Innovation</span>
+                          <span className="px-2 py-1 text-xs bg-cyan-400/20 text-cyan-400 rounded-full">Community</span>
+                        </div>
                       </div>
                       
                       <div className="matrix-card-enhanced neural-floating p-4">
                         <div className="flex items-center space-x-3 mb-3">
-                          <Lightbulb className="w-5 h-5 text-purple-400" />
-                          <h3 className="text-lg font-bold matrix-text-purple">Futuro 🔮</h3>
+                          <Lightbulb className="w-5 h-5 text-orange-400" />
+                          <h3 className="text-lg font-bold matrix-text-orange">Shipyard MX Vision 🔮</h3>
                         </div>
+                        <p className="text-sm matrix-text-white text-opacity-70 mb-3">Long-term vision for the Shipyard MX Award project</p>
                         <ul className="space-y-2 text-sm matrix-text-white text-opacity-90">
                           <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                            <span>Machine Learning para predicciones</span>
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            <span>Machine Learning for predictions</span>
                           </li>
                           <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                            <span>Integración con múltiples blockchains</span>
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            <span>Multi-blockchain integration</span>
                           </li>
                           <li className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                            <span>Token de gobernanza ORACLE</span>
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            <span>ORACLE governance token</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            <span>Advanced privacy protocols</span>
+                          </li>
+                          <li className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            <span>Global cypherpunk ecosystem</span>
                           </li>
                         </ul>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <span className="px-2 py-1 text-xs bg-orange-400/20 text-orange-400 rounded-full">Shipyard MX</span>
+                          <span className="px-2 py-1 text-xs bg-green-400/20 text-green-400 rounded-full">Cypherpunk</span>
+                          <span className="px-2 py-1 text-xs bg-blue-400/20 text-blue-400 rounded-full">Innovation</span>
+                        </div>
                       </div>
                     </div>
                   </div>

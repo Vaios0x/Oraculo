@@ -5,10 +5,10 @@ import { Calendar, Plus, X, Save } from 'lucide-react';
 import { MarketTemplate } from './MarketTemplates';
 
 /**
- * 🔮 CreateMarketForm Component - Formulario para crear mercados
+ * 🔮 CreateMarketForm Component - Form to create markets
  * 
- * Componente que permite crear mercados de predicciones con plantillas
- * o formulario personalizado
+ * Component that allows creating prediction markets with templates
+ * or custom form
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -28,7 +28,7 @@ export function CreateMarketForm({
   const [formData, setFormData] = useState({
     question: '',
     description: '',
-    outcomes: ['Sí', 'No'],
+    outcomes: ['Yes', 'No'],
     endDate: '',
     endTime: '',
     privacyLevel: 1
@@ -37,7 +37,7 @@ export function CreateMarketForm({
   const [newOutcome, setNewOutcome] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Cargar datos de la plantilla seleccionada
+  // Load data from selected template
   useEffect(() => {
     if (selectedTemplate) {
       const endDate = new Date();
@@ -104,7 +104,7 @@ export function CreateMarketForm({
       setFormData({
         question: '',
         description: '',
-        outcomes: ['Sí', 'No'],
+        outcomes: ['Yes', 'No'],
         endDate: '',
         endTime: '',
         privacyLevel: 1
@@ -122,11 +122,11 @@ export function CreateMarketForm({
       <div className="neural-card neural-floating p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900 neural-text-glow">
-            Crear Nuevo Mercado
+            Create New Market
           </h2>
           {selectedTemplate && (
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">Plantilla:</span>
+              <span className="text-sm text-gray-600">Template:</span>
               <span className="neural-status">{selectedTemplate.title}</span>
               <button
                 onClick={() => onTemplateSelect?.(undefined as any)}
@@ -139,39 +139,39 @@ export function CreateMarketForm({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Pregunta del Mercado */}
+          {/* Market Question */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Pregunta del Mercado *
+              Market Question *
             </label>
             <input
               type="text"
               value={formData.question}
               onChange={(e) => handleInputChange('question', e.target.value)}
-              placeholder="e.g., ¿Llegará Bitcoin a $200,000 para finales de 2026?"
+              placeholder="e.g., Will Bitcoin reach $200,000 by the end of 2026?"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
               required
             />
           </div>
 
-          {/* Descripción */}
+          {/* Description */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Descripción
+              Description
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
-              placeholder="Describe el contexto y detalles del mercado..."
+              placeholder="Describe the context and details of the market..."
               rows={3}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
             />
           </div>
 
-          {/* Opciones de Resultado */}
+          {/* Outcome Options */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Opciones de Resultado *
+              Outcome Options *
             </label>
             <div className="space-y-2">
               {formData.outcomes.map((outcome, index) => (
@@ -199,13 +199,13 @@ export function CreateMarketForm({
                 </div>
               ))}
               
-              {/* Agregar nueva opción */}
+              {/* Add new option */}
               <div className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={newOutcome}
                   onChange={(e) => setNewOutcome(e.target.value)}
-                  placeholder="Nueva opción..."
+                  placeholder="New option..."
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
                 />
                 <button
@@ -219,11 +219,11 @@ export function CreateMarketForm({
             </div>
           </div>
 
-          {/* Fecha y Hora de Finalización */}
+          {/* End Date and Time */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Fecha de Finalización *
+                End Date *
               </label>
               <div className="relative">
                 <input
@@ -239,7 +239,7 @@ export function CreateMarketForm({
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Hora de Finalización *
+                End Time *
               </label>
               <input
                 type="time"
@@ -251,23 +251,23 @@ export function CreateMarketForm({
             </div>
           </div>
 
-          {/* Nivel de Privacidad */}
+          {/* Privacy Level */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Nivel de Privacidad
+              Privacy Level
             </label>
             <select
               value={formData.privacyLevel}
               onChange={(e) => handleInputChange('privacyLevel', parseInt(e.target.value))}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
             >
-              <option value={1}>Público</option>
-              <option value={2}>Semi-privado</option>
-              <option value={3}>Privado</option>
+              <option value={1}>Public</option>
+              <option value={2}>Semi-private</option>
+              <option value={3}>Private</option>
             </select>
           </div>
 
-          {/* Botones de Acción */}
+          {/* Action Buttons */}
           <div className="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
             <button
               type="button"
@@ -275,7 +275,7 @@ export function CreateMarketForm({
                 setFormData({
                   question: '',
                   description: '',
-                  outcomes: ['Sí', 'No'],
+                  outcomes: ['Yes', 'No'],
                   endDate: '',
                   endTime: '',
                   privacyLevel: 1
@@ -283,7 +283,7 @@ export function CreateMarketForm({
               }}
               className="px-6 py-3 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              Limpiar
+              Clear
             </button>
             
             <button
@@ -294,12 +294,12 @@ export function CreateMarketForm({
               {isSubmitting ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Creando...</span>
+                  <span>Creating...</span>
                 </>
               ) : (
                 <>
                   <Save className="w-4 h-4" />
-                  <span>Crear Mercado</span>
+                  <span>Create Market</span>
                 </>
               )}
             </button>

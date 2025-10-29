@@ -19,10 +19,10 @@ import {
 } from 'lucide-react';
 
 /**
- * 🔮 RealMarketCreator Component - Creador de mercados reales
+ * 🔮 RealMarketCreator Component - Real market creator
  * 
- * Componente que permite crear mercados reales de predicciones
- * integrado con el programa Oracle desplegado en Solana
+ * Component that allows creating real prediction markets
+ * integrated with the Oracle program deployed on Solana
  * 
  * @author Blockchain & Web3 Developer Full Stack Senior
  * @version 1.0.0
@@ -55,7 +55,7 @@ export function RealMarketCreator({
   const [formData, setFormData] = useState({
     question: '',
     description: '',
-    outcomes: ['Sí', 'No'],
+    outcomes: ['Yes', 'No'],
     endDate: '',
     endTime: '',
     privacyLevel: 1
@@ -67,7 +67,7 @@ export function RealMarketCreator({
   const [marketInfo, setMarketInfo] = useState<any>(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Cargar datos de la plantilla seleccionada
+  // Load data from selected template
   useEffect(() => {
     if (selectedTemplate) {
       const endDate = new Date();
@@ -115,23 +115,23 @@ export function RealMarketCreator({
     setIsSubmitting(true);
 
     try {
-      console.log('🚀 Iniciando creación de mercado...');
-      console.log('📋 Datos del formulario:', formData);
+      console.log('🚀 Starting market creation...');
+      console.log('📋 Form data:', formData);
 
       const endDateTime = new Date(`${formData.endDate}T${formData.endTime}`);
       let endTimestamp = Math.floor(endDateTime.getTime() / 1000);
       
-      // Asegurar que la fecha sea de noviembre 2025 en adelante
+      // Ensure date is from November 2025 onwards
       const november2025 = Math.floor(new Date('2025-11-01').getTime() / 1000);
       if (endTimestamp < november2025) {
-        // Si la fecha es anterior a noviembre 2025, establecer a diciembre 2025
+        // If date is before November 2025, set to December 2025
         const futureDate = new Date('2025-12-31');
         endTimestamp = Math.floor(futureDate.getTime() / 1000);
-        console.log('⚠️ Fecha corregida a diciembre 2025:', futureDate.toLocaleString());
+        console.log('⚠️ Date corrected to December 2025:', futureDate.toLocaleString());
       }
 
-      console.log('⏰ Timestamp de finalización:', endTimestamp);
-      console.log('📅 Fecha de finalización:', new Date(endTimestamp * 1000).toLocaleString());
+      console.log('⏰ End timestamp:', endTimestamp);
+      console.log('📅 End date:', new Date(endTimestamp * 1000).toLocaleString());
 
       const marketData = {
         question: formData.question,
@@ -141,10 +141,10 @@ export function RealMarketCreator({
         privacyLevel: formData.privacyLevel
       };
 
-      console.log('📊 Datos del mercado a crear:', marketData);
+      console.log('📊 Market data to create:', marketData);
 
-      // Crear mercado real en Solana
-      console.log('🔮 Llamando a createMarket...');
+      // Create real market on Solana
+      console.log('🔮 Calling createMarket...');
       const result = await createMarket(
         formData.question,
         formData.description,
@@ -153,30 +153,30 @@ export function RealMarketCreator({
         formData.privacyLevel
       );
 
-      console.log('✅ Mercado creado exitosamente:', result);
+      console.log('✅ Market created successfully:', result);
       setCreatedMarket(result);
       setShowSuccess(true);
 
-      // Obtener información del mercado creado
+      // Get created market information
       try {
-        console.log('📊 Obteniendo información del mercado...');
+        console.log('📊 Getting market information...');
         const info = await getMarketInfo(result.marketAddress.toString());
-        console.log('📋 Información del mercado:', info);
+        console.log('📋 Market information:', info);
         setMarketInfo(info);
       } catch (err) {
-        console.warn('⚠️ No se pudo obtener información del mercado:', err);
+        console.warn('⚠️ Could not get market information:', err);
       }
 
       if (onMarketCreate) {
         await onMarketCreate(marketData);
       }
 
-      // Reset form después de un delay
+      // Reset form after a delay
       setTimeout(() => {
         setFormData({
           question: '',
           description: '',
-          outcomes: ['Sí', 'No'],
+          outcomes: ['Yes', 'No'],
           endDate: '',
           endTime: '',
           privacyLevel: 1
@@ -184,11 +184,11 @@ export function RealMarketCreator({
         setCreatedMarket(null);
         setMarketInfo(null);
         setShowSuccess(false);
-      }, 10000); // Aumentar tiempo para ver el resultado
+      }, 10000); // Increase time to see result
 
     } catch (error) {
-      console.error('❌ Error creando mercado:', error);
-      alert(`Error creando mercado: ${error instanceof Error ? error.message : 'Error desconocido'}`);
+      console.error('❌ Error creating market:', error);
+      alert(`Error creating market: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -209,19 +209,19 @@ export function RealMarketCreator({
           <div className="mb-6">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-gray-900 neural-text-glow mb-2">
-              ¡Mercado Creado Exitosamente!
+              Market Created Successfully!
             </h2>
             <p className="text-gray-600">
-              Tu mercado de predicciones ha sido creado en Solana
+              Your prediction market has been created on Solana
             </p>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Detalles del Mercado</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Market Details</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
               <div>
-                <label className="text-sm font-medium text-gray-500">Dirección del Mercado</label>
+                <label className="text-sm font-medium text-gray-500">Market Address</label>
                 <div className="flex items-center space-x-2 mt-1">
                   <code className="text-sm bg-gray-200 px-2 py-1 rounded font-mono">
                     {createdMarket.marketAddress.toString().substring(0, 8)}...
@@ -236,7 +236,7 @@ export function RealMarketCreator({
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-500">Transacción</label>
+                <label className="text-sm font-medium text-gray-500">Transaction</label>
                 <div className="flex items-center space-x-2 mt-1">
                   <code className="text-sm bg-gray-200 px-2 py-1 rounded font-mono">
                     {createdMarket.signature.substring(0, 8)}...
@@ -257,7 +257,7 @@ export function RealMarketCreator({
               <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="text-center">
                   <Clock className="w-6 h-6 text-blue-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Finaliza</p>
+                  <p className="text-sm text-gray-500">Ends</p>
                   <p className="font-semibold">
                     {new Date(marketInfo.endTime * 1000).toLocaleDateString()}
                   </p>
@@ -265,13 +265,13 @@ export function RealMarketCreator({
                 
                 <div className="text-center">
                   <Users className="w-6 h-6 text-green-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Opciones</p>
+                  <p className="text-sm text-gray-500">Options</p>
                   <p className="font-semibold">{marketInfo.outcomes.length}</p>
                 </div>
                 
                 <div className="text-center">
                   <DollarSign className="w-6 h-6 text-purple-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">Total Apostado</p>
+                  <p className="text-sm text-gray-500">Total Staked</p>
                   <p className="font-semibold">{marketInfo.totalStaked} SOL</p>
                 </div>
               </div>
@@ -286,7 +286,7 @@ export function RealMarketCreator({
               className="neural-button-primary flex items-center space-x-2"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>Ver en Explorer</span>
+              <span>View on Explorer</span>
             </a>
             
             <button
@@ -297,7 +297,7 @@ export function RealMarketCreator({
               }}
               className="neural-button-secondary"
             >
-              Crear Otro Mercado
+              Create Another Market
             </button>
           </div>
         </div>
@@ -310,11 +310,11 @@ export function RealMarketCreator({
       <div className="neural-card neural-floating p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900 neural-text-glow">
-            Crear Mercado Real
+            Create Real Market
           </h2>
           {selectedTemplate && (
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">Plantilla:</span>
+              <span className="text-sm text-gray-600">Template:</span>
               <span className="neural-status">{selectedTemplate.title}</span>
               <button
                 onClick={() => onTemplateSelect?.(undefined as any)}
@@ -332,17 +332,17 @@ export function RealMarketCreator({
               <div className="flex items-center justify-center space-x-2">
                 <AlertCircle className="w-6 h-6 text-yellow-600" />
                 <h3 className="text-lg font-semibold text-yellow-800">
-                  Wallet No Conectada
+                  Wallet Not Connected
                 </h3>
               </div>
               <p className="text-yellow-700">
-                Necesitas conectar tu wallet para crear mercados reales en Solana
+                You need to connect your wallet to create real markets on Solana
               </p>
               <div className="flex justify-center">
                 <WalletButton />
               </div>
               <p className="text-sm text-yellow-600">
-                Soporta Phantom, Solflare y otras wallets de Solana
+                Supports Phantom, Solflare and other Solana wallets
               </p>
             </div>
           </div>
@@ -353,7 +353,7 @@ export function RealMarketCreator({
             <div className="flex items-center space-x-2">
               <CheckCircle className="w-5 h-5 text-green-600" />
               <p className="text-green-800">
-                ✅ Wallet conectada: {publicKey?.toString().substring(0, 8)}...{publicKey?.toString().slice(-8)}
+                ✅ Wallet connected: {publicKey?.toString().substring(0, 8)}...{publicKey?.toString().slice(-8)}
               </p>
             </div>
           </div>
@@ -364,7 +364,7 @@ export function RealMarketCreator({
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
               <p className="text-blue-800">
-                🔄 Procesando transacción en Solana...
+                🔄 Processing transaction on Solana...
               </p>
             </div>
           </div>
@@ -382,39 +382,39 @@ export function RealMarketCreator({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Pregunta del Mercado */}
+          {/* Market Question */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Pregunta del Mercado *
+              Market Question *
             </label>
             <input
               type="text"
               value={formData.question}
               onChange={(e) => handleInputChange('question', e.target.value)}
-              placeholder="e.g., ¿Llegará Bitcoin a $200,000 para finales de 2026?"
+              placeholder="e.g., Will Bitcoin reach $200,000 by the end of 2026?"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
               required
             />
           </div>
 
-          {/* Descripción */}
+          {/* Description */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Descripción
+              Description
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
-              placeholder="Describe el contexto y detalles del mercado..."
+              placeholder="Describe the context and details of the market..."
               rows={3}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
             />
           </div>
 
-          {/* Opciones de Resultado */}
+          {/* Outcome Options */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Opciones de Resultado *
+              Outcome Options *
             </label>
             <div className="space-y-2">
               {formData.outcomes.map((outcome, index) => (
@@ -442,13 +442,13 @@ export function RealMarketCreator({
                 </div>
               ))}
               
-              {/* Agregar nueva opción */}
+              {/* Add new option */}
               <div className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={newOutcome}
                   onChange={(e) => setNewOutcome(e.target.value)}
-                  placeholder="Nueva opción..."
+                  placeholder="New option..."
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
                 />
                 <button
@@ -462,11 +462,11 @@ export function RealMarketCreator({
             </div>
           </div>
 
-          {/* Fecha y Hora de Finalización */}
+          {/* End Date and Time */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Fecha de Finalización *
+                End Date *
               </label>
               <div className="relative">
                 <input
@@ -482,7 +482,7 @@ export function RealMarketCreator({
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Hora de Finalización *
+                End Time *
               </label>
               <input
                 type="time"
@@ -494,33 +494,33 @@ export function RealMarketCreator({
             </div>
           </div>
 
-          {/* Nivel de Privacidad */}
+          {/* Privacy Level */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">
-              Nivel de Privacidad
+              Privacy Level
             </label>
             <select
               value={formData.privacyLevel}
               onChange={(e) => handleInputChange('privacyLevel', parseInt(e.target.value))}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent neural-glass"
             >
-              <option value={1}>Público</option>
-              <option value={2}>Semi-privado</option>
-              <option value={3}>Privado</option>
+              <option value={1}>Public</option>
+              <option value={2}>Semi-private</option>
+              <option value={3}>Private</option>
             </select>
           </div>
 
-          {/* Información del Programa */}
+          {/* Program Information */}
           <div className="bg-gray-50 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-gray-700 mb-2">Información del Programa</h3>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Program Information</h3>
             <div className="text-xs text-gray-500 space-y-1">
               <p>Program ID: {programId}</p>
-              <p>Red: Solana Devnet</p>
-              <p>Estado: {connected ? 'Conectado' : 'No conectado'}</p>
+              <p>Network: Solana Devnet</p>
+              <p>Status: {connected ? 'Connected' : 'Not connected'}</p>
             </div>
           </div>
 
-          {/* Botones de Acción */}
+          {/* Action Buttons */}
           <div className="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
             <button
               type="button"
@@ -528,7 +528,7 @@ export function RealMarketCreator({
                 setFormData({
                   question: '',
                   description: '',
-                  outcomes: ['Sí', 'No'],
+                  outcomes: ['Yes', 'No'],
                   endDate: '',
                   endTime: '',
                   privacyLevel: 1
@@ -536,7 +536,7 @@ export function RealMarketCreator({
               }}
               className="px-6 py-3 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              Limpiar
+              Clear
             </button>
             
             <button
@@ -547,12 +547,12 @@ export function RealMarketCreator({
               {isSubmitting ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Creando en Solana...</span>
+                  <span>Creating on Solana...</span>
                 </>
               ) : (
                 <>
                   <Save className="w-4 h-4" />
-                  <span>Crear Mercado Real</span>
+                  <span>Create Real Market</span>
                 </>
               )}
             </button>

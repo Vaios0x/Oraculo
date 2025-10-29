@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import "./globals.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { SolanaProvider } from "../components/solana-provider";
-import { CookbookProvider } from "../components/solana-cookbook-provider-simple";
+// import { CookbookProvider } from "../components/solana-cookbook-provider-simple";
 import { CleanProvider } from "../components/providers/CleanProvider";
 
 export const metadata: Metadata = {
@@ -89,9 +89,9 @@ export default function RootLayout({
       <body className="h-full neural-mesh-bg">
         <CleanProvider>
           <SolanaProvider>
-            <CookbookProvider>
+            {/* <CookbookProvider> */}
               {children}
-            </CookbookProvider>
+            {/* </CookbookProvider> */}
           </SolanaProvider>
         </CleanProvider>
       </body>

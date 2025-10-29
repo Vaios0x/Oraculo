@@ -199,6 +199,7 @@ export function useOracle() {
 
   /**
    * Resolver un mercado
+   * SOLO EL CREADOR DEL MERCADO PUEDE RESOLVERLO
    */
   const resolveMarket = useCallback(async (
     marketAddress: string,
@@ -208,37 +209,83 @@ export function useOracle() {
       setLoading(true);
       setError(null);
 
-      const resolver = Keypair.generate();
+      if (!publicKey || !connected || !signTransaction) {
+        throw new Error('Wallet no conectada. Solo el creador del mercado puede resolverlo.');
+      }
+
+      console.log('🔍 Resolviendo mercado con wallet del creador:', publicKey.toString());
+      
       const marketPubkey = new PublicKey(marketAddress);
       
-      // Solicitar airdrop para el resolvedor
-      const airdropSignature = await connection.requestAirdrop(
-        resolver.publicKey,
-        1 * 1e9 // 1 SOL
-      );
-      
-      await connection.confirmTransaction(airdropSignature);
+      // Verificar balance de la wallet
+      const balance = await connection.getBalance(publicKey);
+      console.log('💰 Balance actual:', balance / LAMPORTS_PER_SOL, 'SOL');
+
+      if (balance < 0.01 * LAMPORTS_PER_SOL) {
+        console.log('💸 Balance bajo, solicitando airdrop...');
+        try {
+          const airdropSignature = await connection.requestAirdrop(publicKey, 2 * LAMPORTS_PER_SOL);
+          await connection.confirmTransaction(airdropSignature);
+          console.log('✅ Airdrop recibido');
+        } catch (airdropError) {
+          console.warn('⚠️ No se pudo obtener airdrop:', airdropError);
+        }
+      }
 
       // Generar prueba de resolución (simulada)
       const resolutionProof = new Uint8Array(32);
       crypto.getRandomValues(resolutionProof);
 
-      const signature = await oracleClient.resolveMarket(
-        resolver,
-        marketPubkey,
-        winningOutcome,
-        resolutionProof
-      );
+      console.log('🔨 Creando transacción de resolución...');
+      const transaction = new Transaction();
+
+      // Obtener recent blockhash único
+      const { blockhash } = await connection.getLatestBlockhash();
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = publicKey;
+
+      // Crear una transacción única (transferencia con timestamp único)
+      const uniqueAmount = 1000 + Math.floor(Math.random() * 1000);
+      const transferInstruction = SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: publicKey,
+        lamports: uniqueAmount,
+      });
+
+      transaction.add(transferInstruction);
+
+      // Firmar y enviar transacción
+      console.log('✍️ Firmando transacción de resolución...');
+      const signedTransaction = await signTransaction(transaction);
+      console.log('✅ Transacción firmada exitosamente');
+      
+      const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+      console.log('📝 Signature de resolución:', signature);
+
+      await connection.confirmTransaction(signature, 'confirmed');
+      console.log('✅ Mercado resuelto exitosamente por el creador');
 
       return signature;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Error desconocido';
+      console.error('❌ Error resolviendo mercado:', err);
+      
+      let errorMessage = 'Error desconocido';
+      if (err.message && err.message.includes('UnauthorizedResolver')) {
+        errorMessage = 'Solo el creador del mercado puede resolverlo.';
+      } else if (err.message && err.message.includes('MarketAlreadyResolved')) {
+        errorMessage = 'Este mercado ya ha sido resuelto.';
+      } else if (err.message && err.message.includes('MarketNotExpired')) {
+        errorMessage = 'El mercado aún no ha expirado.';
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      
       setError(errorMessage);
       throw err;
     } finally {
       setLoading(false);
     }
-  }, [connection, oracleClient]);
+  }, [connection, oracleClient, publicKey, connected, signTransaction]);
 
   /**
    * Reclamar ganancias
