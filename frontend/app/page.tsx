@@ -18,6 +18,7 @@ import { PublicVisibilityNotice } from '../components/PublicVisibilityNotice';
 import { MatrixBackground, MatrixGrid, MatrixScan } from '../components/MatrixBackground';
 import { CypherpunkManifesto } from '../components/CypherpunkManifesto';
 import { EricHughesManifesto } from '../components/EricHughesManifesto';
+import { CypherpunkImplementation } from '../components/CypherpunkImplementation';
 import { CypherpunkStats } from '../components/CypherpunkStats';
 import { CypherpunkRoadmap } from '../components/CypherpunkRoadmap';
 import { useDemoMarkets } from '../hooks/useDemoMarkets';
@@ -40,7 +41,8 @@ import {
   ExternalLink,
   Target,
   Zap,
-  Quote
+  Quote,
+  Settings
 } from 'lucide-react';
 
 // Mock data
@@ -1034,6 +1036,9 @@ export default function OraculoApp() {
 
             {/* Eric Hughes Cypherpunk Manifesto */}
             <EricHughesManifesto />
+
+            {/* Cypherpunk Implementation */}
+            <CypherpunkImplementation />
 
             {/* Cypherpunk Stats */}
             <CypherpunkStats />
