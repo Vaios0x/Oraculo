@@ -222,7 +222,6 @@ export function Footer() {
               <span className="matrix-text-green font-bold">Fruta</span>
               <span>Build</span>
               <span className="text-lg">🍒</span>
-              <span className="text-lg">🍒</span>
             </div>
             
             <div className="flex items-center space-x-6">

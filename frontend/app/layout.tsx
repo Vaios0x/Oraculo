@@ -34,7 +34,6 @@ export const metadata: Metadata = {
         alt: 'Oráculo - Prediction Markets on Solana',
       },
     ],
-    locale: 'es_ES',
     type: 'website',
   },
   twitter: {
