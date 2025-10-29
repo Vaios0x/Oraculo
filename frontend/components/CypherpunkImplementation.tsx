@@ -242,58 +242,163 @@ export function CypherpunkImplementation() {
   return (
     <div className="matrix-card-enhanced p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-3 sm:space-y-4">
-        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3">
-          <Settings className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-green-400 matrix-glow flex-shrink-0" />
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold matrix-text-green">
-            ⚙️ Cypherpunk Implementation
-          </h2>
+      <div className="text-center space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+          <div className="relative">
+            <Settings className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-green-400 matrix-glow flex-shrink-0" />
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-4 h-4 text-black" />
+            </div>
+          </div>
+          <div className="text-center sm:text-left">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold matrix-text-green">
+              🚀 ORÁCULO IMPLEMENTATION
+            </h2>
+            <p className="text-lg sm:text-xl lg:text-2xl matrix-text-white mt-2">
+              How We Fulfill Every Point of Eric Hughes' Manifesto
+            </p>
+          </div>
         </div>
-        <p className="text-sm sm:text-base lg:text-xl matrix-text-white">
-          How Oráculo Implements Each Point of Eric Hughes' Manifesto
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm matrix-text-green">
-          <Code className="w-4 h-4" />
-          <span>Technical Implementation</span>
-          <Shield className="w-4 h-4" />
+        
+        {/* Highlighted Implementation Status */}
+        <div className="matrix-card-enhanced p-4 sm:p-6 border-2 border-green-400/50 bg-green-400/5">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+            <div className="flex items-center space-x-2">
+              <CheckCircle className="w-6 h-6 text-green-400" />
+              <span className="text-lg font-bold matrix-text-green">6/6 Principles</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Shield className="w-6 h-6 text-green-400" />
+              <span className="text-lg font-bold matrix-text-green">Fully Implemented</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Code className="w-6 h-6 text-green-400" />
+              <span className="text-lg font-bold matrix-text-green">Open Source</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex flex-wrap items-center justify-center gap-3 text-sm sm:text-base matrix-text-green">
+          <span className="flex items-center space-x-1">
+            <Code className="w-4 h-4" />
+            <span>Technical Implementation</span>
+          </span>
+          <span className="flex items-center space-x-1">
+            <Shield className="w-4 h-4" />
+            <span>Privacy First</span>
+          </span>
+          <span className="flex items-center space-x-1">
+            <Globe className="w-4 h-4" />
+            <span>Decentralized</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Oráculo Manifesto Compliance Summary */}
+      <div className="matrix-card-enhanced p-6 sm:p-8 border-2 border-green-400/50 bg-gradient-to-r from-green-400/10 to-cyan-400/10">
+        <div className="text-center space-y-4">
+          <h3 className="text-2xl sm:text-3xl font-bold matrix-text-green">
+            🎯 Complete Manifesto Compliance
+          </h3>
+          <p className="text-lg matrix-text-white">
+            Oráculo is the first prediction markets platform to fully implement all principles of Eric Hughes' Cypherpunk Manifesto
+          </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+            <div className="flex items-center space-x-3 p-3 matrix-card-enhanced">
+              <Shield className="w-8 h-8 text-green-400" />
+              <div className="text-left">
+                <div className="font-bold matrix-text-green">Privacy</div>
+                <div className="text-sm matrix-text-white">Anonymous transactions</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 matrix-card-enhanced">
+              <Globe className="w-8 h-8 text-blue-400" />
+              <div className="text-left">
+                <div className="font-bold matrix-text-green">Decentralization</div>
+                <div className="text-sm matrix-text-white">No central servers</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 matrix-card-enhanced">
+              <Key className="w-8 h-8 text-yellow-400" />
+              <div className="text-left">
+                <div className="font-bold matrix-text-green">Cryptography</div>
+                <div className="text-sm matrix-text-white">End-to-end encryption</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 matrix-card-enhanced">
+              <EyeOff className="w-8 h-8 text-purple-400" />
+              <div className="text-left">
+                <div className="font-bold matrix-text-green">Anonymous Systems</div>
+                <div className="text-sm matrix-text-white">Private key identity</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 matrix-card-enhanced">
+              <Users className="w-8 h-8 text-red-400" />
+              <div className="text-left">
+                <div className="font-bold matrix-text-green">Community Defense</div>
+                <div className="text-sm matrix-text-white">Collective privacy</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 matrix-card-enhanced">
+              <Code className="w-8 h-8 text-cyan-400" />
+              <div className="text-left">
+                <div className="font-bold matrix-text-green">Open Source</div>
+                <div className="text-sm matrix-text-white">Cypherpunks write code</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Implementation Points Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {implementationPoints.map((point, index) => (
           <div
             key={point.id}
-            className={`matrix-card-enhanced p-4 sm:p-6 cursor-pointer transition-all duration-500 ${
+            className={`matrix-card-enhanced p-6 sm:p-8 cursor-pointer transition-all duration-500 border-2 border-green-400/20 hover:border-green-400/50 hover:shadow-lg hover:shadow-green-400/20 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: `${index * 200}ms` }}
             onClick={() => setSelectedPoint(point)}
           >
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-4 sm:space-y-6">
               <div className="flex items-center justify-between">
-                <div className={`${point.color} matrix-glow`}>
+                <div className={`${point.color} matrix-glow text-4xl`}>
                   {point.icon}
                 </div>
-                {getStatusIcon(point.status)}
+                <div className="flex items-center space-x-2">
+                  {getStatusIcon(point.status)}
+                  <span className="text-sm font-bold matrix-text-green">IMPLEMENTED</span>
+                </div>
               </div>
               
               <div>
-                <h3 className="text-lg sm:text-xl font-bold matrix-text-white mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold matrix-text-white mb-3">
                   {point.principle}
                 </h3>
-                <p className="text-xs sm:text-sm matrix-text-white opacity-80 mb-3">
+                <p className="text-sm sm:text-base matrix-text-white opacity-90 mb-4 leading-relaxed">
                   {point.description}
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className={`text-xs px-2 py-1 rounded-full ${
-                    point.status === 'implemented' ? 'bg-green-900/30 text-green-400 border border-green-400/30' :
-                    point.status === 'partial' ? 'bg-yellow-900/30 text-yellow-400 border border-yellow-400/30' :
-                    'bg-red-900/30 text-red-400 border border-red-400/30'
-                  }`}>
-                    {getStatusText(point.status)}
+                
+                {/* Oráculo Implementation Preview */}
+                <div className="matrix-card-enhanced p-3 sm:p-4 bg-green-400/5 border border-green-400/20">
+                  <h4 className="text-sm font-bold matrix-text-green mb-2">
+                    🚀 Oráculo Implementation:
+                  </h4>
+                  <p className="text-xs sm:text-sm matrix-text-white">
+                    {point.oraculoImplementation}
+                  </p>
+                </div>
+                
+                <div className="flex items-center justify-between mt-4">
+                  <span className="text-xs px-3 py-1 rounded-full bg-green-900/30 text-green-400 border border-green-400/30 font-bold">
+                    ✅ {getStatusText(point.status)}
                   </span>
-                  <Database className="w-4 h-4 text-gray-400" />
+                  <div className="flex items-center space-x-1 text-xs matrix-text-green">
+                    <span>Click for details</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </div>
                 </div>
               </div>
             </div>
