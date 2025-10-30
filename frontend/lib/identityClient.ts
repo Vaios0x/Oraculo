@@ -1,6 +1,8 @@
 import { Connection, PublicKey, TransactionInstruction } from '@solana/web3.js';
 // Usar el IDL completo para evitar incompatibilidades del coder
-import idl from '../idl/oraculo_identity_complete.json';
+// Importar el IDL generado que sí existe en el repo. Si en algún entorno no está,
+// se puede sustituir en tiempo de build por otro IDL compatible con el mismo address.
+import idl from '../idl/oraculo_identity.json';
 
 // Preferir la variable de entorno; si no existe, usar el campo "address" del IDL (Anchor >=0.29)
 // y, como compatibilidad, caer a metadata.address si estuviera presente.
