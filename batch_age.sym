@@ -1,0 +1,15 @@
+1,1,0,main.batchValid
+2,2,0,main.ages[0]
+3,3,0,main.ages[1]
+4,4,0,main.ages[2]
+5,5,0,main.ages[3]
+6,6,0,main.thresholds[0]
+7,7,0,main.thresholds[1]
+8,8,0,main.thresholds[2]
+9,9,0,main.thresholds[3]
+10,10,0,main.checks[0]
+11,11,0,main.checks[1]
+12,12,0,main.checks[2]
+13,13,0,main.checks[3]
+14,14,0,main.temp1
+15,15,0,main.temp2

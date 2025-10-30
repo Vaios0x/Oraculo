@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import IdentityZK from '../components/IdentityZK';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, Connection, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { SafeDate } from '../components/HydrationBoundary';
@@ -42,7 +43,8 @@ import {
   Target,
   Zap,
   Quote,
-  Settings
+  Settings,
+  Fingerprint
 } from 'lucide-react';
 
 // Mock data
@@ -134,6 +136,8 @@ export default function OraculoApp() {
     setIsClient(true);
     setRandomPercentages(allMarkets.map(() => Math.floor(Math.random() * 100)));
   }, [allMarkets]);
+
+  // removed auto-scroll for identity
 
   const handleStake = async (marketId: string, outcome: string, amount: number) => {
     console.log(`Staking ${amount} SOL on market ${marketId} for outcome: ${outcome}`);
@@ -302,6 +306,7 @@ export default function OraculoApp() {
   const navItems = [
     { id: 'home', label: 'Home', icon: <Home className="w-4 h-4" /> },
     { id: 'markets', label: 'Markets', icon: <BarChart3 className="w-4 h-4" /> },
+    { id: 'identity', label: 'Identity (ZK)', icon: <Fingerprint className="w-4 h-4" /> },
     { id: 'create', label: 'Create', icon: <Plus className="w-4 h-4" /> },
     { id: 'network', label: 'Network', icon: <Wifi className="w-4 h-4" /> },
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 className="w-4 h-4" /> },
@@ -355,7 +360,13 @@ export default function OraculoApp() {
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                if (item.id === 'identity') {
+                  setActiveTab('identity');
+                } else {
+                  setActiveTab(item.id);
+                }
+              }}
               className={`w-full flex items-center space-x-3 px-6 py-4 rounded-lg transition-all duration-200 border ${
                 activeTab === item.id 
                   ? 'bg-green-900/20 text-green-400 border-green-400 shadow-lg shadow-green-400/20' 
@@ -395,7 +406,9 @@ export default function OraculoApp() {
     <Layout 
       sidebar={sidebar}
       activeTab={activeTab}
-      setActiveTab={setActiveTab}
+      setActiveTab={(id: string) => {
+        setActiveTab(id === 'identity' ? 'identity' : id);
+      }}
       navItems={navItems}
     >
       <ContentArea header={contentHeader}>
@@ -858,6 +871,12 @@ export default function OraculoApp() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {activeTab === 'identity' && (
+          <div className="space-y-6">
+            <IdentityZK />
           </div>
         )}
 

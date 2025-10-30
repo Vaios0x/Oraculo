@@ -203,7 +203,7 @@ export function ContentArea({ children, header }: ContentAreaProps) {
       <div className={`
         flex-1 overflow-auto
         ${isMobile ? 'p-3' : isTablet ? 'p-4' : isDesktop ? 'p-5' : 'p-6'}
-      `}>
+      `} id="main-scroll">
         {children}
       </div>
     </>
