@@ -104,8 +104,8 @@ pub enum OracleInstruction {
 /// Create a new prediction market
 ///
 /// Accounts expected:
-/// 1. `[writable]` Market PDA account (seeds: [b"market", creator, title_hash])
-/// 2. `[signer]` Creator account
+/// 1. `[writable]` Market PDA (seed: ["market", creator, title])
+/// 2. `[signer, writable]` Creator account (payer)
 /// 3. `[]` System Program
 fn process_create_market(
     program_id: &Pubkey,
@@ -121,13 +121,11 @@ fn process_create_market(
     let creator_account = next_account_info(accounts_iter)?;
     let system_program = next_account_info(accounts_iter)?;
 
-    // Derive expected PDA for safety (title hash to keep seeds bounded)
-    let title_hash = solana_program::hash::hash(title.as_bytes());
-    let seeds: &[&[u8]] = &[
-        b"market",
-        creator_account.key.as_ref(),
-        &title_hash.as_ref()[..32],
-    ];
+    // Derive the expected market PDA and validate
+    let title_seed = title.as_bytes();
+    let seeds: &[&[u8]] = &[b"market", creator_account.key.as_ref(), title_seed];
+    let (expected_pda, bump) = Pubkey::find_program_address(seeds, program_id);
+    require!(*market_account.key == expected_pda, ProgramError::InvalidSeeds);
 
     // Calculate account space needed
     let market_data = MarketAccount {
@@ -160,13 +158,13 @@ fn process_create_market(
     let rent = Rent::get()?;
     let required_lamports = rent.minimum_balance(account_space);
 
-    // Create market PDA via CPI using invoke_signed (PDAs cannot sign)
+    // Create market account via CPI with program signing (PDA)
     invoke_signed(
         &system_instruction::create_account(
             creator_account.key,
             market_account.key,
             required_lamports,
-            (8 + account_space) as u64, // reserve 8 bytes discriminator
+            account_space as u64,
             program_id,
         ),
         &[
@@ -174,16 +172,12 @@ fn process_create_market(
             market_account.clone(),
             system_program.clone(),
         ],
-        &[seeds],
+        &[&[b"market", creator_account.key.as_ref(), title_seed, &[bump]]],
     )?;
 
-    // Initialize market data with 8-byte discriminator followed by Borsh struct
+    // Initialize market data
     let mut account_data = &mut market_account.data.borrow_mut()[..];
-    // Simple discriminator: b"MARKET\0\0" (8 bytes)
-    let discriminator: [u8; 8] = *b"MARKET\0\0";
-    account_data[..8].copy_from_slice(&discriminator);
-    let mut payload = &mut account_data[8..];
-    market_data.serialize(&mut payload)?;
+    market_data.serialize(&mut account_data)?;
 
     msg!("Market created: {}", title);
     msg!("End time: {}", end_time);
