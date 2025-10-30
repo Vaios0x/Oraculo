@@ -81,7 +81,8 @@ export default function ZKCompression() {
       const issuerHash = new Uint8Array(32).fill(3);
       const expiresAt = Math.floor(Date.now() / 1000) + 86400; // 24 hours
       const nonce = new Uint8Array(16).fill(4);
-      const publicInputs = [firstIdentity.age, firstIdentity.threshold];
+      // verifyIdentityProof espera Uint8Array; compactamos como 2 enteros simples
+      const publicInputs = new Uint8Array([firstIdentity.age, firstIdentity.threshold]);
       const proofBytes = new TextEncoder().encode(JSON.stringify(compressedProof.proof));
 
       const txSig = await verifyIdentityProof(provider, {
