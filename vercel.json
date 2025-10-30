@@ -4,6 +4,7 @@
   "buildCommand": "pnpm build",
   "outputDirectory": ".next",
   "env": {
-    "NEXT_PUBLIC_SOLANA_RPC_URL": "https://api.devnet.solana.com"
+    "NEXT_PUBLIC_SOLANA_RPC_URL": "https://api.devnet.solana.com",
+    "NEXT_PUBLIC_IDENTITY_PROGRAM_ID": "GjRYbLkypR51mhWpYEj5py7tfi1b3VPR3Hk51yYytSvd"
   }
 }

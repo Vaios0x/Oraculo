@@ -1,15 +1,11 @@
 import { Connection, PublicKey, TransactionInstruction } from '@solana/web3.js';
-// Usar el IDL completo para evitar incompatibilidades del coder
-// Importar el IDL generado que sí existe en el repo. Si en algún entorno no está,
-// se puede sustituir en tiempo de build por otro IDL compatible con el mismo address.
-import idl from '../idl/oraculo_identity.json';
 
-// Preferir la variable de entorno; si no existe, usar el campo "address" del IDL (Anchor >=0.29)
-// y, como compatibilidad, caer a metadata.address si estuviera presente.
+// Preferir la variable de entorno; como fallback, usar el address conocido del programa
+// (evitamos importar el IDL en build para no romper con .gitignore en algunos entornos)
 const ENV_PROGRAM_ID = (process.env.NEXT_PUBLIC_IDENTITY_PROGRAM_ID || '').trim();
-const IDL_PROGRAM_ID = (idl as any)?.address || (idl as any)?.metadata?.address || '';
+const DEFAULT_PROGRAM_ID = 'GjRYbLkypR51mhWpYEj5py7tfi1b3VPR3Hk51yYytSvd';
 
-if (!ENV_PROGRAM_ID && !IDL_PROGRAM_ID) {
+if (!ENV_PROGRAM_ID && !DEFAULT_PROGRAM_ID) {
   // Lanzar un error claro en tiempo de carga para evitar el críptico "_bn"
   throw new Error(
     'ORACULO_IDENTITY_PROGRAM_ID no definido. Configure NEXT_PUBLIC_IDENTITY_PROGRAM_ID o asegúrese de que el IDL contenga un campo "address" válido.'
@@ -17,7 +13,7 @@ if (!ENV_PROGRAM_ID && !IDL_PROGRAM_ID) {
 }
 
 export const ORACULO_IDENTITY_PROGRAM_ID = new PublicKey(
-  ENV_PROGRAM_ID.length > 0 ? ENV_PROGRAM_ID : IDL_PROGRAM_ID
+  ENV_PROGRAM_ID.length > 0 ? ENV_PROGRAM_ID : DEFAULT_PROGRAM_ID
 );
 
 async function importAnchor(): Promise<any> {
