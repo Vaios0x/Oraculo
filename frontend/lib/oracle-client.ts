@@ -1,18 +1,5 @@
 import { Connection, PublicKey, Keypair, Transaction, SystemProgram, TransactionInstruction, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
-async function sha256U8(input: string): Promise<Uint8Array> {
-  if (typeof window !== 'undefined' && (window as any).crypto?.subtle) {
-    const enc = new TextEncoder();
-    const digest = await (window as any).crypto.subtle.digest('SHA-256', enc.encode(input));
-    return new Uint8Array(digest);
-  }
-  // Node.js fallback
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const nodeCrypto = require('crypto');
-  const hash = nodeCrypto.createHash('sha256').update(Buffer.from(input, 'utf8')).digest();
-  return new Uint8Array(hash);
-}
-
 /**
  * 🔮 Oracle Client - Cliente TypeScript para el programa Oracle
  * 
@@ -43,40 +30,56 @@ export class OracleClient {
     outcomes: string[],
     privacyLevel: number = 0
   ): Promise<{ signature: string; marketAddress: PublicKey }> {
-    // Derivar PDA usando hash del título (debe coincidir con el programa)
-    const titleHash = await sha256U8(title);
-    const [marketPDA] = PublicKey.findProgramAddressSync(
-      [Buffer.from('market'), creator.publicKey.toBuffer(), Buffer.from(titleHash.slice(0, 32))],
+    // Generar PDA para el mercado usando seeds
+    const [marketPDA, bump] = PublicKey.findProgramAddressSync(
+      [
+        Buffer.from('market'),
+        creator.publicKey.toBuffer(),
+        Buffer.from(title.slice(0, 32)) // Limitar título para evitar seeds muy largos
+      ],
       this.programId
     );
 
-    // Serializar instrucción segun Borsh enum OracleInstruction::CreateMarket (variant index 0)
-    const titleBuf = Buffer.from(title, 'utf8');
-    const descBuf = Buffer.from(description, 'utf8');
-    const endBuf = Buffer.alloc(8);
-    endBuf.writeBigInt64LE(BigInt(endTime));
+    // Crear instrucción para crear mercado
+    const instructionData = Buffer.alloc(8 + 4 + title.length + 4 + description.length + 8 + 4 + outcomes.length * 32 + 1);
+    let offset = 0;
 
-    const outcomesParts: Buffer[] = [];
-    for (const o of outcomes) {
-      const ob = Buffer.from(o, 'utf8');
-      const olen = Buffer.alloc(4);
-      olen.writeUInt32LE(ob.length);
-      outcomesParts.push(olen, ob);
+    // Discriminator para create_private_market (8 bytes)
+    const discriminator = Buffer.from([0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91]);
+    instructionData.set(discriminator, offset);
+    offset += 8;
+
+    // Title length (4 bytes) + title
+    instructionData.set(new Uint32Array([title.length]), offset);
+    offset += 4;
+    instructionData.set(Buffer.from(title), offset);
+    offset += title.length;
+
+    // Description length (4 bytes) + description
+    instructionData.set(new Uint32Array([description.length]), offset);
+    offset += 4;
+    instructionData.set(Buffer.from(description), offset);
+    offset += description.length;
+
+    // End time (8 bytes)
+    const endTimeBuffer = Buffer.alloc(8);
+    endTimeBuffer.writeBigUInt64LE(BigInt(endTime), 0);
+    instructionData.set(endTimeBuffer, offset);
+    offset += 8;
+
+    // Outcomes length (4 bytes) + outcomes
+    instructionData.set(new Uint32Array([outcomes.length]), offset);
+    offset += 4;
+    for (const outcome of outcomes) {
+      const outcomeBuffer = Buffer.from(outcome);
+      instructionData.set(new Uint32Array([outcomeBuffer.length]), offset);
+      offset += 4;
+      instructionData.set(outcomeBuffer, offset);
+      offset += outcomeBuffer.length;
     }
-    const outcomesLen = Buffer.alloc(4);
-    outcomesLen.writeUInt32LE(outcomes.length);
 
-    const payload = Buffer.concat([
-      Buffer.from([0]), // variant index for CreateMarket
-      (() => { const l = Buffer.alloc(4); l.writeUInt32LE(titleBuf.length); return l; })(),
-      titleBuf,
-      (() => { const l = Buffer.alloc(4); l.writeUInt32LE(descBuf.length); return l; })(),
-      descBuf,
-      endBuf,
-      outcomesLen,
-      ...outcomesParts,
-      Buffer.from([privacyLevel & 0xff]),
-    ]);
+    // Privacy level (1 byte)
+    instructionData.set([privacyLevel], offset);
 
     const instruction = new TransactionInstruction({
       keys: [
@@ -85,7 +88,7 @@ export class OracleClient {
         { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
       ],
       programId: this.programId,
-      data: payload,
+      data: instructionData,
     });
 
     const transaction = new Transaction().add(instruction);
