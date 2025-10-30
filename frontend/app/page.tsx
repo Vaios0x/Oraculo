@@ -23,6 +23,7 @@ import { CypherpunkImplementation } from '../components/CypherpunkImplementation
 import { CypherpunkStats } from '../components/CypherpunkStats';
 import { CypherpunkRoadmap } from '../components/CypherpunkRoadmap';
 import { useDemoMarkets } from '../hooks/useDemoMarkets';
+import { RealMarketList } from '../components/RealMarketList';
 import { 
   Home, 
   Plus, 
@@ -882,114 +883,7 @@ export default function OraculoApp() {
 
         {activeTab === 'markets' && (
           <div className="space-y-6">
-            <GridContainer>
-              {allMarkets.map((market, index) => (
-                <div 
-                  key={market.id} 
-                  className="matrix-card-enhanced neural-floating"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-2">
-                        <h3 className="text-lg font-semibold matrix-text-green neural-text-glow">{market.title}</h3>
-                        {market.id.startsWith('demo-') && (
-                          <span className="px-2 py-1 text-xs font-semibold matrix-text-white bg-blue-500/80 rounded-full matrix-glow">
-                            DEVNET
-                          </span>
-                        )}
-                      </div>
-                      {market.isResolved ? (
-                        <div className="flex items-center space-x-2 glass-status">
-                          <div className="neural-pulse-dot bg-green-400 matrix-glow"></div>
-                          <span className="text-sm matrix-text-green font-medium">Resolved</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center space-x-2 glass-status">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-neural-pulse matrix-glow"></div>
-                          <span className="text-sm matrix-text-green font-medium">Active</span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <p className="matrix-text-white text-opacity-90 line-clamp-2">{market.description}</p>
-                    
-                    <div className="space-y-3">
-                      {market.outcomes.map((outcome, outcomeIndex) => (
-                        <div key={outcomeIndex} className="glass-progress p-3">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm matrix-text-white font-medium">{outcome}</span>
-                            <span className="text-sm font-bold matrix-text-green">
-                              {isClient ? (randomPercentages[outcomeIndex] || 0) : 0}%
-                            </span>
-                          </div>
-                          <div className="glass-progress">
-                            <div 
-                              className="glass-progress-fill h-2 rounded-full transition-all duration-500"
-                              style={{ width: `${isClient ? (randomPercentages[outcomeIndex] || 0) : 0}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="glass-status p-3">
-                        <span className="matrix-text-white text-opacity-80 block text-xs">Total Staked</span>
-                        <span className="matrix-text-green font-bold text-lg">
-                          {market.totalStaked.toLocaleString()} SOL
-                        </span>
-                      </div>
-                      <div className="glass-status p-3">
-                        <span className="matrix-text-white text-opacity-80 block text-xs">Ends</span>
-                        <SafeDate 
-                          date={market.endTime}
-                          format="date"
-                          className="matrix-text-white font-bold text-lg"
-                          fallback="Loading..."
-                        />
-                      </div>
-                    </div>
-                    
-                    {market.isResolved ? (
-                      <div className="space-y-3">
-                        <div className="glass-status p-3">
-                          <span className="text-sm matrix-text-green font-bold">
-                            ✅ Resolved: {market.winningOutcome}
-                          </span>
-                        </div>
-                        <button 
-                          onClick={() => handleClaimRewards(market.id)}
-                          disabled={stakingLoading}
-                          className="glass-button w-full text-sm py-3 px-4 rounded-lg font-bold hover:bg-green-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          {stakingLoading ? '⏳ Claiming...' : '🎁 Claim Rewards'}
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex space-x-2">
-                        <button 
-                          onClick={() => openStakeModal(market.id)}
-                          disabled={stakingLoading}
-                          className="glass-button flex-1 text-sm py-3 px-4 rounded-lg font-bold hover:bg-green-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          {stakingLoading ? '⏳ Staking...' : '💰 Stake'}
-                        </button>
-                        {publicKey && (
-                          <button 
-                            onClick={() => handleResolve(market.id, 'Yes')}
-                            disabled={stakingLoading}
-                            className="glass-button px-4 py-3 text-sm font-bold rounded-lg hover:bg-green-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            {stakingLoading ? '⏳ Resolving...' : '⚡ Resolve'}
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </GridContainer>
+            <RealMarketList />
           </div>
         )}
 
