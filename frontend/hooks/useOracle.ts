@@ -31,7 +31,7 @@ export function useOracle() {
     description: string,
     endTime: number,
     outcomes: string[],
-    privacyLevel: number = 1
+    privacyLevel: number = 0
   ) => {
     try {
       setLoading(true);
@@ -41,50 +41,23 @@ export function useOracle() {
         throw new Error('Wallet no conectada. Por favor, conecta tu wallet primero.');
       }
 
-      console.log('🔮 Creando mercado con wallet:', publicKey.toString());
+      console.log('🔮 Creando mercado on-chain con wallet:', publicKey.toString());
       console.log('📊 Datos del mercado:', { title, description, endTime, outcomes, privacyLevel });
-      
-      // Delay pequeño para evitar transacciones duplicadas
-      await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Verificar balance de la wallet
-      const balance = await connection.getBalance(publicKey);
-      console.log('💰 Balance actual:', balance / LAMPORTS_PER_SOL, 'SOL');
+      const { ix } = oracleClient.buildCreateMarketInstruction({
+        creator: publicKey,
+        title,
+        description,
+        endTime,
+        outcomes,
+        privacyLevel,
+      });
 
-      if (balance < 0.01 * LAMPORTS_PER_SOL) {
-        console.log('💸 Balance bajo, solicitando airdrop...');
-        try {
-          const airdropSignature = await connection.requestAirdrop(publicKey, 2 * LAMPORTS_PER_SOL);
-          await connection.confirmTransaction(airdropSignature);
-          console.log('✅ Airdrop recibido');
-        } catch (airdropError) {
-          console.warn('⚠️ No se pudo obtener airdrop:', airdropError);
-        }
-      }
-
-      // Crear transacción simple para crear mercado
       const transaction = new Transaction();
-
-      // Obtener recent blockhash único
-      console.log('🔗 Obteniendo recent blockhash...');
       const { blockhash } = await connection.getLatestBlockhash();
       transaction.recentBlockhash = blockhash;
       transaction.feePayer = publicKey;
-      
-      // Agregar timestamp único para evitar duplicados
-      const timestamp = Date.now();
-      console.log('⏰ Timestamp único:', timestamp);
-
-      // Crear una transacción única (transferencia con timestamp único)
-      const uniqueAmount = 1000 + Math.floor(Math.random() * 1000); // Cantidad única
-      const transferInstruction = SystemProgram.transfer({
-        fromPubkey: publicKey,
-        toPubkey: publicKey,
-        lamports: uniqueAmount, // Transferir cantidad única
-      });
-
-      transaction.add(transferInstruction);
-      console.log('📋 Instrucción de transferencia agregada a la transacción');
+      transaction.add(ix);
 
       // Firmar y enviar transacción
       console.log('✍️ Firmando transacción...');
@@ -105,23 +78,8 @@ export function useOracle() {
       const confirmation = await connection.confirmTransaction(signature, 'confirmed');
       console.log('✅ Confirmación recibida:', confirmation);
 
-      console.log('🎉 Transacción ejecutada exitosamente!');
-      console.log('📝 Signature final:', signature);
-      console.log('💰 Transferencia de 1000 lamports completada');
-
-      // Generar un ID único para el mercado DEVNET
-      const marketId = `market-${publicKey.toString()}-${Date.now()}`;
-      const mockMarketAddress = new PublicKey(publicKey.toBuffer().slice(0, 32));
-
       console.log('🎉 Mercado creado exitosamente!');
-      console.log('📝 Market ID:', marketId);
-      console.log('📍 Market Address:', mockMarketAddress.toString());
-      console.log('👤 Creator:', publicKey.toString());
-
-      return {
-        signature,
-        marketAddress: mockMarketAddress
-      };
+      return { signature } as any;
 
     } catch (err) {
       console.error('❌ Error creando mercado:', err);

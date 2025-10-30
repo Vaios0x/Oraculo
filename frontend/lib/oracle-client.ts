@@ -20,6 +20,74 @@ export class OracleClient {
   }
 
   /**
+   * Construir instrucción Anchor para crear un mercado (create_private_market)
+   * PDA seeds: ["market", creator]
+   * Discriminador Anchor: [17,218,47,31,130,58,12,35]
+   */
+  buildCreateMarketInstruction(params: {
+    creator: PublicKey;
+    title: string;
+    description: string;
+    endTime: number; // epoch secs
+    outcomes: string[];
+    privacyLevel?: number;
+  }): { ix: TransactionInstruction; marketPda: PublicKey } {
+    const { creator, title, description, endTime, outcomes, privacyLevel = 0 } = params;
+
+    // PDA derivada sólo por creador para MVP (un mercado por creador a la vez)
+    const [marketPda] = PublicKey.findProgramAddressSync(
+      [Buffer.from('market'), creator.toBuffer()],
+      this.programId
+    );
+
+    // Helper serializers
+    const u32le = (n: number) => {
+      const b = Buffer.alloc(4);
+      b.writeUInt32LE(n, 0);
+      return b;
+    };
+    const i64le = (n: number) => {
+      const b = Buffer.alloc(8);
+      b.writeBigInt64LE(BigInt(n), 0);
+      return b;
+    };
+
+    // Discriminador de Anchor para create_private_market
+    const discriminator = Buffer.from([17, 218, 47, 31, 130, 58, 12, 35]);
+    const titleBuf = Buffer.from(title, 'utf8');
+    const descBuf = Buffer.from(description, 'utf8');
+
+    const outcomesParts: Buffer[] = [];
+    outcomesParts.push(u32le(outcomes.length));
+    for (const s of outcomes) {
+      const sb = Buffer.from(s, 'utf8');
+      outcomesParts.push(u32le(sb.length));
+      outcomesParts.push(sb);
+    }
+
+    const data = Buffer.concat([
+      discriminator,
+      u32le(titleBuf.length), titleBuf,
+      u32le(descBuf.length), descBuf,
+      i64le(endTime),
+      ...outcomesParts,
+      Buffer.from([privacyLevel])
+    ]);
+
+    const ix = new TransactionInstruction({
+      programId: this.programId,
+      keys: [
+        { pubkey: marketPda, isSigner: false, isWritable: true },
+        { pubkey: creator, isSigner: true, isWritable: true },
+        { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+      ],
+      data,
+    });
+
+    return { ix, marketPda };
+  }
+
+  /**
    * Crear un nuevo mercado de predicciones
    */
   async createMarket(
