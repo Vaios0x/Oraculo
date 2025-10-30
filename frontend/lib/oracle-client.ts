@@ -316,6 +316,7 @@ export class OracleClient {
     const bump = data[offset];
 
     return {
+      address: marketAddress.toBase58(),
       creator: creator.toString(),
       title,
       description,
@@ -414,6 +415,7 @@ export enum OracleInstruction {
 
 // Tipos de datos del programa
 export interface MarketAccount {
+  address: string;
   creator: string;
   title: string;
   description: string;

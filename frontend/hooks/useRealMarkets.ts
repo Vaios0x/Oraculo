@@ -74,9 +74,9 @@ export function useRealMarkets(): UseRealMarketsReturn {
 
       console.log('📊 Mercados encontrados:', realMarkets.length);
 
-      // Convertir a formato RealMarket
-      const convertedMarkets: RealMarket[] = realMarkets.map((market, index) => ({
-        address: `market-${market.creator}-${index}-${Date.now()}`, // ID único basado en creador
+      // Convertir a formato RealMarket (usar la dirección real del mercado)
+      const convertedMarkets: RealMarket[] = realMarkets.map((market) => ({
+        address: market.address,
         title: market.title,
         description: market.description,
         endTime: market.endTime,
