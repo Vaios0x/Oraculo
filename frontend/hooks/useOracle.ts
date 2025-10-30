@@ -13,8 +13,8 @@ import { OracleClient } from '../lib/oracle-client';
  * @version 1.0.0
  */
 
-const ORACLE_PROGRAM_ID = '7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2';
-const DEVNET_RPC = 'https://api.devnet.solana.com';
+const ORACLE_PROGRAM_ID = process.env.NEXT_PUBLIC_ORACLE_PROGRAM_ID || '7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2';
+const DEVNET_RPC = process.env.NEXT_PUBLIC_DEVNET_RPC || 'https://api.devnet.solana.com';
 
 export function useOracle() {
   const { publicKey, signTransaction, connected, wallet } = useWallet();
