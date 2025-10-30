@@ -31,7 +31,7 @@ export function CreateMarketForm({
     outcomes: ['Yes', 'No'],
     endDate: '',
     endTime: '',
-    privacyLevel: 1
+    privacyLevel: 0
   });
 
   const [newOutcome, setNewOutcome] = useState('');
@@ -49,7 +49,7 @@ export function CreateMarketForm({
         outcomes: selectedTemplate.outcomes,
         endDate: endDate.toISOString().split('T')[0],
         endTime: '23:59',
-        privacyLevel: 1
+        privacyLevel: 0
       });
     }
   }, [selectedTemplate]);

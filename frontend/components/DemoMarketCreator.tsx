@@ -109,7 +109,7 @@ export function DemoMarketCreator() {
         selectedTemplate.description,
         endTimestamp,
         selectedTemplate.outcomes,
-        1 // Public privacy level
+        0 // Public privacy level (0=public)
       );
 
       console.log('✅ DEVNET market created successfully:', result);

@@ -58,7 +58,7 @@ export function RealMarketCreator({
     outcomes: ['Yes', 'No'],
     endDate: '',
     endTime: '',
-    privacyLevel: 1
+    privacyLevel: 0
   });
 
   const [newOutcome, setNewOutcome] = useState('');
@@ -179,7 +179,7 @@ export function RealMarketCreator({
           outcomes: ['Yes', 'No'],
           endDate: '',
           endTime: '',
-          privacyLevel: 1
+        privacyLevel: 0
         });
         setCreatedMarket(null);
         setMarketInfo(null);

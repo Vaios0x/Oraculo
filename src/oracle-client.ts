@@ -28,7 +28,7 @@ export class OracleClient {
     description: string,
     endTime: number,
     outcomes: string[],
-    privacyLevel: number = 1
+    privacyLevel: number = 0
   ): Promise<{ signature: string; marketAddress: PublicKey }> {
     // Generar PDA para el mercado usando seeds
     const [marketPDA, bump] = PublicKey.findProgramAddressSync(
