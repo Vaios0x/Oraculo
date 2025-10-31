@@ -706,6 +706,90 @@ export default function OraculoApp() {
               </div>
             </div>
 
+            {/* Privacy & Zero-Knowledge */}
+            <div className={`matrix-card-enhanced neural-floating ${
+              isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
+            }`}>
+              <div className="space-y-8">
+                <h2 className={`font-bold matrix-text-green neural-text-glow ${
+                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
+                }`}>
+                  Privacy & Zero‑Knowledge
+                </h2>
+                <div className={`grid gap-6 ${
+                  isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-3'
+                }`}>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Anonymous Participation</h3>
+                    <p className="matrix-text-white text-opacity-90">Bets use commitment hashes; no PII stored on‑chain.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Circuits & Proofs</h3>
+                    <p className="matrix-text-white text-opacity-90">Circom circuits (age/batch_age) with snarkjs in‑browser proof generation.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Attestations & Anti‑Replay</h3>
+                    <p className="matrix-text-white text-opacity-90">Identity PDAs, Nonce PDAs, expiries, and events ready for on‑chain verifiers.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Architecture */}
+            <div className={`matrix-card-enhanced neural-floating ${
+              isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
+            }`}>
+              <div className="space-y-8">
+                <h2 className={`font-bold matrix-text-green neural-text-glow ${
+                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
+                }`}>
+                  On‑Chain Architecture
+                </h2>
+                <div className={`grid gap-6 ${
+                  isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-3'
+                }`}>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Anchor Program</h3>
+                    <p className="matrix-text-white text-opacity-90">Deterministic PDAs, auth checks, expiry guards, typed errors.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Native Program</h3>
+                    <p className="matrix-text-white text-opacity-90">Borsh + litesvm tests for rapid iteration and runtime parity.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Typed SDK</h3>
+                    <p className="matrix-text-white text-opacity-90">Thin TypeScript client and modular React components for partners.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Templates & Public Visibility */}
+            <div className={`matrix-card-enhanced neural-floating ${
+              isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
+            }`}>
+              <div className="space-y-8">
+                <h2 className={`font-bold matrix-text-green neural-text-glow ${
+                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
+                }`}>
+                  Templates & Public Visibility
+                </h2>
+                <div className={`grid gap-6 ${
+                  isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2'
+                }`}>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">80+ Curated Templates</h3>
+                    <p className="matrix-text-white text-opacity-90">Global and regional (MX) templates across crypto, AI, politics, sports, and more.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold matrix-text-white">Public Market Discovery</h3>
+                    <p className="matrix-text-white text-opacity-90">All devnet markets are visible across the platform with creator info and Explorer links.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Roadmap & CTA */}
             {/* CTA Section */}
             <div className={`matrix-card-enhanced neural-floating text-center ${
               isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
@@ -905,7 +989,7 @@ export default function OraculoApp() {
                 <Shield className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-green-400 matrix-glow flex-shrink-0" />
                 <div className="text-center sm:text-left">
                   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold matrix-text-green">
-                    CYPHERPUNK MANIFIESTO
+                    CYPHERPUNK MANIFESTO
                   </h1>
                   <p className="text-sm sm:text-base lg:text-xl matrix-text-white mt-2">
                     Eric Hughes - A Cypherpunk's Manifesto
@@ -915,23 +999,24 @@ export default function OraculoApp() {
                   </p>
                 </div>
               </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+
+              {/* Principles Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">1,500</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">USDC Total Prizes</div>
+                  <div className="text-sm matrix-text-green font-semibold mb-1">Anonymous Systems</div>
+                  <div className="text-xs sm:text-sm matrix-text-white text-opacity-90">Participation without identity leakage; commitment schemes, selective disclosure.</div>
                 </div>
                 <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">🇲🇽</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">Mexican Innovation</div>
+                  <div className="text-sm matrix-text-green font-semibold mb-1">Open Source Code</div>
+                  <div className="text-xs sm:text-sm matrix-text-white text-opacity-90">Auditable Rust programs (Anchor/native), typed SDK, modular React UI.</div>
                 </div>
                 <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">🔐</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">Privacy First</div>
+                  <div className="text-sm matrix-text-green font-semibold mb-1">Strong Cryptography</div>
+                  <div className="text-xs sm:text-sm matrix-text-white text-opacity-90">Circom circuits, snarkjs proofs in‑browser, on‑chain attestations and anti‑replay.</div>
                 </div>
                 <div className="matrix-card-enhanced p-3 sm:p-4">
-                  <div className="text-2xl sm:text-3xl font-bold matrix-text-green">📜</div>
-                  <div className="text-xs sm:text-sm matrix-text-white">Eric Hughes</div>
+                  <div className="text-sm matrix-text-green font-semibold mb-1">Permissionless Access</div>
+                  <div className="text-xs sm:text-sm matrix-text-white text-opacity-90">Solana finality, near‑zero fees, global templates, and public market discovery.</div>
                 </div>
               </div>
               
@@ -950,6 +1035,25 @@ export default function OraculoApp() {
             {/* Eric Hughes Cypherpunk Manifesto */}
             <EricHughesManifesto />
 
+            {/* Why it matters to Oráculo */}
+            <div className="matrix-card-enhanced p-6 lg:p-8 space-y-4">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold matrix-text-green">Why it matters for Oráculo</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <h3 className="font-semibold matrix-text-white">Privacy‑first markets</h3>
+                  <p className="text-sm matrix-text-white text-opacity-80">Anonymous bets with commitment hashes; optional outcome proofs for auditability.</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold matrix-text-white">ZK‑ready identity</h3>
+                  <p className="text-sm matrix-text-white text-opacity-80">Attestation PDAs, Nonce PDAs, expiries; plug‑in on‑chain verifiers (SP1‑ready).</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold matrix-text-white">Open and composable</h3>
+                  <p className="text-sm matrix-text-white text-opacity-80">Anchor/native programs, typed SDK, partner‑friendly React components.</p>
+                </div>
+              </div>
+            </div>
+
             {/* Cypherpunk Implementation */}
             <CypherpunkImplementation />
 
@@ -958,6 +1062,16 @@ export default function OraculoApp() {
 
             {/* Cypherpunk Roadmap */}
             <CypherpunkRoadmap />
+
+            {/* Call to Action */}
+            <div className="matrix-card-enhanced p-6 text-center space-y-3">
+              <h3 className="text-2xl font-bold matrix-text-green">Build the future, privately</h3>
+              <p className="matrix-text-white text-opacity-80">Create a market, verify a proof, or audit the code. Privacy isn’t a feature — it’s a right we implement.</p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button className="matrix-button-enhanced px-6 py-3" onClick={() => setActiveTab('create')}>Create a Market</button>
+                <a className="matrix-button-enhanced px-6 py-3" href="https://explorer.solana.com/address/7uxEQsj9W6Kvf6Fimd2NkuYMxmY75Cs4KyZMMcJmqEL2?cluster=devnet" target="_blank" rel="noopener noreferrer">View Program on Explorer</a>
+              </div>
+            </div>
           </div>
         )}
 
