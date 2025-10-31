@@ -764,30 +764,7 @@ export default function OraculoApp() {
               </div>
             </div>
 
-            {/* Templates & Public Visibility */}
-            <div className={`matrix-card-enhanced neural-floating ${
-              isMobile ? 'p-6' : isTablet ? 'p-8' : 'p-12'
-            }`}>
-              <div className="space-y-8">
-                <h2 className={`font-bold matrix-text-green neural-text-glow ${
-                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'
-                }`}>
-                  Templates & Public Visibility
-                </h2>
-                <div className={`grid gap-6 ${
-                  isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2'
-                }`}>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold matrix-text-white">80+ Curated Templates</h3>
-                    <p className="matrix-text-white text-opacity-90">Global and regional (MX) templates across crypto, AI, politics, sports, and more.</p>
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold matrix-text-white">Public Market Discovery</h3>
-                    <p className="matrix-text-white text-opacity-90">All devnet markets are visible across the platform with creator info and Explorer links.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
 
             {/* Roadmap & CTA */}
             {/* CTA Section */}
