@@ -22,16 +22,16 @@ export class OracleClient {
   /**
    * Construir instrucción Anchor para crear un mercado (create_private_market)
    * PDA seeds: ["market", creator]
-   * Discriminador Anchor: [17,218,47,31,130,58,12,35]
+   * Discriminador Anchor: sha256("global:create_private_market").slice(0,8)
    */
-  buildCreateMarketInstruction(params: {
+  async buildCreateMarketInstruction(params: {
     creator: PublicKey;
     title: string;
     description: string;
     endTime: number; // epoch secs
     outcomes: string[];
     privacyLevel?: number;
-  }): { ix: TransactionInstruction; marketPda: PublicKey } {
+  }): Promise<{ ix: TransactionInstruction; marketPda: PublicKey }> {
     const { creator, title, description, endTime, outcomes, privacyLevel = 0 } = params;
 
     // PDA derivada sólo por creador para MVP (un mercado por creador a la vez)
@@ -52,8 +52,11 @@ export class OracleClient {
       return b;
     };
 
-    // Discriminador de Anchor para create_private_market
-    const discriminator = Buffer.from([17, 218, 47, 31, 130, 58, 12, 35]);
+    // Discriminador de Anchor para create_private_market: sha256("global:create_private_market").slice(0,8)
+    const enc = new TextEncoder();
+    const preimage = enc.encode('global:create_private_market');
+    const hash = new Uint8Array(await crypto.subtle.digest('SHA-256', preimage));
+    const discriminator = Buffer.from(hash.slice(0, 8));
     const titleBuf = Buffer.from(title, 'utf8');
     const descBuf = Buffer.from(description, 'utf8');
 

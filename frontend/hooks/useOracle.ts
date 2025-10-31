@@ -44,7 +44,7 @@ export function useOracle() {
       console.log('🔮 Creando mercado on-chain con wallet:', publicKey.toString());
       console.log('📊 Datos del mercado:', { title, description, endTime, outcomes, privacyLevel });
 
-      const { ix } = oracleClient.buildCreateMarketInstruction({
+      const { ix } = await oracleClient.buildCreateMarketInstruction({
         creator: publicKey,
         title,
         description,
